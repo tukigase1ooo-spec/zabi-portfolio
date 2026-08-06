@@ -1,0 +1,2930 @@
+<!DOCTYPE html>
+<html lang="ja" style="overflow: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZABI STORAGE | ZABI Portfolio - キービジュアル / キャラクターデザイン / TCG / MVイラスト</title>
+    <meta name="description" content="イラストレーターZABIのポートフォリオ。ゲーム会社にて約6年の実務経験を経て2025年8月よりフリーランスとして活動。キービジュアル、キャラクターデザイン、TCGイラスト、MVイラスト、ライトノベル挿絵などを制作。商業のご依頼を随時受付中です。">
+    <meta name="author" content="ZABI">
+    <link rel="canonical" href="https://x.com/ZabiMasurao">
+
+    <!-- Open Graph / Twitter Card -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ZABI STORAGE | ZABI Portfolio">
+    <meta property="og:description" content="イラストレーターZABIのポートフォリオ。キービジュアル、キャラクターデザイン、TCGイラスト、MVイラストなどを制作。商業のご依頼を随時受付中です。">
+    <meta property="og:image" content="images/web/HEfBjkFbQAEWSML.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ZABI STORAGE | ZABI Portfolio">
+    <meta name="twitter:description" content="イラストレーターZABIのポートフォリオ。キービジュアル、キャラクターデザイン、TCGイラスト、MVイラストなどを制作。">
+
+    <link rel="icon" type="image/jpeg" href="images/web/favicon.jpg">
+    <link rel="apple-touch-icon" href="images/web/favicon.jpg">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,900;1,300;1,900&family=Space+Grotesk:wght@300;500;700&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha384-poC0r6usQOX2Ayt/VGA+t81H6V3iN9L+Irz9iO8o+s0X20tLpzc9DOOtnKxhaQSE" crossorigin="anonymous"></script>
+    <!-- Lenis (smooth scroll) -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" integrity="sha384-B2WBjDzEjJpYvhmi2UyEn7rektqkf5suS6sNoyyrf0EBAwBHdkiXxIlU0V5Ru2ed" crossorigin="anonymous"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zzz: {
+                            red: '#ff003c',
+                            black: '#080808',
+                            white: '#ffffff',
+                            gray: '#121212',
+                        }
+                    },
+                    aspectRatio: {
+                        '3/2': '3 / 2',
+                        '2/3': '2 / 3',
+                        '16/10': '16 / 10',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --glow-red: rgba(255, 0, 60, 0.5);
+        }
+
+        html {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        body {
+            background-color: #080808;
+            color: #ffffff;
+            font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+            overflow-x: hidden;
+            max-width: 100vw;
+            letter-spacing: 0.02em;
+        }
+
+        h1, h2, h3, .font-zzz {
+            font-family: 'Barlow Condensed', 'Noto Sans JP', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* --- Vivid Image Style --- */
+        .vivid-img {
+            filter: saturate(1.1) contrast(1.1);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #000;
+        }
+
+
+        /* --- Hero Art Frame: single showcased illustration, right-aligned --- */
+        .hero-art-frame {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #080808;
+        }
+        .hero-art-frame::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 55%, rgba(8, 8, 8, 0.6) 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .hero-progress-track {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.15);
+            z-index: 7;
+        }
+        .hero-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #ff003c;
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.9);
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.6s ease-in-out, transform 8s linear;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top center;
+            transform: scale(1);
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1.06);
+        }
+
+        /* Landscape source images: show the whole picture (contain) with a lower
+           zoom, instead of cover-cropping like the portrait pieces. */
+        .hero-slide.is-landscape {
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-slide.is-landscape.active {
+            transform: scale(1.0);
+        }
+
+        /* --- Stylish Crack / Line Decor --- */
+        .crack-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #ff003c, transparent);
+            height: 1px;
+            width: 300px;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- Scanline & Noise Overlay --- */
+        .overlay-fx::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+            background-size: 100% 3px;
+            z-index: 2000;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .bg-stripes {
+            background-image: radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 1) 0%, rgba(8, 8, 8, 1) 100%);
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+
+
+        /* --- Section Backgrounds: subtle color variation per section, so the
+           page's mood shifts gradually as you scroll instead of staying flat --- */
+        #commercial::before {
+            /* All the decorative fill lives on this layer instead of directly
+               on the section, so mask-image can genuinely fade it to nothing
+               at the very top — letting the hero glow bleed through instead
+               of hitting a hard wall of opaque black. */
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
+                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
+                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
+                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
+                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
+                linear-gradient(135deg, #050505 0%, #1c1c1c 22%, #060606 40%, #242424 58%, #070707 76%, #161616 100%);
+            background-position: calc(16.667% - 7px) 0, calc(33.333% - 7px) 0, calc(50% - 7px) 0, calc(66.667% - 7px) 0, calc(83.333% - 7px) 0, 0 0;
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+            background-size: 14px 100%, 14px 100%, 14px 100%, 14px 100%, 14px 100%, 100% 100%;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 16vh, black 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, black 16vh, black 100%);
+        }
+        #commercial > .max-w-screen-2xl {
+            position: relative;
+            z-index: 1;
+        }
+        #mv {
+            /* CD-like disc: rainbow iridescent sheen + fine concentric data
+               grooves, faded to black at the edge like a disc catching light. */
+            background-color: #080808;
+            background-image:
+                linear-gradient(to bottom, #080808 0, transparent 14vh, transparent calc(100% - 14vh), #080808 100%),
+                radial-gradient(circle at 75% 50%, transparent 0%, transparent 55%, #080808 75%, #080808 100%),
+                repeating-radial-gradient(circle at 75% 50%, rgba(255, 255, 255, 0.08) 0px, rgba(255, 255, 255, 0.08) 1px, transparent 1px, transparent 9px),
+                conic-gradient(from 20deg at 75% 50%, rgba(255, 0, 60, 0.55), rgba(255, 190, 60, 0.5), rgba(90, 255, 190, 0.45), rgba(90, 140, 255, 0.5), rgba(200, 60, 255, 0.5), rgba(255, 0, 60, 0.55));
+            background-repeat: no-repeat;
+        }
+        #personal {
+            /* Gallery spotlight: a warm glow centered on the grid, a faint
+               archive grid underneath, and a vignette that darkens the edges
+               so the artwork itself is what pops. */
+            background-color: #050505;
+            background-image:
+                linear-gradient(to bottom, #080808 0, transparent 14vh, transparent calc(100% - 14vh), #080808 100%),
+                radial-gradient(ellipse 120% 100% at 50% 45%, transparent 35%, #050505 88%),
+                radial-gradient(ellipse 70% 55% at 50% 35%, rgba(255, 0, 60, 0.18), transparent 62%),
+                repeating-linear-gradient(to right, rgba(255, 255, 255, 0.035) 0, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 64px),
+                repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 0, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 64px);
+        }
+        #about {
+            /* Editorial bio-page treatment: a warm portrait-light glow near
+               the photo, a quiet red pool lower down, and an oversized,
+               near-invisible "ZABI" watermark bleeding off the edge. */
+            background-color: #070707;
+            background-image:
+                linear-gradient(to bottom, #080808 0, transparent 14vh, transparent calc(100% - 14vh), #080808 100%),
+                radial-gradient(ellipse 45% 40% at 16% 20%, rgba(255, 244, 214, 0.07), transparent 60%),
+                radial-gradient(ellipse 60% 50% at 88% 88%, rgba(255, 0, 60, 0.10), transparent 65%);
+        }
+        #about::before {
+            content: "ZABI";
+            position: absolute;
+            right: -2vw;
+            bottom: -3vw;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 22vw;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 0;
+        }
+        #about > .max-w-screen-2xl {
+            position: relative;
+            z-index: 1;
+        }
+        #contact {
+            /* Matches #clients' base tone so the red divider line reads as a
+               deliberate rule, not a seam where a custom background stops
+               and the plain page background shows through underneath. */
+            background-color: #060606;
+            background-image: linear-gradient(to bottom, #080808 0, transparent 14vh);
+        }
+        #clients {
+            /* Ledger / certificate feel: fine ruled horizontal lines echo the
+               list of names, a single center divider nods to the 2-column
+               layout, and a quiet glow sits in the corner instead of behind
+               the content. */
+            background-color: #060606;
+            background-image:
+                linear-gradient(to bottom, #080808 0, transparent 14vh, transparent calc(100% - 14vh), #080808 100%),
+                radial-gradient(ellipse 55% 45% at 88% 8%, rgba(255, 0, 60, 0.13), transparent 65%);
+        }
+
+        /* --- Ambient Light Background: bold red/white glows, always slowly drifting --- */
+        #ambient-bg {
+            position: fixed;
+            inset: -15%;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle at 22% 22%, rgba(255, 255, 255, 0.14) 0%, transparent 26%),
+                radial-gradient(circle at 78% 18%, rgba(255, 0, 60, 0.38) 0%, transparent 30%),
+                radial-gradient(circle at 28% 78%, rgba(255, 0, 60, 0.30) 0%, transparent 28%),
+                radial-gradient(circle at 82% 82%, rgba(255, 255, 255, 0.10) 0%, transparent 24%);
+            background-repeat: no-repeat;
+            animation: ambientDrift 26s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+        @keyframes ambientDrift {
+            0%   { transform: translate(0%, 0%) scale(1); }
+            50%  { transform: translate(-4%, 4%) scale(1.08); }
+            100% { transform: translate(4%, -3%) scale(1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #ambient-bg { animation: none; }
+        }
+
+
+        /* --- Ambient Grain: fine film-grain noise texture over the whole page --- */
+        #ambient-grain {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.75;
+            background-image: url("images/textures/grain.svg");
+            background-size: 340px 340px;
+            -webkit-mask-image:
+                radial-gradient(circle at 44% 36%, black 45%, transparent 62%),
+                radial-gradient(circle at 63% 48%, black 34%, transparent 52%),
+                radial-gradient(circle at 34% 55%, black 30%, transparent 48%),
+                radial-gradient(circle at 68% 26%, black 20%, transparent 38%),
+                radial-gradient(circle at 46% 66%, black 24%, transparent 42%),
+                radial-gradient(circle at 24% 40%, black 16%, transparent 34%),
+                radial-gradient(circle at 56% 34%, black 12%, transparent 30%),
+                radial-gradient(circle at 30% 68%, black 10%, transparent 28%),
+                radial-gradient(circle at 72% 60%, black 14%, transparent 32%),
+                radial-gradient(circle at 40% 22%, black 8%, transparent 26%);
+            mask-image:
+                radial-gradient(circle at 44% 36%, black 45%, transparent 62%),
+                radial-gradient(circle at 63% 48%, black 34%, transparent 52%),
+                radial-gradient(circle at 34% 55%, black 30%, transparent 48%),
+                radial-gradient(circle at 68% 26%, black 20%, transparent 38%),
+                radial-gradient(circle at 46% 66%, black 24%, transparent 42%),
+                radial-gradient(circle at 24% 40%, black 16%, transparent 34%),
+                radial-gradient(circle at 56% 34%, black 12%, transparent 30%),
+                radial-gradient(circle at 30% 68%, black 10%, transparent 28%),
+                radial-gradient(circle at 72% 60%, black 14%, transparent 32%),
+                radial-gradient(circle at 40% 22%, black 8%, transparent 26%);
+            -webkit-mask-composite: source-over;
+            mask-composite: add;
+        }
+        @media (max-width: 768px) {
+            #ambient-grain { background-size: 260px 260px; }
+        }
+
+        /* --- Refined Cards --- */
+        .zzz-card {
+            background: #0f0f0f;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            transition: all 3s cubic-bezier(0.2, 1, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .zzz-card:hover {
+            border-color: #ff003c;
+            box-shadow: 0 10px 40px rgba(255, 0, 60, 0.2);
+            transform: translateY(-5px) scale(1.22);
+            z-index: 1150;
+        }
+
+        /* --- Fanart Card Flip: starts back-face-up, flips to reveal art on scroll-in --- */
+        .card-flip {
+            perspective: 1400px;
+        }
+        .card-flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: rotateY(180deg);
+            will-change: transform;
+        }
+        .card-face {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        #fanart-grid .vivid-img {
+            object-fit: cover;
+        }
+        #fanart-grid .zzz-card {
+            background: transparent;
+        }
+        .card-face-back {
+            transform: rotateY(180deg);
+            background: #0f0f0f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-back-mark {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-back-logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: clamp(1rem, 3.5vw, 1.5rem);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .card-back-logo .accent { color: #ff003c; }
+        .card-back-sub {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: 7px;
+            letter-spacing: 0.5em;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .card-tag {
+            background: #ff003c;
+            color: white;
+            padding: 2px 10px;
+            font-size: 9px;
+            font-weight: 900;
+            display: inline-block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        /* --- Kinetic Marquee --- */
+        .marquee-container {
+            overflow: hidden;
+            background: #ff003c;
+            transform: skewY(-1deg);
+            margin: 4rem -2rem;
+            z-index: 50;
+        }
+
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 40s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-text {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: #000;
+            padding: 0.5rem 3rem;
+            font-style: italic;
+        }
+
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar { width: 4px; height: 0; }
+        ::-webkit-scrollbar-track { background: #080808; }
+        ::-webkit-scrollbar-thumb { background: #ff003c; }
+
+        .glass-nav {
+            background: rgba(8, 8, 8, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        /* --- View More System Helper --- */
+        .grid-expandable {
+            transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: clip;
+            overflow-clip-margin: 220px;
+        }
+
+        /* --- Scroll Progress Bar --- */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            width: 0%;
+            background: #ff003c;
+            z-index: 1150;
+            box-shadow: 0 0 8px var(--glow-red);
+            pointer-events: none;
+        }
+
+        /* --- Custom Cursor --- */
+        @media (hover: hover) and (pointer: fine) {
+            body { cursor: none; }
+            a, button, .cursor-none-child { cursor: none; }
+
+            #cursor-dot, #cursor-ring {
+                position: fixed;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+                z-index: 2500;
+                transform: translate(-50%, -50%);
+                will-change: transform;
+            }
+            #cursor-dot {
+                width: 6px;
+                height: 6px;
+                background: #ff003c;
+                border-radius: 50%;
+            }
+            #cursor-ring {
+                width: 34px;
+                height: 34px;
+                border: 1px solid rgba(255, 0, 60, 0.5);
+                border-radius: 50%;
+                transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+            }
+            #cursor-ring.is-active {
+                width: 64px;
+                height: 64px;
+                background: rgba(255, 0, 60, 0.08);
+                border-color: #ff003c;
+            }
+        }
+        @media (hover: none), (pointer: coarse) {
+            #cursor-dot, #cursor-ring { display: none; }
+        }
+
+        /* --- Works Pagination --- */
+        .page-nav-btn {
+            padding: 1rem 1.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 11px;
+            font-weight: 900;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+        .page-nav-btn:hover:not(:disabled) {
+            background: #ff003c;
+            border-color: #ff003c;
+        }
+        .page-nav-btn:disabled {
+            opacity: 0.25;
+            cursor: default;
+        }
+        .page-num-btn {
+            width: 2.75rem;
+            height: 2.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .page-num-btn:hover {
+            border-color: #ff003c;
+        }
+        .page-num-btn.is-active {
+            background: #ff003c;
+            border-color: #ff003c;
+        }
+
+        /* --- Card Hover Reveal Overlay --- */
+        .card-view-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .zzz-card:hover .card-view-overlay {
+            opacity: 1;
+        }
+        .card-view-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 13px;
+            letter-spacing: 0.3em;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+            transform: translateY(16px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.2,1,0.2,1), opacity 0.4s ease;
+        }
+        .zzz-card:hover .card-view-label {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* --- Stats Counter --- */
+        .stat-number {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-style: italic;
+            font-weight: 900;
+        }
+
+        /* --- Magnetic Button --- */
+        .magnetic-btn {
+            will-change: transform;
+        }
+
+        /* --- Back to Top --- */
+        #back-to-top {
+            transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.2s ease, color 0.2s ease;
+        }
+        #back-to-top.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        /* --- BGM Wave: an equalizer-style row of bars hanging down from the
+           header, visible only while the site BGM is actually audible
+           (native <audio> play/pause events drive .is-playing — see
+           initBgmWave()). Bar heights are randomized continuously by JS,
+           not a looping CSS animation, so it doesn't read as repetitive. --- */
+        #bgm-wave {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 44px;
+            z-index: 1049;
+            pointer-events: none;
+            opacity: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 0 2px;
+            transition: opacity 0.4s ease;
+        }
+        #bgm-wave.is-playing {
+            opacity: 0.75;
+        }
+        .bgm-wave-bar {
+            flex: 1 1 auto;
+            margin: 0 1px;
+            height: 2px;
+            background: linear-gradient(180deg, #ff003c, rgba(255, 0, 60, 0));
+            transition: height 0.18s ease;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .bgm-wave-bar { transition: none; }
+        }
+
+        /* --- Corner FABs: shared "targeting reticle" treatment for the
+           back-to-top / sound-toggle buttons — bigger, framed with the same
+           corner-bracket motif used on section headers, glowing red on
+           hover instead of a flat color swap. --- */
+        .corner-fab {
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .corner-fab-frame {
+            position: absolute;
+            inset: 6px;
+            width: calc(100% - 12px);
+            height: calc(100% - 12px);
+            color: currentColor;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .corner-fab:hover {
+            background-color: #ff003c;
+            color: #fff;
+            border-color: #ff003c;
+            box-shadow: 0 0 24px 4px rgba(255, 0, 60, 0.55);
+            transform: scale(1.06);
+        }
+        #back-to-top.is-visible:hover {
+            transform: translateY(0) scale(1.06);
+        }
+
+        /* Sound-on indicator: the icon itself (not the button chrome)
+           turns red and grows a bit, so "on" reads at a glance without
+           needing to hover. Overridden back to white on hover so it
+           doesn't go red-on-red against the hover fill. */
+        #sound-icon-on {
+            transform-origin: center;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+        #sound-toggle.is-on #sound-icon-on {
+            color: #ff003c;
+            transform: scale(1.2);
+        }
+        #sound-toggle.is-on:hover #sound-icon-on {
+            color: #fff;
+        }
+
+        /* --- BGM Volume Slider: hidden until the sound button is
+           hovered, then unfolds to its right. --- */
+        .bgm-volume-slider {
+            width: 0;
+            height: 4px;
+            margin-left: 0;
+            opacity: 0;
+            pointer-events: none;
+            -webkit-appearance: none;
+            appearance: none;
+            /* --bgm-vol-pct is kept in sync with the slider's value by JS
+               (appearance:none drops native track rendering, so
+               accent-color alone can't fill the "played" portion). */
+            background: linear-gradient(to right, #ff003c var(--bgm-vol-pct, 50%), rgba(255, 255, 255, 0.25) var(--bgm-vol-pct, 50%));
+            border-radius: 2px;
+            outline: none;
+            transition: width 0.3s ease, opacity 0.3s ease, margin-left 0.3s ease;
+        }
+        #sound-control:hover .bgm-volume-slider,
+        #sound-control:focus-within .bgm-volume-slider {
+            width: 110px;
+            margin-left: 14px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        /* Touch devices have no hover state, so the reveal-on-hover trick
+           never fires there — just keep the slider permanently open
+           instead of inventing a tap gesture nobody would discover. */
+        @media (hover: none) {
+            .bgm-volume-slider {
+                width: 90px;
+                margin-left: 10px;
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+        .bgm-volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ff003c;
+            cursor: pointer;
+        }
+        .bgm-volume-slider::-moz-range-thumb {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ff003c;
+            cursor: pointer;
+        }
+
+        /* --- MV Card Stack (penguin-capital.co.jp style) --- */
+        .mv-info {
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 100%;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .mv-info.active {
+            position: relative;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .mv-info .card-tag {
+            font-size: 8px;
+            opacity: 0.75;
+        }
+        .mv-info-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 0.95;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            margin: 0.6rem 0 1.5rem;
+            max-width: 32rem;
+        }
+        .mv-info-title.mv-glitching {
+            color: #ff003c;
+            text-shadow: 2px 0 #00e5ff, -2px 0 #ff003c;
+        }
+        .mv-stack-card {
+            position: absolute;
+            inset: 0;
+            display: block;
+            border-radius: 18px;
+            overflow: hidden;
+            background-color: #0f0f0f;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+        }
+        /* Fires the instant a card snaps fully into place — this glow IS
+           the cue that playback has just started, not just a decoration. */
+        @keyframes mvSnapGlow {
+            0% { box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 0 0 rgba(255, 0, 60, 0); }
+            25% { box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 32px 6px rgba(255, 0, 60, 0.85), 0 0 0 2px rgba(255, 0, 60, 0.9); }
+            100% { box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 0 0 rgba(255, 0, 60, 0); }
+        }
+        .mv-stack-card.snap-glow {
+            animation: mvSnapGlow 0.9s ease-out;
+        }
+        .mv-stack-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 45%, rgba(8, 8, 8, 0.85) 100%);
+        }
+        .mv-stack-num {
+            position: absolute;
+            right: 18px;
+            bottom: 12px;
+            z-index: 2;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 2.75rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        /* --- MV Jump Panel: small numbered buttons beside the card stack --- */
+        .mv-pin-wrap {
+            position: relative;
+        }
+        #mv-jump-panel {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 1041;
+        }
+        .mv-jump-btn {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.25s ease;
+        }
+        .mv-jump-btn:hover {
+            border-color: #ff003c;
+            color: #fff;
+        }
+        .mv-jump-btn.is-active {
+            background: #ff003c;
+            border-color: #ff003c;
+            color: #fff;
+        }
+
+        /* --- Section Header: shared badge + corner-bracket motif --- */
+        .section-mark {
+            flex-shrink: 0;
+            color: #ff003c;
+            opacity: 0.85;
+        }
+        .section-head-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .section-head-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s cubic-bezier(0.2, 1, 0.2, 1), transform 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        /* --- Section Dot Navigation --- */
+        .dot-nav {
+            position: fixed;
+            right: 1.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1040;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1.15rem;
+            pointer-events: none;
+        }
+        .dot-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: none;
+            pointer-events: none;
+        }
+        .dot-nav-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #fff;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(8px);
+            transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+            white-space: nowrap;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+        }
+        .dot-nav-item:hover .dot-nav-label {
+            opacity: 0.85;
+            transform: translateX(0);
+        }
+        .dot-nav-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            pointer-events: auto;
+        }
+        .dot-nav-item:hover .dot-nav-dot {
+            background: rgba(255, 255, 255, 0.75);
+        }
+        .dot-nav-item.is-active .dot-nav-dot {
+            background: #ff003c;
+            transform: scale(1.6);
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.85);
+        }
+        .dot-nav-item.is-active .dot-nav-label {
+            opacity: 0.9;
+            transform: translateX(0);
+            color: #ff003c;
+        }
+
+        /* --- Profile Card --- */
+        #profile-card {
+            will-change: transform;
+        }
+
+        img { image-rendering: -webkit-optimize-contrast; }
+
+        /* --- Preloader --- */
+        body.is-loading { overflow: hidden; }
+        body.is-loading .marquee-content { animation-play-state: paused; }
+        /* Keep the real page fully invisible behind the preloader — otherwise it's exposed
+           through the gaps as the preloader shrinks during the closing animation. */
+        body.is-loading > *:not(#preloader) {
+            visibility: hidden;
+        }
+        /* Belt-and-braces: these hero elements are animated in by GSAP right after reveal,
+           so also force them hidden via plain CSS to guarantee no pre-animation flash. */
+        body.is-loading #hero-title,
+        body.is-loading #hero .stat-number,
+        body.is-loading #hero-tagline,
+        body.is-loading #hero .magnetic-btn {
+            opacity: 0;
+        }
+
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            background: #080808;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        #preloader-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        #preloader::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,0,60,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,0,60,0.05) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 70%);
+            opacity: 0.6;
+        }
+        #preloader-scan {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(180deg, transparent, rgba(255,0,60,0.12), transparent);
+            animation: preloaderScan 2.6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes preloaderScan {
+            0%   { top: -20%; }
+            100% { top: 110%; }
+        }
+        .preloader-corner {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 1px solid rgba(255, 0, 60, 0.5);
+        }
+        .preloader-corner.tl { top: 24px; left: 24px; border-right: none; border-bottom: none; }
+        .preloader-corner.tr { top: 24px; right: 24px; border-left: none; border-bottom: none; }
+        .preloader-corner.bl { bottom: 24px; left: 24px; border-right: none; border-top: none; }
+        .preloader-corner.br { bottom: 24px; right: 24px; border-left: none; border-top: none; }
+
+        #preloader-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: #ff003c;
+            opacity: 0.8;
+        }
+        #preloader-logo {
+            position: relative;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: clamp(3rem, 10vw, 6.5rem);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #fff;
+            line-height: 1;
+        }
+        #preloader-logo .accent { color: #ff003c; }
+        #preloader-logo[data-text]::before,
+        #preloader-logo[data-text]::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+        }
+        #preloader-bar-track {
+            width: min(300px, 65vw);
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        #preloader-bar-fill {
+            position: absolute;
+            inset: 0;
+            width: 0%;
+            background: #ff003c;
+            box-shadow: 0 0 10px var(--glow-red);
+        }
+        #preloader-bar-fill.is-complete {
+            animation: preloaderBarPulse 0.45s ease-out;
+        }
+        @keyframes preloaderBarPulse {
+            0%   { box-shadow: 0 0 10px var(--glow-red); }
+            40%  { box-shadow: 0 0 28px rgba(255, 0, 60, 1); background: #fff; }
+            100% { box-shadow: 0 0 10px var(--glow-red); }
+        }
+        #preloader-meta {
+            display: flex;
+            justify-content: space-between;
+            width: min(300px, 65vw);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+        #preloader-status { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        #preloader-percent {
+            display: inline-block;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            color: #ff003c;
+            opacity: 1;
+        }
+        #preloader-percent.is-complete {
+            animation: preloaderPercentPulse 0.45s ease-out;
+        }
+        @keyframes preloaderPercentPulse {
+            0%   { transform: scale(1); color: #ff003c; }
+            40%  { transform: scale(1.4); color: #fff; }
+            100% { transform: scale(1); color: #ff003c; }
+        }
+        .preloader-glitch {
+            animation: preloaderGlitch 0.5s steps(2, end) 3;
+        }
+        .preloader-glitch::before {
+            opacity: 0.7;
+            color: #00e5ff;
+            animation: preloaderGlitchLayer 0.5s steps(2, end) 3;
+            mix-blend-mode: screen;
+        }
+        .preloader-glitch::after {
+            opacity: 0.7;
+            color: #ff003c;
+            animation: preloaderGlitchLayer2 0.5s steps(2, end) 3;
+            mix-blend-mode: screen;
+        }
+        @keyframes preloaderGlitch {
+            0%   { transform: translate(0, 0); }
+            20%  { transform: translate(-3px, 2px); }
+            40%  { transform: translate(3px, -2px); }
+            60%  { transform: translate(-2px, 0); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes preloaderGlitchLayer {
+            0%   { transform: translate(0, 0); }
+            25%  { transform: translate(4px, -1px); }
+            50%  { transform: translate(-5px, 1px); }
+            75%  { transform: translate(3px, 0); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes preloaderGlitchLayer2 {
+            0%   { transform: translate(0, 0); }
+            25%  { transform: translate(-4px, 1px); }
+            50%  { transform: translate(5px, -1px); }
+            75%  { transform: translate(-3px, 0); }
+            100% { transform: translate(0, 0); }
+        }
+        #preloader.is-hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="antialiased bg-stripes overlay-fx is-loading">
+
+<div id="preloader">
+    <div id="preloader-content">
+        <div id="preloader-scan"></div>
+        <span class="preloader-corner tl"></span>
+        <span class="preloader-corner tr"></span>
+        <span class="preloader-corner bl"></span>
+        <span class="preloader-corner br"></span>
+
+        <span id="preloader-eyebrow">SYS // ARCHIVE_LOADER</span>
+        <div id="preloader-logo" data-text="ZABI">Z<span class="accent">A</span>BI</div>
+        <div id="preloader-bar-track"><div id="preloader-bar-fill"></div></div>
+        <div id="preloader-meta">
+            <span id="preloader-status">connecting to storage...</span>
+            <span id="preloader-percent">0%</span>
+        </div>
+    </div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="scroll-progress"></div>
+<div id="ambient-bg" aria-hidden="true"></div>
+<div id="ambient-grain" aria-hidden="true"></div>
+
+<svg style="display:none" aria-hidden="true">
+    <symbol id="icon-corner-bracket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M3 8V3H8" />
+        <path d="M21 8V3H16" />
+        <path d="M3 16V21H8" />
+        <path d="M21 16V21H16" />
+    </symbol>
+</svg>
+
+<nav class="fixed top-0 w-full z-[1100] glass-nav">
+    <div class="flex justify-between items-center pl-8 pr-12 py-2.5">
+        <a href="." onclick="location.reload(); return false;" class="flex flex-col">
+            <span class="text-[8px] font-bold tracking-[0.5em] text-zzz-red mb-0.5">portfolio</span>
+            <div class="h-7 flex items-center">
+                <img
+                    src="images/web/logo-banner.jpg"
+                    alt="ZABI STORAGE ロゴ"
+                    class="h-full w-auto object-contain"
+                    width="150" height="50"
+                >
+            </div>
+        </a>
+        <div class="flex items-center gap-8">
+            <div class="hidden lg:flex gap-10 text-[13px] font-bold tracking-[0.2em] uppercase italic">
+                <a href="#commercial" class="hover:text-zzz-red transition-all">WORKS</a>
+                <a href="#personal" class="hover:text-zzz-red transition-all">FANART</a>
+                <a href="#about" class="hover:text-zzz-red transition-all">ABOUT</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="https://x.com/ZabiMasurao/media" target="_blank" rel="noopener noreferrer" class="px-4 py-1 border border-white/15 text-[10px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">X_TWITTER</a>
+                <a href="https://www.pixiv.net/users/27716830" target="_blank" rel="noopener noreferrer" class="px-4 py-1 border border-white/15 text-[10px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">PIXIV</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div id="bgm-wave" aria-hidden="true"></div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-[90vh] lg:h-screen flex items-center px-9 lg:pl-20 xl:pl-28 lg:pr-0 pt-16 pb-0 lg:pb-4 overflow-hidden">
+        <div class="crack-line top-[40%] left-0 rotate-[15deg]"></div>
+
+        <div class="relative z-10 w-full grid lg:grid-cols-[1fr_auto] gap-14 lg:gap-20 items-center lg:items-stretch lg:h-[calc(100vh-5rem)]">
+            <!-- Text -->
+            <div class="relative z-20 lg:flex lg:flex-col lg:justify-center lg:-mr-20 xl:-mr-32">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="w-12 h-[2px] bg-zzz-red"></span>
+                    <p class="text-zzz-red font-bold text-[10px] tracking-[0.8em]"></p>
+                </div>
+
+                <h1 class="text-[18vw] lg:text-[9.5rem] xl:text-[12.5rem] leading-[0.78] font-bold italic mb-10 tracking-tighter drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]" id="hero-title">
+                    <span class="block" id="hero-title-zabi">ZABI</span>
+                    <span class="text-zzz-red block ml-8 md:ml-16 lg:ml-24" id="hero-title-storage">STORAGE</span>
+                </h1>
+
+                <p id="hero-tagline" class="text-xl font-bold leading-relaxed opacity-90 border-l-2 border-zzz-red pl-6 max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+                    ZABI
+                    イラストレーター。アニメ&ゲームFA/MV/TCG/KV etc. <br>
+                    2027年1月以降のお仕事を受付中です。
+                </p>
+                <div class="mt-12 flex items-center gap-10">
+                    <a href="#commercial" class="magnetic-btn bg-white text-black px-10 py-4 text-base font-black italic hover:bg-zzz-red hover:text-white transition-all -rotate-1">
+                        information
+                    </a>
+                </div>
+
+                <div class="flex gap-10 md:gap-14 mt-16">
+                    <div>
+                        <span class="stat-number text-6xl text-zzz-red" data-count="6">0</span><span class="stat-number text-4xl text-zzz-red">+</span>
+                        <p class="text-[10px] font-bold opacity-60 tracking-[0.3em] uppercase mt-1">Years Exp.</p>
+                    </div>
+                    <div>
+                        <span class="stat-number text-6xl" data-count="21">0</span><span class="stat-number text-4xl">+</span>
+                        <p class="text-[10px] font-bold opacity-60 tracking-[0.3em] uppercase mt-1">Works</p>
+                    </div>
+                    <div>
+                        <span class="stat-number text-6xl" data-count="9">0</span>
+                        <p class="text-[10px] font-bold opacity-60 tracking-[0.3em] uppercase mt-1">Clients</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Illustration Showcase -->
+            <div class="relative z-10 h-[50vh] sm:h-[60vh] lg:h-full lg:w-[calc((100vh-5rem)*1.5)] lg:flex-none" id="hero-art-stage">
+                <div class="hero-art-frame" id="hero-art-frame">
+                    <div class="hero-slide" style="background-image: url('images/web/HEfBjkFbQAEWSML.jpg')"></div>
+                    <div class="hero-progress-track">
+                        <div class="hero-progress-fill" id="hero-progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span class="marquee-text">Thank you for watching. Thank you for watching.  </span>
+            <span class="marquee-text">Thank you for watching.Thank you for watching.  </span>
+        </div>
+    </div>
+
+    <!-- Commercial Works Section -->
+    <section id="commercial" class="py-32 px-6 relative overflow-visible">
+        <div class="crack-line top-[10%] right-0 -rotate-[10deg]"></div>
+        <div class="crack-line bottom-[15%] left-0 rotate-[8deg]"></div>
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="flex justify-between items-end mb-16">
+                <div class="section-head-reveal">
+                    <div class="flex items-center gap-3 mb-2">
+                        <svg class="section-mark" width="16" height="16"><use href="#icon-corner-bracket"/></svg>
+                        <span class="text-zzz-red font-black text-[8px] tracking-[0.6em]">01</span>
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-light italic leading-none uppercase tracking-wide">Works</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 grid-expandable" id="works-grid">
+                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
+                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
+                        <img src="images/web/HEfBjkFbQAEWSML.jpg" class="vivid-img cursor-zoom-in" alt="TCGイラスト「Xross Stars Broken Neonlights」LRPP《柊ツルギ》" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/full/HEfBjkFbQAEWSML.jpg">
+                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                    <div class="p-8">
+                        <span class="card-tag">TCG</span>
+                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》</h3>
+                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: 株式会社Game & Co.</p>
+                    </div>
+                </div>
+
+                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
+                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
+                        <img src="images/web/HEfBjkFa4AAnpUw.jpg" class="vivid-img cursor-zoom-in" alt="TCGイラスト「Xross Stars Broken Neonlights」LRPP《柊ツルギ》別カット" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/full/HEfBjkFa4AAnpUw.jpg">
+                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                    <div class="p-8">
+                        <span class="card-tag">TCG</span>
+                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》</h3>
+                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: 株式会社Game & Co.</p>
+                    </div>
+                </div>
+
+                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
+                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
+                        <img src="images/web/G4fq1q9a8AI15hd.jpg" class="vivid-img cursor-zoom-in" alt="鳴潮 公式ファンアート「仇遠」" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/full/G4fq1q9a8AI15hd.jpg">
+                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                    <div class="p-8">
+                        <span class="card-tag">OFFICIAL FANART</span>
+                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">鳴潮 公式FA「仇遠」</h3>
+                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: Kuro Games</p>
+                    </div>
+                </div>
+
+                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
+                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
+                        <img src="images/web/G-8hbs_WQAA9oA0.jpg" class="vivid-img cursor-zoom-in" alt="ALGS Year 5 Championship ローディングカードイラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/full/G-8hbs_WQAA9oA0.jpg">
+                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                    <div class="p-8">
+                        <span class="card-tag">KEY VISUAL</span>
+                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「ALGS Year 5 Championship」 loadingCard</h3>
+                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: EA / ALGS Year 5</p>
+                    </div>
+                </div>
+
+                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
+                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
+                        <img src="images/web/HBg8QRubUAI7CLI.jpg" class="vivid-img cursor-zoom-in" alt="鳴潮 公式ファンアート「エイメス」" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/full/HBg8QRubUAI7CLI.jpg">
+                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                    <div class="p-8">
+                        <span class="card-tag">OFFICIAL FANART</span>
+                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「鳴潮 公式FA「エイメス」</h3>
+                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: Kuro Games</p>
+                    </div>
+                </div>
+
+                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
+                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
+                        <img src="images/web/HDXapNzaUAARzB0.jpg" class="vivid-img cursor-zoom-in" alt="甘楽デイティー『レッテル』キービジュアル" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/full/HDXapNzaUAARzB0.jpg">
+                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                    <div class="p-8">
+                        <span class="card-tag">KEY VISUAL</span>
+                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「甘楽デイティー『レッテル』」</h3>
+                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: 株式会社Sony Music Ent.</p>
+                    </div>
+                </div>
+
+                <!-- [ADD] New Works Items -->
+                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
+                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
+                        <img src="images/web/HD_4UG_bIAAYyLg.jpg" class="vivid-img cursor-zoom-in" alt="HUION 15周年記念オリジナルキャラクターイラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/full/HD_4UG_bIAAYyLg.jpg">
+                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                    <div class="p-8">
+                        <span class="card-tag">ANNIVERSARY OC</span>
+                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">HUION様 15周年記念OCイラスト</h3>
+                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: 株式会社HUION</p>
+                    </div>
+                </div>
+
+                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
+                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
+                        <img src="images/web/G9XtFuEaYAALtTX.jpg" class="vivid-img cursor-zoom-in" alt="ゼンレスゾーンゼロ 公式ファンアート「葉瞬光」" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/full/G9XtFuEaYAALtTX.jpg">
+                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                    <div class="p-8">
+                        <span class="card-tag">ANNIVERSARY OC</span>
+                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「ゼンレスゾーンゼロ」公式FA「葉瞬光」</h3>
+                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: 株式会社YomiHolic</p>
+                    </div>
+                </div>
+
+                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
+                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
+                        <img src="images/web/HEK1BHyaUAAWKfi.jpg" class="vivid-img cursor-zoom-in" alt="グリムコネクト 応援記念イラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/full/HEK1BHyaUAAWKfi.jpg">
+                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                    <div class="p-8">
+                        <span class="card-tag">OFFICIAL FANART</span>
+                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「グリムコネクト」応援記念イラスト </h3>
+                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: 株式会社BookBase</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 flex justify-center items-center gap-6" id="works-pagination"></div>
+        </div>
+    </section>
+
+    <!-- Music Video Section -->
+    <section id="mv" class="relative overflow-hidden border-t border-white/5">
+        <div class="crack-line top-[30%] left-0 -rotate-[6deg]"></div>
+        <div class="mv-pin-wrap min-h-screen flex items-center px-6 py-32" id="mv-pin-wrap">
+            <div class="max-w-screen-2xl mx-auto w-full grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+                <!-- Left: title + synced info -->
+                <div class="section-head-reveal">
+                    <div class="flex items-center gap-3 mb-2">
+                        <svg class="section-mark" width="16" height="16"><use href="#icon-corner-bracket"/></svg>
+                        <span class="text-zzz-red font-black text-[8px] tracking-[0.6em]" id="mv-active-index">02.01</span>
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-light italic leading-none uppercase tracking-wide mb-10">Music Video</h2>
+
+                    <div class="relative" id="mv-info-stack" style="min-height: 11rem;">
+                        <div class="mv-info active" data-mv-info="0">
+                            <span class="card-tag">MUSIC VIDEO</span>
+                            <h3 class="mv-info-title">∴煮ル果実「バーバヤーガ」with Flower＆可不 #GABULI【Official】</h3>
+                            <a href="https://youtu.be/aOelHbwkRD4" target="_blank" rel="noopener noreferrer" class="inline-block text-[11px] font-black italic tracking-widest uppercase border-b-2 border-zzz-red pb-1 hover:text-zzz-red transition-colors">Watch on YouTube →</a>
+                        </div>
+                        <div class="mv-info" data-mv-info="1">
+                            <span class="card-tag">MUSIC VIDEO</span>
+                            <h3 class="mv-info-title">ハイド&ハイド / 柊キライ feat.吉乃 with.GABULI</h3>
+                            <a href="https://youtu.be/wmTZOuoZWH4" target="_blank" rel="noopener noreferrer" class="inline-block text-[11px] font-black italic tracking-widest uppercase border-b-2 border-zzz-red pb-1 hover:text-zzz-red transition-colors">Watch on YouTube →</a>
+                        </div>
+                        <div class="mv-info" data-mv-info="2">
+                            <span class="card-tag">MUSIC VIDEO</span>
+                            <h3 class="mv-info-title">Noisy Sweet Home / jon-YAKITORY + 音街ウナ with.GABULI</h3>
+                            <a href="https://youtu.be/dyAfJqmDsxo" target="_blank" rel="noopener noreferrer" class="inline-block text-[11px] font-black italic tracking-widest uppercase border-b-2 border-zzz-red pb-1 hover:text-zzz-red transition-colors">Watch on YouTube →</a>
+                        </div>
+                        <div class="mv-info" data-mv-info="3">
+                            <span class="card-tag">MUSIC VIDEO</span>
+                            <h3 class="mv-info-title">フェレス（feat.初音ミク＆MEIKO）／ 栗山夕璃 with #GABULI</h3>
+                            <a href="https://youtu.be/9yLkCqAcu_k" target="_blank" rel="noopener noreferrer" class="inline-block text-[11px] font-black italic tracking-widest uppercase border-b-2 border-zzz-red pb-1 hover:text-zzz-red transition-colors">Watch on YouTube →</a>
+                        </div>
+                        <div class="mv-info" data-mv-info="4">
+                            <span class="card-tag">MUSIC VIDEO</span>
+                            <h3 class="mv-info-title">アルトラエレジー / Aqu3ra feat. 初音ミク with #GABULI</h3>
+                            <a href="https://youtu.be/7lMt4I5ufHE" target="_blank" rel="noopener noreferrer" class="inline-block text-[11px] font-black italic tracking-widest uppercase border-b-2 border-zzz-red pb-1 hover:text-zzz-red transition-colors">Watch on YouTube →</a>
+                        </div>
+                        <div class="mv-info" data-mv-info="5">
+                            <span class="card-tag">MUSIC VIDEO</span>
+                            <h3 class="mv-info-title">甘楽デイティー × 栗山夕璃「レッテル」Official Music Video</h3>
+                            <a href="https://youtu.be/JAcEgJhrR00" target="_blank" rel="noopener noreferrer" class="inline-block text-[11px] font-black italic tracking-widest uppercase border-b-2 border-zzz-red pb-1 hover:text-zzz-red transition-colors">Watch on YouTube →</a>
+                        </div>
+                        <div class="mv-info" data-mv-info="6">
+                            <span class="card-tag">MUSIC VIDEO</span>
+                            <h3 class="mv-info-title">柊マグネタイト - ファブリック・フラワー / 鏡音リン with GABULI</h3>
+                            <a href="https://youtu.be/hJ7dtfeCg38" target="_blank" rel="noopener noreferrer" class="inline-block text-[11px] font-black italic tracking-widest uppercase border-b-2 border-zzz-red pb-1 hover:text-zzz-red transition-colors">Watch on YouTube →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: card stack, rises from below as you scroll -->
+                <div class="mx-auto w-full max-w-md md:max-w-xl">
+                <div class="relative w-full aspect-square" id="mv-card-stack">
+                    <a href="https://youtu.be/aOelHbwkRD4" target="_blank" rel="noopener noreferrer" class="mv-stack-card" data-mv-card="0" data-video-id="aOelHbwkRD4" style="background-image:url('images/mv/aOelHbwkRD4.jpg')"><span class="mv-stack-num">01</span></a>
+                    <a href="https://youtu.be/wmTZOuoZWH4" target="_blank" rel="noopener noreferrer" class="mv-stack-card" data-mv-card="1" data-video-id="wmTZOuoZWH4" style="background-image:url('images/mv/wmTZOuoZWH4.jpg')"><span class="mv-stack-num">02</span></a>
+                    <a href="https://youtu.be/dyAfJqmDsxo" target="_blank" rel="noopener noreferrer" class="mv-stack-card" data-mv-card="2" data-video-id="dyAfJqmDsxo" style="background-image:url('images/mv/dyAfJqmDsxo.jpg')"><span class="mv-stack-num">03</span></a>
+                    <a href="https://youtu.be/9yLkCqAcu_k" target="_blank" rel="noopener noreferrer" class="mv-stack-card" data-mv-card="3" data-video-id="9yLkCqAcu_k" style="background-image:url('images/mv/9yLkCqAcu_k.jpg')"><span class="mv-stack-num">04</span></a>
+                    <a href="https://youtu.be/7lMt4I5ufHE" target="_blank" rel="noopener noreferrer" class="mv-stack-card" data-mv-card="4" data-video-id="7lMt4I5ufHE" style="background-image:url('images/mv/7lMt4I5ufHE.jpg')"><span class="mv-stack-num">05</span></a>
+                    <a href="https://youtu.be/JAcEgJhrR00" target="_blank" rel="noopener noreferrer" class="mv-stack-card" data-mv-card="5" data-video-id="JAcEgJhrR00" style="background-image:url('images/mv/JAcEgJhrR00.jpg')"><span class="mv-stack-num">06</span></a>
+                    <a href="https://youtu.be/hJ7dtfeCg38" target="_blank" rel="noopener noreferrer" class="mv-stack-card" data-mv-card="6" data-video-id="hJ7dtfeCg38" style="background-image:url('images/mv/hJ7dtfeCg38.jpg')"><span class="mv-stack-num">07</span></a>
+                </div>
+                </div>
+            </div>
+
+            <!-- Jump panel: click a number to go straight to that video.
+                 Positioned by JS at the midpoint between the card stack's
+                 right edge and the screen's right edge — lives directly in
+                 the pinned wrap (not the centered grid) so it tracks the
+                 pin correctly and can reach past the grid's own max-width. -->
+            <div class="grid grid-cols-2 gap-2" id="mv-jump-panel" aria-label="MUSIC VIDEO 一覧へ移動">
+                <button type="button" class="mv-jump-btn" data-jump-index="0" onclick="jumpToMvCard(0)">01</button>
+                <button type="button" class="mv-jump-btn" data-jump-index="1" onclick="jumpToMvCard(1)">02</button>
+                <button type="button" class="mv-jump-btn" data-jump-index="2" onclick="jumpToMvCard(2)">03</button>
+                <button type="button" class="mv-jump-btn" data-jump-index="3" onclick="jumpToMvCard(3)">04</button>
+                <button type="button" class="mv-jump-btn" data-jump-index="4" onclick="jumpToMvCard(4)">05</button>
+                <button type="button" class="mv-jump-btn" data-jump-index="5" onclick="jumpToMvCard(5)">06</button>
+                <button type="button" class="mv-jump-btn" data-jump-index="6" onclick="jumpToMvCard(6)">07</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Works Section -->
+    <section id="personal" class="py-32 px-6">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="flex justify-between items-end mb-16">
+                <div class="section-head-reveal">
+                    <div class="flex items-center gap-3 mb-2">
+                        <svg class="section-mark" width="16" height="16"><use href="#icon-corner-bracket"/></svg>
+                        <span class="text-zzz-red font-black text-[8px] tracking-[0.6em]">03</span>
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-light italic leading-none uppercase tracking-wide">FANART</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="fanart-grid">
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/HE5OLhUaUAE9HPW.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 1" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/HE5OLhUaUAE9HPW.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/HBG25Y5b0AAL6zK.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 2" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/HBG25Y5b0AAL6zK.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/G-xyJTjaUAABAVN.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 3" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/G-xyJTjaUAABAVN.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/G8hnbr0bQAE5BSW.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 4" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/G8hnbr0bQAE5BSW.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/FRA-UlWaQAAoH-q.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 5" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/FRA-UlWaQAAoH-q.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/Gy8zisjboAErIb7.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 6" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/Gy8zisjboAErIb7.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/Gzg2TyKbkAE6-si.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 7" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/Gzg2TyKbkAE6-si.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/G1SZPnAbQAQIe5J.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 8" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/G1SZPnAbQAQIe5J.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [ADD] New Fanart Items -->
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/GTaBSzKagAIjkYz.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 9" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/GTaBSzKagAIjkYz.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/GgXG384agAAuW3u.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 10" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/GgXG384agAAuW3u.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/GrrF1JvXcAAnLrr.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 11" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/GrrF1JvXcAAnLrr.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/Gp7EtkiakAAbDi1.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 12" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/Gp7EtkiakAAbDi1.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 flex justify-center items-center gap-6" id="fanart-pagination"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-40 px-6 relative overflow-hidden">
+        <div class="crack-line top-[8%] left-0 rotate-[12deg]"></div>
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="flex justify-center items-center mb-16 text-center">
+                <div class="section-head-reveal">
+                    <div class="flex items-center justify-center gap-3 mb-2">
+                        <svg class="section-mark" width="16" height="16"><use href="#icon-corner-bracket"/></svg>
+                        <span class="text-zzz-red font-black text-[8px] tracking-[0.6em]">04</span>
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-light italic leading-none uppercase tracking-wide hover:text-zzz-red transition-colors">About</h2>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-12 gap-16 items-start">
+                <div class="md:col-span-12 space-y-12">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-white/5 p-8 md:p-12 border-l-4 border-zzz-red text-center" id="profile-card">
+                            <div class="flex flex-col md:items-center gap-8 md:gap-12 mb-10">
+                                <div class="w-32 h-32 md:w-36 md:h-36 shrink-0 mx-auto">
+                                    <div class="relative z-10 bg-zzz-gray aspect-square overflow-hidden border border-white/10 group">
+                                        <img src="images/web/avatar.jpg" class="vivid-img" alt="ZABI プロフィール画像" style="object-fit: cover;" width="160" height="160" loading="lazy" decoding="async">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="text-zzz-red font-black text-[13px] tracking-[0.5em] block mb-3">PROFILE</span>
+                                    <h2 class="text-6xl md:text-7xl font-black italic leading-[0.8] tracking-tighter">ZABI</h2>
+                                </div>
+                            </div>
+
+                            <div class="max-w-2xl mx-auto">
+                                <p class="text-lg font-bold italic text-white/90 leading-relaxed mb-6">イラストレーターのザビです</p>
+                                <p class="text-lg font-bold italic text-white/90 leading-relaxed mb-6">ポートフォリオサイトをご覧いただき、ありがとうございます。</p>
+                                <div class="space-y-4 text-lg font-medium leading-loose opacity-60">
+                                    <p>ゲーム会社にて約6年間勤務後、2025年8月よりフリーランスイラストレーターとして活動開始。</p>
+                                    <p>キービジュアル、キャラクターデザイン、TCGイラスト、MV用イラスト、ライトノベル挿絵などを手がけています。</p>
+                                    <p>密度感のある描写や、見る人の胸が熱くなるような表現を得意としています。</p>
+                                    <p>商業利用のお仕事につきまして、現在募集しております。商業・個人問わず、まずはご相談だけでも大歓迎です📩 お気軽にどうぞ！</p>
+                                    <p class="opacity-20">ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー</p>
+                                    <p>2027年1月以降着手のお仕事を募集しております。</p>
+                                    <p>ご依頼時には以下の項目を明記いただけますようお願いいたします。<br>
+                                    ・使用用途・希望費用・希望納期・実績公開の可/不可・制作フロー。<br>
+                                    ・提出データの形式（制作サイズや解像度）・参考画像やPDF資料など。</p>
+                                    <p>英訳に時間がかかるため、海外の方は日本語訳をご用意いただけますと幸いです。<br>
+                                    Because it takes time to read and write English, I appreciate it if you could request a Japanese translation.</p>
+                                    <p class="opacity-20">ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 max-w-3xl">
+                        <div class="zzz-card group overflow-hidden bg-black/40 border border-white/5 relative cursor-pointer" onclick="playVideo(this)">
+                            <div id="yt-thumb-container" class="aspect-video relative overflow-hidden bg-black">
+                                <img src="https://img.youtube.com/vi/tQfpqHQGBns/maxresdefault.jpg" class="vivid-img opacity-60 group-hover:opacity-100 transition-opacity" alt="YouTube Thumbnail">
+                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <div class="w-16 h-16 bg-zzz-red rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 5V19L19 12L8 5Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-5 border-t border-white/5">
+                                <span class="card-tag !mb-1">Promotion Movie</span>
+                                <h3 class="text-sm md:text-md font-black italic text-white/80 group-hover:text-zzz-red transition-colors mb-4">HUION様 １５周年記念企画/ 「Kamvas Pro 19」制作メイキング</h3>
+
+                                <!-- [ADD] コラボ相手リンクセクション -->
+                                <div class="flex flex-wrap gap-x-6 gap-y-2 pt-4 border-t border-white/5">
+                                    <a href="https://x.com/HuionLeon_JP?s=20" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-[10px] font-bold text-white/40 hover:text-white transition-colors flex items-center gap-1.5">
+                                        <span class="text-zzz-red">企画：HUION</span>
+                                        <span class="opacity-50">@HuionLeon_JP</span>
+                                    </a>
+                                    <a href="https://x.com/siosionagasu_?s=20" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-[10px] font-bold text-white/40 hover:text-white transition-colors flex items-center gap-1.5">
+                                        <span class="text-zzz-red">モンスターデザイン：塩ながす</span>
+                                        <span class="opacity-50">@siosionagasu_</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 pt-10 border-t border-white/10">
+                        <div>
+                            <span class="text-[10px] font-black text-zzz-red block mb-6 uppercase tracking-[0.4em]">制作範囲</span>
+                            <ul class="text-[13px] font-black italic space-y-3 opacity-80">
+                                <li>> キービジュアル/メインビジュアル</li>
+                                <li>> キャラクターデザイン</li>
+                                <li>> 配信用サムネイル/その他アセット</li>
+                                <li>> トレーディングカードゲームイラスト</li>
+                                <li>> ミュージックビデオイラスト</li>
+                                <li>> ライトノベルイラスト</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-black text-zzz-red block mb-6 uppercase tracking-[0.4em]">所在地</span>
+                            <p class="text-3xl font-black italic tracking-tighter">東京 / JP</p>
+                            <p class="text-[10px] font-bold opacity-30 mt-4 tracking-widest uppercase">Remote Work Optimized</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="clients" class="py-32 px-6 border-t border-white/5 relative overflow-hidden">
+        <div class="crack-line top-[20%] right-0 rotate-[6deg]"></div>
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="flex justify-between items-end mb-16">
+                <div class="section-head-reveal">
+                    <div class="flex items-center gap-3 mb-2">
+                        <svg class="section-mark" width="16" height="16"><use href="#icon-corner-bracket"/></svg>
+                        <span class="text-zzz-red font-black text-[8px] tracking-[0.6em]">05</span>
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-light italic leading-none uppercase tracking-wide hover:text-zzz-red transition-colors">Clients</h2>
+                </div>
+            </div>
+            <span class="text-zzz-red font-black text-[11px] tracking-[0.4em] block mb-8 uppercase italic">// お取引先一覧</span>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-y-10 gap-x-12 opacity-80">
+                <a href="http://yomiholic.com" target="_blank" rel="noopener noreferrer" class="block text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社YomiHolic</a>
+                <a href="https://www.kurogames.com" target="_blank" rel="noopener noreferrer" class="block text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">Kuro Games</a>
+                <a href="https://plaize.co/" target="_blank" rel="noopener noreferrer" class="block text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社plaize</a>
+                <a href="https://www.huion.com/jp/" target="_blank" rel="noopener noreferrer" class="block text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社HUION</a>
+                <a href="https://gameandco.co.jp/" target="_blank" rel="noopener noreferrer" class="block text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社Game & Co. </a>
+                <a href="https://bookbase.jp/" target="_blank" rel="noopener noreferrer" class="block text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社BookBase</a>
+                <a href="https://www.sme.co.jp/" target="_blank" rel="noopener noreferrer" class="block text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社Sony Music Ent.</a>
+                <a href="https://celsys.com/" target="_blank" rel="noopener noreferrer" class="block text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社セルシス</a>
+                <a href="https://aktsk.jp/" target="_blank" rel="noopener noreferrer" class="block text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社アカツキ</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="pb-24 px-6">
+        <div class="max-w-screen-2xl mx-auto pt-20 flex flex-col md:flex-row justify-end items-end gap-16">
+            <div class="text-right flex flex-col items-end gap-8">
+                <div class="flex gap-10 text-[11px] font-black italic uppercase tracking-[0.3em]">
+                    <a href="https://www.pixiv.net/users/27716830" target="_blank" rel="noopener noreferrer" class="hover:text-zzz-red">Pixiv</a>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-[10px] font-bold opacity-20 tracking-[0.6em] uppercase">
+                        © ZABI STORAGE // ARCHIVE_DATA_2026
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" onclick="scrollToTop()" aria-label="トップへ戻る" class="corner-fab fixed bottom-6 right-6 z-[1050] w-14 h-14 flex items-center justify-center bg-white text-black opacity-0 pointer-events-none translate-y-3">
+        <svg class="corner-fab-frame" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-corner-bracket"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+    </button>
+
+    <!-- Unified Sound Toggle: fixed bottom-left, always visible (mirrors
+         #back-to-top). One control for whichever audio is relevant right
+         now — site BGM normally, or the MV card's own video audio while
+         one is playing (the two never sound at once: BGM stops the moment
+         an MV card starts, and picks back up when it stops). Hovering
+         reveals a volume slider for the BGM alongside it. -->
+    <div id="sound-control" class="fixed bottom-6 left-6 z-[1050] flex items-center">
+        <button type="button" id="sound-toggle" onclick="toggleSound()" aria-label="音声のオン/オフ" class="corner-fab w-14 h-14 flex items-center justify-center bg-white text-black shrink-0">
+            <svg class="corner-fab-frame" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-corner-bracket"/></svg>
+            <svg id="sound-icon-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            <svg id="sound-icon-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
+        <input type="range" id="bgm-volume" class="bgm-volume-slider" min="0" max="1" step="0.01" value="0.5" aria-label="BGM音量">
+    </div>
+    <audio id="bgm-audio" src="audio/poison.mp3" loop preload="none"></audio>
+
+    <!-- Section Dot Navigation -->
+    <nav class="dot-nav hidden lg:flex" id="dot-nav" aria-label="セクションナビゲーション">
+        <a href="#hero" data-section="hero" class="dot-nav-item"><span class="dot-nav-label">Top</span><span class="dot-nav-dot"></span></a>
+        <a href="#commercial" data-section="commercial" class="dot-nav-item"><span class="dot-nav-label">Works</span><span class="dot-nav-dot"></span></a>
+        <a href="#mv" data-section="mv" class="dot-nav-item"><span class="dot-nav-label">Music Video</span><span class="dot-nav-dot"></span></a>
+        <a href="#personal" data-section="personal" class="dot-nav-item"><span class="dot-nav-label">Fanart</span><span class="dot-nav-dot"></span></a>
+        <a href="#about" data-section="about" class="dot-nav-item"><span class="dot-nav-label">About</span><span class="dot-nav-dot"></span></a>
+        <a href="#clients" data-section="clients" class="dot-nav-item"><span class="dot-nav-label">Clients</span><span class="dot-nav-dot"></span></a>
+        <a href="#contact" data-section="contact" class="dot-nav-item"><span class="dot-nav-label">Contact</span><span class="dot-nav-dot"></span></a>
+    </nav>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 bg-black/95 z-[1200] hidden items-center justify-center p-6 cursor-zoom-out" onclick="closeLightbox()">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-4xl font-black hover:text-zzz-red transition-all leading-none z-10">&times;</button>
+        <div id="lightbox-content" class="flex flex-col lg:flex-row items-center gap-8 max-w-[92vw] max-h-[92vh] cursor-default" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="" class="max-h-[70vh] lg:max-h-[92vh] max-w-full lg:max-w-[65vw] object-contain shadow-2xl">
+            <div id="lightbox-info" class="hidden lg:w-80 shrink-0 text-left">
+                <span id="lightbox-tag" class="card-tag"></span>
+                <h3 id="lightbox-title" class="text-2xl font-black italic leading-tight mt-3 mb-4"></h3>
+                <p id="lightbox-client" class="text-[13px] opacity-50 font-bold uppercase tracking-widest"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Prevent the browser from restoring the previous scroll position on
+        // reload — clicking the logo should always land back at the very top.
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Lightbox
+        function openLightbox(el) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const info = document.getElementById('lightbox-info');
+            const tagEl = document.getElementById('lightbox-tag');
+            const titleEl = document.getElementById('lightbox-title');
+            const clientEl = document.getElementById('lightbox-client');
+
+            img.src = el.dataset.full || el.src;
+            img.alt = el.alt || '';
+
+            const card = el.closest('.zzz-card');
+            const tag = card ? card.querySelector('.card-tag') : null;
+            const title = card ? card.querySelector('h3') : null;
+            const client = card ? card.querySelector('p') : null;
+
+            if (tag && title) {
+                tagEl.textContent = tag.textContent.trim();
+                titleEl.textContent = title.textContent.trim();
+                clientEl.textContent = client ? client.textContent.trim() : '';
+                info.classList.remove('hidden');
+                info.classList.add('flex', 'flex-col', 'justify-center');
+            } else {
+                info.classList.add('hidden');
+                info.classList.remove('flex', 'flex-col', 'justify-center');
+            }
+
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.getElementById('lightbox-img').src = '';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Hero Title Animation (fired after preloader clears, see revealSite())
+        function revealHero() {
+            gsap.timeline()
+                .from("#hero-title-zabi", { duration: 0.6, xPercent: -120, opacity: 0, ease: "expo.out" })
+                .from("#hero-title-storage", { duration: 0.6, xPercent: -120, opacity: 0, ease: "expo.out" }, "-=0.35")
+                .from("#hero-tagline", { duration: 0.6, xPercent: -60, opacity: 0, ease: "expo.out" }, "+=0.3");
+
+            gsap.from("#hero .stat-number, #hero .magnetic-btn", {
+                duration: 0.8, y: 20, opacity: 0, stagger: 0.06, delay: 0.4, ease: "power3.out"
+            });
+        }
+
+        // Cards Animation (fanart has its own rotating, staggered reveal below)
+        document.querySelectorAll('.zzz-card:not(#fanart-grid .zzz-card)').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: { trigger: card, start: "top 90%" },
+                y: 60, opacity: 0, duration: 1, ease: "power4.out", delay: (i % 3) * 0.1,
+                clearProps: "transform"
+            });
+        });
+
+        // FANART Reveal — cards sit back-face-up (TCG card back) until they
+        // scroll into view, then flip over their horizontal axis one after
+        // another, in batches, to reveal the artwork.
+        function initFanartReveal() {
+            const grid = document.getElementById('fanart-grid');
+            if (!grid) return;
+            const inners = gsap.utils.toArray(grid.querySelectorAll('.card-flip-inner'));
+            if (!inners.length) return;
+            ScrollTrigger.batch(inners, {
+                start: "top 92%",
+                onEnter: (batch) => {
+                    gsap.to(batch, {
+                        rotationY: 0,
+                        duration: 1.8,
+                        ease: "power2.inOut",
+                        stagger: 0.15
+                    });
+                }
+            });
+        }
+
+        // Section Header Reveal — every section badge+heading fades/slides in
+        // the same way as it enters view, for a consistent rhythm site-wide.
+        document.querySelectorAll('.section-head-reveal').forEach((head) => {
+            ScrollTrigger.create({
+                trigger: head,
+                start: "top 88%",
+                onEnter: () => head.classList.add('is-visible'),
+                onEnterBack: () => head.classList.add('is-visible')
+            });
+        });
+
+        // Profile Card Center Reveal (opens outward from the middle to both
+        // sides, reverses on scroll-back). Slow and steady rather than a
+        // quick snap — fires as soon as the card appears on screen.
+        gsap.from("#profile-card", {
+            scaleX: 0,
+            opacity: 0,
+            transformOrigin: "50% 50%",
+            duration: 5,
+            delay: 0.6,
+            ease: "power2.inOut",
+            scrollTrigger: {
+                trigger: "#profile-card",
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Background Slider Logic — single showcased illustration, crossfading
+        // through the full pool of artwork on a timer.
+        let heroArtPool = [];
+        const heroOrientationCache = new Map();
+
+        function applyHeroSlideImage(el, url) {
+            el.style.backgroundImage = `url('${url}')`;
+            if (heroOrientationCache.has(url)) {
+                el.classList.toggle('is-landscape', heroOrientationCache.get(url));
+                return;
+            }
+            const probe = new Image();
+            probe.onload = () => {
+                const isLandscape = probe.naturalWidth > probe.naturalHeight;
+                heroOrientationCache.set(url, isLandscape);
+                el.classList.toggle('is-landscape', isLandscape);
+            };
+            probe.src = url;
+        }
+
+        // Forces the browser to commit the element's current (inactive) style
+        // before adding 'active', so the opacity/scale transition actually
+        // plays instead of silently starting in its end state.
+        function activateHeroSlide(el) {
+            void el.offsetWidth;
+            el.classList.add('active');
+        }
+
+        function initHeroSlider() {
+            const frame = document.getElementById('hero-art-frame');
+            const progressFill = document.getElementById('hero-progress-fill');
+            if (!frame || heroArtPool.length < 2) return;
+
+            const initialSlide = frame.querySelector('.hero-slide');
+            if (initialSlide) {
+                applyHeroSlideImage(initialSlide, heroArtPool[0]);
+                activateHeroSlide(initialSlide);
+            }
+
+            const DURATION = 6000;
+            let index = 0;
+            let rafId = null;
+
+            function runLap() {
+                const start = performance.now();
+                if (rafId) cancelAnimationFrame(rafId);
+
+                function tick(now) {
+                    const f = Math.min(1, (now - start) / DURATION);
+                    if (progressFill) progressFill.style.width = (f * 100) + '%';
+                    if (f < 1) {
+                        rafId = requestAnimationFrame(tick);
+                    } else {
+                        nextSlide();
+                    }
+                }
+                rafId = requestAnimationFrame(tick);
+            }
+
+            function nextSlide() {
+                index = (index + 1) % heroArtPool.length;
+                const prev = frame.querySelector('.hero-slide.active');
+                const next = document.createElement('div');
+                next.className = 'hero-slide';
+                applyHeroSlideImage(next, heroArtPool[index]);
+                frame.appendChild(next);
+                activateHeroSlide(next);
+                if (prev) {
+                    prev.classList.remove('active');
+                    setTimeout(() => prev.remove(), 1800);
+                }
+                runLap();
+            }
+
+            runLap();
+        }
+
+        function injectWorksImagesToSlider() {
+            const worksGrid = document.getElementById('works-grid');
+            const frame = document.getElementById('hero-art-frame');
+            if (!worksGrid || !frame) return;
+
+            const seen = new Set();
+            const initialSlide = frame.querySelector('.hero-slide');
+            const rawInitialUrl = initialSlide ? initialSlide.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '') : '';
+            // Resolve to an absolute URL so it matches img.src (which the browser
+            // always resolves to absolute) — otherwise the same picture slips
+            // past the dedupe check and ends up in the pool twice.
+            const initialUrl = rawInitialUrl ? new URL(rawInitialUrl, document.baseURI).href : '';
+            if (initialUrl) { heroArtPool.push(initialUrl); seen.add(initialUrl); }
+
+            worksGrid.querySelectorAll('img').forEach(img => {
+                if (!seen.has(img.src)) { heroArtPool.push(img.src); seen.add(img.src); }
+            });
+        }
+
+        // --- Grid Pagination (WORKS / FANART) ---
+        // Swaps visible items instead of growing the grid's height. Growing
+        // the page (like the old VIEW MORE expand) shifts where every section
+        // below starts, which left the pinned MUSIC VIDEO section's scroll
+        // math stale and made it visually overlap WORKS. Paging keeps the
+        // page height stable, so nothing below ever needs to move.
+        function initGridPagination(gridId, pagerId, pageSize) {
+            const grid = document.getElementById(gridId);
+            const pager = document.getElementById(pagerId);
+            if (!grid || !pager) return;
+
+            const items = Array.from(grid.children);
+            const PAGE_SIZE = pageSize;
+            const totalPages = Math.max(1, Math.ceil(items.length / PAGE_SIZE));
+            let currentPage = 1;
+
+            function goToGridTop() {
+                if (typeof lenis !== 'undefined' && lenis) {
+                    lenis.scrollTo(grid, { duration: 1, easing: lenisEase, offset: -100 });
+                } else {
+                    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            function renderPage(page, shouldScroll) {
+                currentPage = Math.min(Math.max(1, page), totalPages);
+                items.forEach((item, i) => {
+                    const itemPage = Math.floor(i / PAGE_SIZE) + 1;
+                    item.style.display = itemPage === currentPage ? '' : 'none';
+                });
+                pager.querySelectorAll('[data-page]').forEach((btn) => {
+                    btn.classList.toggle('is-active', Number(btn.dataset.page) === currentPage);
+                });
+                const prevBtn = pager.querySelector('[data-page-prev]');
+                const nextBtn = pager.querySelector('[data-page-next]');
+                if (prevBtn) prevBtn.disabled = currentPage === 1;
+                if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+                if (shouldScroll) goToGridTop();
+                if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+            }
+
+            if (totalPages <= 1) {
+                pager.style.display = 'none';
+                renderPage(1, false);
+                return;
+            }
+
+            const prevBtn = document.createElement('button');
+            prevBtn.type = 'button';
+            prevBtn.dataset.pagePrev = '';
+            prevBtn.className = 'page-nav-btn';
+            prevBtn.textContent = '← PREV';
+            prevBtn.addEventListener('click', () => renderPage(currentPage - 1, true));
+            pager.appendChild(prevBtn);
+
+            const numsWrap = document.createElement('div');
+            numsWrap.className = 'flex gap-3';
+            for (let p = 1; p <= totalPages; p++) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.dataset.page = String(p);
+                btn.className = 'page-num-btn';
+                btn.textContent = String(p).padStart(2, '0');
+                btn.addEventListener('click', () => renderPage(p, true));
+                numsWrap.appendChild(btn);
+            }
+            pager.appendChild(numsWrap);
+
+            const nextBtn = document.createElement('button');
+            nextBtn.type = 'button';
+            nextBtn.dataset.pageNext = '';
+            nextBtn.className = 'page-nav-btn';
+            nextBtn.textContent = 'NEXT →';
+            nextBtn.addEventListener('click', () => renderPage(currentPage + 1, true));
+            pager.appendChild(nextBtn);
+
+            renderPage(1, false);
+        }
+
+        // --- Smooth Scroll (Lenis) ---
+        let lenis;
+        const lenisEase = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+        function initSmoothScroll() {
+            if (typeof Lenis === 'undefined') return;
+            lenis = new Lenis({ lerp: 0.13, smoothWheel: true });
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => lenis.raf(time * 1000));
+            gsap.ticker.lagSmoothing(0);
+
+            document.querySelectorAll('a[href^="#"]').forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    const id = link.getAttribute('href');
+                    const target = id && id.length > 1 ? document.querySelector(id) : null;
+                    if (!target) return;
+                    e.preventDefault();
+                    lenis.scrollTo(target, { duration: 1.2, easing: lenisEase });
+                });
+            });
+        }
+
+        // --- Custom Cursor ---
+        function initCustomCursor() {
+            const dot = document.getElementById('cursor-dot');
+            const ring = document.getElementById('cursor-ring');
+            if (!dot || !ring || window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+
+            const setDot = gsap.quickTo(dot, "x", { duration: 0.05, ease: "none" });
+            const setDotY = gsap.quickTo(dot, "y", { duration: 0.05, ease: "none" });
+            const setRing = gsap.quickTo(ring, "x", { duration: 0.35, ease: "power3.out" });
+            const setRingY = gsap.quickTo(ring, "y", { duration: 0.35, ease: "power3.out" });
+
+            window.addEventListener('mousemove', (e) => {
+                setDot(e.clientX); setDotY(e.clientY);
+                setRing(e.clientX); setRingY(e.clientY);
+            });
+
+            document.querySelectorAll('a, button, .cursor-zoom-in').forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('is-active'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+            });
+        }
+
+        // --- Magnetic Buttons ---
+        function initMagneticButtons() {
+            document.querySelectorAll('.magnetic-btn').forEach(btn => {
+                const strength = 0.35;
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = (e.clientX - rect.left - rect.width / 2) * strength;
+                    const y = (e.clientY - rect.top - rect.height / 2) * strength;
+                    gsap.to(btn, { x, y, duration: 0.3, ease: "power3.out" });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.4)" });
+                });
+            });
+        }
+
+        // --- Scroll Progress Bar ---
+        function initScrollProgress() {
+            const bar = document.getElementById('scroll-progress');
+            if (!bar) return;
+            ScrollTrigger.create({
+                trigger: document.body,
+                start: "top top",
+                end: "bottom bottom",
+                onUpdate: (self) => { bar.style.width = (self.progress * 100) + "%"; }
+            });
+        }
+
+        // --- Back to Top ---
+        function scrollToTop() {
+            if (typeof lenis !== 'undefined' && lenis) {
+                lenis.scrollTo(0, { duration: 1.2, easing: lenisEase });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function initBackToTop() {
+            const btn = document.getElementById('back-to-top');
+            if (!btn) return;
+            ScrollTrigger.create({
+                trigger: document.body,
+                start: "top -600",
+                onEnter: () => btn.classList.add('is-visible'),
+                onLeaveBack: () => btn.classList.remove('is-visible')
+            });
+        }
+
+        // --- Section Dot Navigation ---
+        function initDotNav() {
+            const items = document.querySelectorAll('.dot-nav-item');
+            if (!items.length) return;
+            items.forEach((item) => {
+                const section = document.getElementById(item.dataset.section);
+                if (!section) return;
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: "top center",
+                    end: "bottom center",
+                    onToggle: (self) => item.classList.toggle('is-active', self.isActive)
+                });
+            });
+        }
+
+        // --- MV Card Stack (DIAGNOSTIC / SIMPLIFIED VERSION) ---
+        // Stripped down on purpose: no stacking, no rotation, no hold phase,
+        // no glitch effect. Card and label opacity are driven by the exact
+        // same tween call at the exact same timeline position, so a mismatch
+        // here would mean the problem is in ScrollTrigger/scrub itself, not
+        // in any of the custom timing logic we built on top of it.
+        function initMvCardStack() {
+            const wrap = document.getElementById('mv-pin-wrap');
+            const cards = gsap.utils.toArray('.mv-stack-card');
+            const infos = gsap.utils.toArray('.mv-info');
+            const indexLabel = document.getElementById('mv-active-index');
+            const N = cards.length;
+            if (!wrap || N < 2) return;
+
+            // Each card keeps a fixed slight tilt — like a stack of CDs set
+            // down casually — and rises up from below to overlap the one
+            // in front of it as it becomes active.
+            const tilts = [-4, 3, -3, 5, -5, 4, -3.5];
+            cards.forEach((card, i) => gsap.set(card, { rotate: tilts[i % tilts.length] }));
+
+            gsap.set(cards, { yPercent: 65, scale: 1, opacity: 0, zIndex: 1 });
+            gsap.set(cards[0], { zIndex: 2 });
+            gsap.set(infos, { opacity: 0, xPercent: -35 });
+            gsap.set(infos[0], { opacity: 1, xPercent: 0 });
+            infos[0].classList.add('active');
+            if (indexLabel) indexLabel.textContent = '02.01';
+
+            // Starts exactly one card playing and flashes its frame red —
+            // the glow IS the "audio just started" cue, so this is the only
+            // place playback ever turns on. Everywhere else only turns
+            // playback off (during transitions, leaving the section, etc.),
+            // which keeps sound from ever starting on a half-settled card.
+            function activateMvCard(card) {
+                if (!card) return;
+                cards.forEach((c) => { if (c !== card) setMvCardPlaying(c, false); });
+                setMvCardPlaying(card, true);
+                // Every path that starts a card's audio (section entry, the
+                // scroll-snap settling, the jump panel) funnels through
+                // here — suspending BGM in just one place, instead of at
+                // each call site, means none of them can forget to do it.
+                setBgmSuspended(true);
+                card.classList.remove('snap-glow');
+                void card.offsetWidth;
+                card.classList.add('snap-glow');
+                const idx = card.dataset.mvCard;
+                document.querySelectorAll('.mv-jump-btn').forEach((b) => {
+                    b.classList.toggle('is-active', b.dataset.jumpIndex === idx);
+                });
+            }
+
+            // MOVE = the fade itself. HOLD = a still period afterward where
+            // nothing changes at all, before the next fade can begin.
+            const MOVE = 1;
+            const HOLD = 0.5;
+            const STEP = MOVE + HOLD;
+            const totalDuration = (N - 1) * STEP + HOLD;
+
+            // Play/pause is driven by a separate, unpinned ScrollTrigger
+            // below (not this component's own scrub timeline) — mixing the
+            // two caused a race where onEnter and this timeline's tween
+            // onStart callbacks landed in the wrong order on a single big
+            // scroll jump, leaving the first card stuck playing forever.
+            //
+            // Split into two triggers on purpose: the enter one fires a
+            // bit early ("top 90%") so the card-0 rise animation has room
+            // to play before the pin engages. The leave one needs an exact
+            // end matching the main pinned trigger below — without it,
+            // ScrollTrigger defaults to the element's own unpinned height
+            // (~1/3 of the real pinned scroll distance), so onLeave/BGM
+            // resume fired while still deep in the card transitions.
+            ScrollTrigger.create({
+                trigger: wrap,
+                start: "top 90%",
+                onEnter: () => {
+                    gsap.to(cards[0], { opacity: 1, yPercent: 0, duration: 1, ease: "power2.out" });
+                    activateMvCard(cards[0]);
+                },
+                onEnterBack: () => activateMvCard(cards[N - 1]),
+                // Card 0 is the only one that ever starts playing before the
+                // pin itself engages (right as it scrolls into view). If the
+                // user scrolls back up without ever reaching "top top", the
+                // properly-bounded leave-trigger below never sees them enter
+                // its zone at all, so its onLeaveBack can't stop card 0 —
+                // this is the only place that gap gets closed.
+                onLeaveBack: () => {
+                    cards.forEach((c) => setMvCardPlaying(c, false));
+                    setBgmSuspended(false);
+                }
+            });
+            ScrollTrigger.create({
+                trigger: wrap,
+                // Starts at "top 90%" — the same point the enter-trigger
+                // above starts at — rather than "top top". Sharing one
+                // exact pixel as a handoff between two separate triggers
+                // left a hairline gap right there where isActive could
+                // read false for a frame during the pin's own engagement
+                // (anticipatePin adjusts timing right around that point
+                // too), letting BGM blip on for an instant — exactly the
+                // 01→02 boundary the flicker was reported at. Overlapping
+                // the two ranges instead of touching them removes that gap.
+                start: "top 90%",
+                // Ends when FANART actually starts, not when the pin
+                // technically releases — .mv-pin-wrap is min-h-screen, so
+                // after unpinning it still fills the viewport with card 07
+                // for roughly one more screen height before FANART's
+                // content really begins. Using #personal as a GSAP
+                // endTrigger caused a worse, much-too-early result (likely
+                // measured before the pin spacer's height was settled, the
+                // same class of ordering bug initDotNav() had) — measuring
+                // both positions by hand and returning a plain "+=" pixel
+                // distance sidesteps that entirely.
+                // GSAP's own refresh pass measures start/end functions
+                // against a temporarily-unpinned "clean slate" layout, so
+                // reading #personal's or wrap's live position from inside
+                // this function never sees the final, pin-adjusted result —
+                // it's always ~the same natural (unpinned) gap regardless of
+                // when it's called. Empirically that natural gap between
+                // this trigger's start and #personal's natural top is
+                // ~1.9 * innerHeight (.mv-pin-wrap's own min-h-screen plus
+                // the 0.9*innerHeight this trigger's start sits before it).
+                // Add the pin's own injected distance on top of that fixed,
+                // reliable ratio instead of trying to read live positions.
+                end: () => "+=" + (totalDuration * window.innerHeight * 0.6 + window.innerHeight * 1.9),
+                onLeave: () => cards.forEach((c) => setMvCardPlaying(c, false)),
+                onLeaveBack: () => cards.forEach((c) => setMvCardPlaying(c, false)),
+                // onToggle re-evaluates and self-corrects on every state
+                // change AND on ScrollTrigger.refresh() / initial setup —
+                // unlike onEnter/onLeave, it isn't dependent on the scroll
+                // position actually crossing the boundary through a normal
+                // scroll gesture, so BGM suspension stays correct even if
+                // the page loads (or a link jumps) already inside this zone.
+                onToggle: (self) => setBgmSuspended(self.isActive)
+            });
+
+            // One snap point per card — the moment its fade-in finishes and
+            // it's fully settled (start of its HOLD) — so scrolling always
+            // comes to rest on a clean, fully-formed card instead of a
+            // half-faded in-between state.
+            const snapPoints = [0];
+            for (let i = 1; i < N; i++) snapPoints.push(((i - 1) * STEP + MOVE) / totalDuration);
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: wrap,
+                    start: "top top",
+                    end: () => "+=" + (totalDuration * window.innerHeight * 0.6),
+                    scrub: true,
+                    pin: true,
+                    anticipatePin: 1
+                }
+            });
+
+            // GSAP's built-in scrollTrigger `snap` animates window scroll
+            // directly, which fights with Lenis (this site's smooth-scroll
+            // driver) for control of the scroll position and never settles
+            // cleanly. Snapping through lenis.scrollTo() instead — the same
+            // path every other programmatic scroll on this site already
+            // uses — lands cleanly on a fully-formed card every time.
+            //
+            // Debouncing off wheel/touch input (not the 'scroll' event) is
+            // what actually makes this converge: the snap's own
+            // lenis.scrollTo() call generates scroll events too, and
+            // listening to 'scroll' meant our own correction kept resetting
+            // its own debounce timer and never settled.
+            const st = tl.scrollTrigger;
+            let mvSnapTimer = null;
+            function scheduleMvSnap() {
+                clearTimeout(mvSnapTimer);
+                mvSnapTimer = setTimeout(() => {
+                    if (!st.isActive) return;
+                    let nearest = snapPoints[0];
+                    let minDiff = Math.abs(st.progress - nearest);
+                    for (const p of snapPoints) {
+                        const diff = Math.abs(st.progress - p);
+                        if (diff < minDiff) { minDiff = diff; nearest = p; }
+                    }
+                    const targetY = st.start + nearest * (st.end - st.start);
+                    const landedCard = cards[snapPoints.indexOf(nearest)];
+                    // Force the timeline to the exact settled state before
+                    // reacting to it — otherwise onComplete can land a frame
+                    // ahead of the scroll-driven opacity update, and the
+                    // glow/audio fire while the fade is still visibly short
+                    // of finished.
+                    const finishReveal = () => {
+                        // `nearest` is a fraction of the scroll trigger's
+                        // full pixel range (totalDuration seconds' worth,
+                        // which includes extra trailing hold room past the
+                        // timeline's own last tween). tl.progress() means a
+                        // fraction of tl's own (shorter) natural duration,
+                        // so it has to be converted via the settle time in
+                        // seconds, not used directly — otherwise it seeks to
+                        // the wrong, still-mid-fade point.
+                        tl.progress((nearest * totalDuration) / tl.duration());
+                        activateMvCard(landedCard);
+                    };
+                    if (typeof lenis !== 'undefined' && lenis) {
+                        lenis.scrollTo(targetY, { duration: 0.3, easing: lenisEase, onComplete: finishReveal });
+                    } else {
+                        window.scrollTo({ top: targetY, behavior: 'smooth' });
+                        finishReveal();
+                    }
+                }, 280);
+            }
+            window.addEventListener('wheel', scheduleMvSnap, { passive: true });
+            window.addEventListener('touchmove', scheduleMvSnap, { passive: true });
+
+            // Jump panel: scrolls straight to a given card's settled scroll
+            // position, then locks the timeline to that exact state and
+            // activates it — same landing logic the scroll-snap uses, so it
+            // never leaves a card visibly mid-fade either.
+            window.jumpToMvCard = function (index) {
+                if (index < 0 || index >= N) return;
+                clearTimeout(mvSnapTimer);
+                const targetY = st.start + snapPoints[index] * (st.end - st.start);
+                const land = () => {
+                    tl.progress((snapPoints[index] * totalDuration) / tl.duration());
+                    activateMvCard(cards[index]);
+                };
+                if (typeof lenis !== 'undefined' && lenis) {
+                    lenis.scrollTo(targetY, { duration: 0.8, easing: lenisEase, onComplete: land });
+                } else {
+                    window.scrollTo({ top: targetY, behavior: 'smooth' });
+                    land();
+                }
+            };
+
+            for (let i = 1; i < N; i++) {
+                const pos = (i - 1) * STEP;
+                tl.to(cards[i - 1], { opacity: 0.4, yPercent: -12, duration: MOVE, ease: "none" }, pos);
+                tl.to(cards[i], {
+                    opacity: 1, yPercent: 0, duration: MOVE, ease: "none",
+                    onStart: () => { cards[i].style.zIndex = 2; cards[i - 1].style.zIndex = 1; },
+                    onReverseComplete: () => { cards[i].style.zIndex = 1; cards[i - 1].style.zIndex = 2; }
+                }, pos);
+                tl.to(infos[i - 1], { opacity: 0, duration: MOVE * 0.4, ease: "none" }, pos);
+                tl.to(infos[i], {
+                    opacity: 1, xPercent: 0, duration: MOVE * 0.4, ease: "none",
+                    onStart: () => {
+                        infos[i - 1].classList.remove('active');
+                        infos[i].classList.add('active');
+                        if (indexLabel) indexLabel.textContent = '02.' + String(i + 1).padStart(2, '0');
+                        // Go quiet the moment a transition starts — sound
+                        // only resumes once the snap lands and the new card
+                        // flashes, so audio and the "settled" card always
+                        // line up instead of drifting apart mid-scroll.
+                        setMvCardPlaying(cards[i - 1], false);
+                    },
+                    onReverseComplete: () => {
+                        infos[i].classList.remove('active');
+                        infos[i - 1].classList.add('active');
+                        if (indexLabel) indexLabel.textContent = '02.' + String(i).padStart(2, '0');
+                        setMvCardPlaying(cards[i], false);
+                    }
+                }, pos);
+            }
+
+            // Keeps the jump panel sitting at the midpoint between the card
+            // stack's right edge and the screen's right edge, however wide
+            // the viewport is. #mv-jump-panel is absolutely positioned
+            // inside .mv-pin-wrap (the pinned element itself), so this
+            // stays correct through the whole pinned scroll too.
+            function positionMvJumpPanel() {
+                const panel = document.getElementById('mv-jump-panel');
+                if (!panel) return;
+                const stackRect = cards[0].closest('#mv-card-stack').getBoundingClientRect();
+                const wrapRect = wrap.getBoundingClientRect();
+                // Not measured from the panel itself: the Tailwind CDN
+                // build generates utility CSS asynchronously, so on the
+                // very first call (right at window.onload) the panel can
+                // still be unstyled and report a near-zero width, throwing
+                // the clamp off. Two 34px buttons + gap ≈ 76px; pad it out
+                // a bit for safety.
+                const halfPanel = 40;
+                const margin = 16;
+                let midX = (stackRect.right + window.innerWidth) / 2;
+                // Clamp so the panel never overlaps the illustration, then
+                // clamp again so it never runs off the right edge of the
+                // screen — in that order, so when the gap is too narrow to
+                // satisfy both, staying fully visible on-screen wins.
+                midX = Math.max(midX, stackRect.right + halfPanel + margin);
+                midX = Math.min(midX, window.innerWidth - halfPanel - margin);
+                panel.style.left = (midX - wrapRect.left) + 'px';
+                panel.style.top = (stackRect.top + stackRect.height / 2 - wrapRect.top) + 'px';
+            }
+            positionMvJumpPanel();
+            window.addEventListener('resize', positionMvJumpPanel);
+            ScrollTrigger.addEventListener('refresh', positionMvJumpPanel);
+        }
+
+        // --- Stats Counter ---
+        function initStatsCounter() {
+            document.querySelectorAll('.stat-number[data-count]').forEach(el => {
+                const target = parseInt(el.dataset.count, 10);
+                const counter = { val: 0 };
+                gsap.to(counter, {
+                    val: target,
+                    duration: 1.8,
+                    delay: 1,
+                    ease: "power2.out",
+                    onUpdate: () => { el.textContent = Math.round(counter.val); }
+                });
+            });
+        }
+
+        // --- Site Reveal (runs once the preloader has fully cleared) ---
+        function revealSite() {
+            document.body.classList.remove('is-loading');
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = 'auto';
+            initSmoothScroll();
+            revealHero();
+            initHeroSlider();
+            initStatsCounter();
+            ScrollTrigger.refresh();
+        }
+
+        // --- Preloader ---
+        function initPreloader() {
+            const preloader = document.getElementById('preloader');
+            const content = document.getElementById('preloader-content');
+            const fill = document.getElementById('preloader-bar-fill');
+            const percentEl = document.getElementById('preloader-percent');
+            const statusEl = document.getElementById('preloader-status');
+            const logo = document.getElementById('preloader-logo');
+            if (!preloader) return;
+
+            const STATUS_LINES = [
+                "connecting to storage...",
+                "decrypting archive data...",
+                "rendering illustrations...",
+                "compiling portfolio..."
+            ];
+            let statusIndex = 0;
+            const statusTimer = setInterval(() => {
+                statusIndex = (statusIndex + 1) % STATUS_LINES.length;
+                if (statusEl) statusEl.textContent = STATUS_LINES[statusIndex];
+            }, 650);
+
+            const MIN_DISPLAY = 1800;
+            const startTime = performance.now();
+            const state = { p: 0 };
+
+            const updateBar = () => {
+                fill.style.width = state.p + "%";
+                percentEl.textContent = Math.round(state.p) + "%";
+            };
+
+            gsap.to(state, {
+                p: 88,
+                duration: 2,
+                ease: "power2.out",
+                onUpdate: updateBar
+            });
+
+            const finish = () => {
+                clearInterval(statusTimer);
+                if (statusEl) statusEl.textContent = "archive ready";
+
+                gsap.to(state, {
+                    p: 100,
+                    duration: 0.4,
+                    ease: "power1.out",
+                    onUpdate: updateBar,
+                    onComplete: () => {
+                        percentEl.classList.add('is-complete');
+                        fill.classList.add('is-complete');
+
+                        gsap.timeline()
+                            .to({}, { duration: 0.45 })
+                            .call(() => logo.classList.add('preloader-glitch'))
+                            .to({}, { duration: 0.35 })
+                            .to(content, {
+                                opacity: 0,
+                                duration: 0.2,
+                                ease: "power1.in"
+                            })
+                            .to(preloader, {
+                                opacity: 0,
+                                duration: 0.35,
+                                ease: "power1.in",
+                                onComplete: () => {
+                                    preloader.classList.add('is-hidden');
+                                    revealSite();
+                                }
+                            }, "-=0.05");
+                    }
+                });
+            };
+
+            window.addEventListener('load', () => {
+                window.scrollTo(0, 0);
+                const elapsed = performance.now() - startTime;
+                setTimeout(finish, Math.max(0, MIN_DISPLAY - elapsed));
+            });
+        }
+        initPreloader();
+
+        window.onload = () => {
+            injectWorksImagesToSlider();
+            initCustomCursor();
+            initMagneticButtons();
+            initScrollProgress();
+            initBackToTop();
+            initMvCardStack();
+            initGridPagination('works-grid', 'works-pagination', 6);
+            initGridPagination('fanart-grid', 'fanart-pagination', 8);
+            initFanartReveal();
+
+            // initDotNav() must run after initMvCardStack() creates the MV
+            // pin — otherwise its section boundaries for everything after
+            // MV (fanart/about/clients/contact) get measured before that
+            // pin's extra scroll space exists, and a later ScrollTrigger.
+            // refresh() does not seem to correct it.
+            initDotNav();
+            initBgmWave();
+            initBgmVolumeSlider();
+        };
+
+        // Positions the wave strip right under the actual header height
+        // (re-measured on resize, since the mobile/desktop nav differ) and
+        // shows it whenever *something* audible is playing — either the
+        // BGM <audio> element, or an unmuted MV card's YouTube audio (BGM
+        // itself stays paused the whole time a card is playing, so it
+        // alone isn't enough of a signal). window.updateWaveVisibility is
+        // called from every place that can change either of those: BGM's
+        // own play/pause/ended events, and setMvCardPlaying/toggleSound/
+        // applyVolumeToActiveMvCard for the MV side.
+        function initBgmWave() {
+            const wave = document.getElementById('bgm-wave');
+            const nav = document.querySelector('nav.fixed');
+            const bgm = document.getElementById('bgm-audio');
+            if (!wave || !bgm) return;
+
+            const BAR_COUNT = 90;
+            const MAX_HEIGHT = 44;
+            const bars = [];
+            for (let i = 0; i < BAR_COUNT; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'bgm-wave-bar';
+                wave.appendChild(bar);
+                bars.push(bar);
+            }
+
+            function positionWave() {
+                wave.style.top = (nav ? nav.offsetHeight : 64) + 'px';
+            }
+            positionWave();
+            window.addEventListener('resize', positionWave);
+
+            // Each bar re-rolls on its own random interval rather than all
+            // together on one shared tick — reads as genuinely random
+            // rather than a synchronized pulse.
+            let randomTimers = [];
+            function randomizeBar(bar) {
+                bar.style.height = Math.max(2, Math.round(Math.random() * MAX_HEIGHT)) + 'px';
+                randomTimers.push(setTimeout(() => randomizeBar(bar), 120 + Math.random() * 260));
+            }
+            function startWave() {
+                wave.classList.add('is-playing');
+                if (randomTimers.length) return;
+                bars.forEach((bar) => randomizeBar(bar));
+            }
+            function stopWave() {
+                wave.classList.remove('is-playing');
+                randomTimers.forEach((t) => clearTimeout(t));
+                randomTimers = [];
+                bars.forEach((bar) => { bar.style.height = '2px'; });
+            }
+
+            window.updateWaveVisibility = function () {
+                const mvAudible = soundOn && !!document.querySelector('.mv-stack-card iframe');
+                if (!bgm.paused || mvAudible) startWave(); else stopWave();
+            };
+
+            bgm.addEventListener('play', updateWaveVisibility);
+            bgm.addEventListener('playing', updateWaveVisibility);
+            bgm.addEventListener('pause', updateWaveVisibility);
+            bgm.addEventListener('ended', updateWaveVisibility);
+        }
+
+        function playVideo(container) {
+            const thumbContainer = container.querySelector('#yt-thumb-container');
+            if (thumbContainer) {
+                thumbContainer.innerHTML = '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/tQfpqHQGBns?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                container.onclick = null;
+                container.classList.remove('cursor-pointer');
+            }
+        }
+
+        // Swaps a MUSIC VIDEO stack card between its thumbnail and an
+        // auto-playing inline embed. The iframe ignores pointer events, so
+        // the card's own link still opens YouTube when clicked — this is
+        // just a background preview, not a replacement for that. Starts
+        // muted; the always-visible mute button (bottom-left of the card
+        // stack) controls sound for whichever card is currently playing.
+        function setMvCardPlaying(card, playing) {
+            if (!card) return;
+            const existing = card.querySelector('iframe');
+            if (playing) {
+                if (existing) return;
+                const videoId = card.dataset.videoId;
+                if (!videoId) return;
+                // opacity-0, not display:none — keeps the audio track
+                // playing while the card's own illustration stays the only
+                // thing actually visible (no video motion on top of it).
+                const iframe = document.createElement('iframe');
+                iframe.className = 'absolute inset-0 w-full h-full pointer-events-none opacity-0';
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${soundOn ? 0 : 1}&controls=0&modestbranding=1&playsinline=1&loop=1&playlist=${videoId}&disablekb=1&fs=0&iv_load_policy=3&enablejsapi=1`;
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                // The mute URL param only covers on/off — there's no volume
+                // query param, so the actual level has to go through the
+                // postMessage API once the player's listening. Its own
+                // 'load' event fires before that listener exists, so give
+                // it a beat before sending setVolume.
+                iframe.addEventListener('load', () => {
+                    setTimeout(() => {
+                        if (iframe.contentWindow) {
+                            iframe.contentWindow.postMessage(JSON.stringify({
+                                event: 'command', func: 'setVolume', args: [Math.round(bgmVolume * 100)]
+                            }), 'https://www.youtube.com');
+                        }
+                    }, 400);
+                });
+                card.appendChild(iframe);
+            } else if (existing) {
+                existing.remove();
+            }
+            if (typeof updateWaveVisibility === 'function') updateWaveVisibility();
+        }
+
+        // --- Unified Sound Control ---
+        // One on/off state for "is sound allowed right now" — it drives
+        // whichever source is actually relevant: site BGM by default, or
+        // the MV card's own video audio while one is playing. The two
+        // never overlap: BGM is paused the instant an MV card starts and
+        // resumes once none are playing (see setMvCardPlaying below).
+        let soundOn = false;
+        let bgmVolume = 0.5;
+
+        // True for the whole time the MUSIC VIDEO screen is up (section-
+        // level, not per-card) — BGM stays fully off across that entire
+        // span, including the brief gaps between cards while one fades out
+        // and the next hasn't snapped in yet. Tying this to individual
+        // cards instead caused BGM to flash on during every transition.
+        let bgmSuspendedByMv = false;
+
+        // Hover-reveal slider next to the sound button. Routed to whichever
+        // source is actually audible right now: site BGM normally, or the
+        // active MV card's YouTube audio while one is playing — same bar,
+        // same bgmVolume value, just aimed at a different target so the
+        // chosen level carries over between the two.
+        function initBgmVolumeSlider() {
+            const slider = document.getElementById('bgm-volume');
+            const bgm = document.getElementById('bgm-audio');
+            if (!slider || !bgm) return;
+            slider.value = String(bgmVolume);
+            const updateFill = () => slider.style.setProperty('--bgm-vol-pct', (parseFloat(slider.value) * 100) + '%');
+            updateFill();
+            slider.addEventListener('input', () => {
+                bgmVolume = parseFloat(slider.value);
+                updateFill();
+                if (bgmSuspendedByMv) {
+                    applyVolumeToActiveMvCard(bgmVolume);
+                } else if (!bgm.paused) {
+                    bgm.volume = bgmVolume;
+                }
+            });
+        }
+
+        // Drags the shared slider's value onto whichever MV card is
+        // currently playing, via the YouTube iframe postMessage API.
+        // Dragging down to 0 mutes it and back up unmutes it, same as any
+        // normal player — and since that's the same soundOn state the
+        // toggle button reads, its icon stays in sync automatically.
+        function applyVolumeToActiveMvCard(vol) {
+            // Update soundOn regardless of whether a card iframe exists
+            // right now — there's a real gap between cards (the old one's
+            // iframe is gone the instant a transition starts, the new
+            // one isn't created until scrolling fully settles) and it can
+            // last a while during continuous scrolling. Gating the mute
+            // state on "an iframe happens to exist this instant" left it
+            // stale, so the next card would pick up the wrong mute= value
+            // and BGM's resume-on-leave check would see the wrong soundOn.
+            const shouldBeOn = vol > 0;
+            if (shouldBeOn !== soundOn) {
+                soundOn = shouldBeOn;
+                updateSoundIcon();
+            }
+            if (typeof updateWaveVisibility === 'function') updateWaveVisibility();
+            const iframe = document.querySelector('.mv-stack-card iframe');
+            if (!iframe || !iframe.contentWindow) return;
+            const post = (func, args) => iframe.contentWindow.postMessage(JSON.stringify({
+                event: 'command', func, args: args || []
+            }), 'https://www.youtube.com');
+            post('setVolume', [Math.round(vol * 100)]);
+            post(soundOn ? 'unMute' : 'mute');
+        }
+
+        function updateSoundIcon() {
+            const btn = document.getElementById('sound-toggle');
+            const iconOn = document.getElementById('sound-icon-on');
+            const iconOff = document.getElementById('sound-icon-off');
+            if (iconOn) iconOn.classList.toggle('hidden', !soundOn);
+            if (iconOff) iconOff.classList.toggle('hidden', soundOn);
+            if (btn) btn.classList.toggle('is-on', soundOn);
+        }
+
+        let bgmResumeTimer = null;
+        function setBgmSuspended(suspended) {
+            bgmSuspendedByMv = suspended;
+            const bgm = document.getElementById('bgm-audio');
+            if (!bgm) return;
+            clearTimeout(bgmResumeTimer);
+            if (suspended) {
+                // Pausing is always immediate — never a reason to delay
+                // cutting the BGM.
+                if (!bgm.paused) bgm.pause();
+            } else if (soundOn) {
+                // Resuming waits a beat and re-checks first. Right at
+                // section/card boundaries, suspend/resume can fire several
+                // times within a few dozen milliseconds as ScrollTrigger's
+                // isActive settles — calling bgm.play() immediately on
+                // every one of those briefly un-pauses the element each
+                // time, and that startup instant is audible even though
+                // the JS-level "paused" state looks correct a moment later.
+                // Waiting for things to actually settle avoids that.
+                bgmResumeTimer = setTimeout(() => {
+                    if (!bgmSuspendedByMv && soundOn && bgm.paused) {
+                        bgm.volume = bgmVolume;
+                        bgm.play().catch(() => {});
+                    }
+                }, 180);
+            }
+        }
+
+        function toggleSound() {
+            soundOn = !soundOn;
+            if (bgmSuspendedByMv) {
+                // On the MUSIC VIDEO screen — the toggle controls whichever
+                // card is currently playing instead of the BGM. If no card
+                // has an iframe up at this exact instant (mid-transition),
+                // the new soundOn value still applies automatically to the
+                // next card via its embed URL.
+                const activeIframe = document.querySelector('.mv-stack-card iframe');
+                if (activeIframe && activeIframe.contentWindow) {
+                    activeIframe.contentWindow.postMessage(JSON.stringify({
+                        event: 'command',
+                        func: soundOn ? 'unMute' : 'mute',
+                        args: []
+                    }), 'https://www.youtube.com');
+                }
+            } else {
+                const audio = document.getElementById('bgm-audio');
+                if (audio) {
+                    if (soundOn) {
+                        audio.volume = bgmVolume;
+                        audio.play().catch(() => { soundOn = false; updateSoundIcon(); });
+                    } else {
+                        audio.pause();
+                    }
+                }
+            }
+            updateSoundIcon();
+            if (typeof updateWaveVisibility === 'function') updateWaveVisibility();
+        }
+    </script>
+</body>
+</html>
