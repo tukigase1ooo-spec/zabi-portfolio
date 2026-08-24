@@ -1,21 +1,21 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja" style="overflow: hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZABI STORAGE | ZABI Portfolio - キービジュアル / キャラクターデザイン / TCG / MVイラスト</title>
-    <meta name="description" content="イラストレーターZABIのポートフォリオ。ゲーム会社にて約6年の実務経験を経て2025年8月よりフリーランスとして活動。キービジュアル、キャラクターデザイン、TCGイラスト、MVイラスト、ライトノベル挿絵などを制作。商業のご依頼を随時受付中です。">
+    <title>FANART | ZABI STORAGE | ZABI Portfolio</title>
+    <meta name="description" content="イラストレーターZABIの個人制作イラスト(ファンアート)一覧。ゲーム会社にて約6年の実務経験を経て2025年8月よりフリーランスとして活動。商業のご依頼を随時受付中です。">
     <meta name="author" content="ZABI">
     <link rel="canonical" href="https://x.com/ZabiMasurao">
 
     <!-- Open Graph / Twitter Card -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="ZABI STORAGE | ZABI Portfolio">
-    <meta property="og:description" content="イラストレーターZABIのポートフォリオ。キービジュアル、キャラクターデザイン、TCGイラスト、MVイラストなどを制作。商業のご依頼を随時受付中です。">
-    <meta property="og:image" content="images/Works/web/HEfBjkFbQAEWSML.jpg">
+    <meta property="og:title" content="FANART | ZABI STORAGE | ZABI Portfolio">
+    <meta property="og:description" content="イラストレーターZABIの個人制作イラスト(ファンアート)一覧。商業のご依頼を随時受付中です。">
+    <meta property="og:image" content="images/web/HEfBjkFbQAEWSML.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ZABI STORAGE | ZABI Portfolio">
-    <meta name="twitter:description" content="イラストレーターZABIのポートフォリオ。キービジュアル、キャラクターデザイン、TCGイラスト、MVイラストなどを制作。">
+    <meta name="twitter:title" content="FANART | ZABI STORAGE | ZABI Portfolio">
+    <meta name="twitter:description" content="イラストレーターZABIの個人制作イラスト(ファンアート)一覧。">
 
     <link rel="icon" type="image/jpeg" href="images/web/favicon.jpg">
     <link rel="apple-touch-icon" href="images/web/favicon.jpg">
@@ -185,9 +185,9 @@
            page's mood shifts gradually as you scroll instead of staying flat --- */
         #commercial::before {
             /* All the decorative fill lives on this layer instead of directly
-               on the section — kept full-strength right up to the top edge
-               so WORKS reads as a clean, sharp break from the section
-               above it instead of bleeding/fading in. */
+               on the section, so mask-image can genuinely fade it to nothing
+               at the very top — letting the hero glow bleed through instead
+               of hitting a hard wall of opaque black. */
             content: "";
             position: absolute;
             inset: 0;
@@ -203,14 +203,8 @@
             background-position: calc(16.667% - 7px) 0, calc(33.333% - 7px) 0, calc(50% - 7px) 0, calc(66.667% - 7px) 0, calc(83.333% - 7px) 0, 0 0;
             background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
             background-size: 14px 100%, 14px 100%, 14px 100%, 14px 100%, 14px 100%, 100% 100%;
-        }
-        #commercial {
-            /* Needs its own stacking context above #hero's — once JS pins
-               the hero in place (see initHeroPin), WORKS has to render on
-               top of it as it scrolls up and over, not underneath. */
-            position: relative;
-            z-index: 2;
-            background-color: #080808;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 16vh, black 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, black 16vh, black 100%);
         }
         #commercial > .max-w-screen-2xl {
             position: relative;
@@ -335,15 +329,6 @@
             transform: translateY(-5px) scale(1.22);
             z-index: 1150;
         }
-        /* The promo video card sits alone at max-w-3xl, not inside a grid —
-           the usual 22% hover zoom just made it awkwardly overflow its own
-           section instead of reading as a nice hover effect. */
-        .promo-video-card:hover {
-            transform: none;
-        }
-        #works-grid .zzz-card:hover {
-            transform: none;
-        }
 
         /* --- Fanart Card Flip: starts back-face-up, flips to reveal art on scroll-in --- */
         .card-flip {
@@ -369,6 +354,116 @@
         }
         #fanart-grid .zzz-card {
             background: transparent;
+        }
+
+        /* --- Fanart 3D Cylinder: cards ride a rotating drum instead of a
+           flat grid — three vertical rings of cards, spinning continuously
+           around the Y axis. The middle ring also bulges toward the camera
+           as each card swings past front-center (see initFanartCylinder). --- */
+        .cylinder-viewport {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 690px;
+            perspective: 1600px;
+            perspective-origin: 50% 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+        }
+        @media (min-width: 640px) { .cylinder-viewport { height: 900px; perspective: 1800px; } }
+        @media (min-width: 1024px) { .cylinder-viewport { height: 1160px; perspective: 2000px; } }
+
+        /* Section title, dissolved into the backdrop instead of sitting on
+           its own heading line — huge, barely-there type behind the drum
+           rather than a label above it. */
+        .fanart-watermark {
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            z-index: 0;
+            transform: translateX(-50%);
+            pointer-events: none;
+            user-select: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: clamp(4.5rem, 17vw, 15rem);
+            line-height: 1;
+            white-space: nowrap;
+            color: rgba(255, 255, 255, 0.035);
+            text-shadow: 0 0 70px rgba(255, 0, 60, 0.14);
+        }
+        @media (min-width: 1024px) { .fanart-watermark { top: -3rem; } }
+
+        /* Card size / ring radius / row spacing are chosen together with the
+           .cylinder-viewport height and perspective above so all three rings
+           project fully inside the viewport instead of getting clipped top
+           and bottom — translateZ(radius) magnifies everything under
+           perspective by roughly perspective / (perspective - radius), so
+           the viewport has to budget for that scaled-up size, not the raw
+           card-h / row-gap numbers. */
+        #fanart-grid.cylinder {
+            position: relative;
+            width: 1px;
+            height: 1px;
+            transform-style: preserve-3d;
+            --card-w: 110px;
+            --card-h: 165px;
+            --radius: 340px;
+            --row-gap: 150px;
+        }
+        @media (min-width: 640px) {
+            #fanart-grid.cylinder { --card-w: 140px; --card-h: 210px; --radius: 430px; --row-gap: 190px; }
+        }
+        @media (min-width: 1024px) {
+            #fanart-grid.cylinder { --card-w: 175px; --card-h: 262px; --radius: 540px; --row-gap: 235px; }
+        }
+
+        /* Rotation is driven frame-by-frame from JS (initFanartCylinder),
+           not a CSS @keyframes animation — that's what lets the drum's own
+           entrance tween (a plain GSAP `transform` on #fanart-grid itself)
+           compose cleanly with each card's per-frame rotateY underneath it. */
+        #fanart-grid.cylinder .zzz-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: var(--card-w);
+            height: var(--card-h);
+            margin-top: calc(var(--card-h) / -2);
+            margin-left: calc(var(--card-w) / -2);
+            transform: rotateY(var(--ring-angle, 0deg)) translateZ(var(--radius)) translateY(calc(var(--row, 0) * var(--row-gap)));
+            transition: box-shadow 0.4s ease, border-color 0.4s ease;
+            /* The base .zzz-card rule clips its content (overflow: hidden),
+               which silently swallowed the fly-in entrance — the inner
+               element travels far outside this box while it's approaching.
+               Cylinder cards need that overflow open so it's visible. */
+            overflow: visible;
+        }
+        #fanart-grid.cylinder .zzz-card:hover {
+            transform: rotateY(var(--ring-angle, 0deg)) translateZ(calc(var(--radius) + 60px)) translateY(calc(var(--row, 0) * var(--row-gap))) scale(1.08);
+            border-color: #ff003c;
+            box-shadow: 0 10px 40px rgba(255, 0, 60, 0.35);
+            z-index: 30;
+        }
+        #fanart-grid.cylinder .card-flip-inner {
+            transform: none;
+        }
+        /* The flip's own 3D context (perspective + backface-visibility,
+           meant for the front/back flip animation) fights the outer
+           cylinder's rotateY once cards are riding the drum instead —
+           cards facing the camera were rendering as solid black. Cylinder
+           cards don't flip, so drop both. */
+        #fanart-grid.cylinder .zzz-card.card-flip {
+            perspective: none;
+        }
+        #fanart-grid.cylinder .card-face-front {
+            backface-visibility: visible;
+            -webkit-backface-visibility: visible;
         }
         .card-face-back {
             transform: rotateY(180deg);
@@ -847,28 +942,6 @@
             color: #fff;
         }
 
-        /* --- Profile Card: tilted quadrilateral, taller on the right than
-           the left, instead of a plain rectangle. --- */
-        .profile-card-tilt {
-            clip-path: polygon(0 8%, 100% 0%, 100% 100%, 0% 92%);
-        }
-        /* A regular `border` can't follow a clip-path's diagonal edges — it
-           only ever draws along the box's original straight sides, so the
-           slanted top/bottom of the tilted card were left without a border.
-           This wraps the black card in a white layer of the same shape,
-           slightly padded, so the white shows through as a border on every
-           edge, angled ones included. */
-        .profile-card-frame {
-            background: #fff;
-            padding: 3px;
-        }
-        #profile-card, #profile-card * {
-            color: #fff !important;
-        }
-        #profile-id-card, #profile-id-card * {
-            color: #000 !important;
-        }
-
         /* --- Section Header: shared badge + corner-bracket motif --- */
         .section-mark {
             flex-shrink: 0;
@@ -942,6 +1015,11 @@
             opacity: 0.9;
             transform: translateX(0);
             color: #ff003c;
+        }
+
+        /* --- Profile Card --- */
+        #profile-card {
+            will-change: transform;
         }
 
         img { image-rendering: -webkit-optimize-contrast; }
@@ -1182,9 +1260,9 @@
         </a>
         <div class="flex items-center gap-8">
             <div class="hidden lg:flex gap-10 text-[13px] font-bold tracking-[0.2em] uppercase italic">
-                <a href="#commercial" class="text-zzz-red border-b-2 border-zzz-red pb-1 transition-all">WORKS</a>
+                <a href="index.html#commercial" class="hover:text-zzz-red transition-all">WORKS</a>
                 <a href="music-video.html" class="hover:text-zzz-red transition-all">MUSIC VIDEO</a>
-                <a href="fanart.html" class="hover:text-zzz-red transition-all">FANART</a>
+                <a href="fanart.html" class="text-zzz-red border-b-2 border-zzz-red pb-1 transition-all">FANART</a>
             </div>
             <div class="flex items-center gap-2">
                 <button type="button" id="lang-toggle" onclick="toggleLang()" class="px-4 py-1 border border-white/15 text-[10px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">EN</button>
@@ -1196,370 +1274,816 @@
 </nav>
 <div id="bgm-wave" aria-hidden="true"></div>
 
-    <!-- Hero Section -->
-    <section id="hero" class="relative px-9 lg:px-20 xl:px-28 pt-24 pb-12 lg:pt-28 lg:pb-16 overflow-hidden">
-        <div class="crack-line top-[40%] left-0 rotate-[15deg]"></div>
+    <!-- Personal Works Section -->
+    <section id="personal" class="py-32 px-6">
+        <div class="max-w-screen-2xl mx-auto relative">
+            <span class="fanart-watermark" aria-hidden="true">FANART</span>
 
-        <div class="relative z-10 w-full grid lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-stretch">
-            <!-- Text -->
-            <div class="relative z-20 flex flex-col justify-between h-full">
-              <div>
-                <div class="flex items-center gap-4 mb-6">
-                    <span class="w-12 h-[2px] bg-zzz-red"></span>
-                    <p class="text-zzz-red font-bold text-[10px] tracking-[0.8em]"></p>
-                </div>
-
-                <h1 class="text-[18vw] lg:text-[7rem] xl:text-[9rem] leading-[0.78] font-bold italic mb-10 tracking-tighter drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]" id="hero-title">
-                    <span class="block" id="hero-title-zabi">ZABI</span>
-                    <span class="text-zzz-red block ml-8 md:ml-16 lg:ml-20" id="hero-title-storage">STORAGE</span>
-                </h1>
-
-                <p id="hero-tagline" class="text-xl font-bold leading-relaxed opacity-90 border-l-2 border-zzz-red pl-6 max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]" data-ja="ZABI
-                    イラストレーター。アニメ&amp;ゲームFA/MV/TCG/KV etc. &lt;br&gt;
-                    2027年1月以降のお仕事を受付中です。" data-en="ZABI&lt;br&gt;Illustrator — anime &amp; game fan art / MVs / TCG / key visuals, etc.&lt;br&gt;Currently booking work from January 2027 onward.">
-                    ZABI
-                    イラストレーター。アニメ&ゲームFA/MV/TCG/KV etc. <br>
-                    2027年1月以降のお仕事を受付中です。
-                </p>
-                <p class="text-[10px] font-bold opacity-30 mt-3 pl-6 tracking-widest uppercase">Remote Work Optimized</p>
-                <div class="mt-12 flex items-center gap-10">
-                    <a href="#commercial" class="magnetic-btn bg-white text-black px-10 py-4 text-base font-black italic hover:bg-zzz-red hover:text-white transition-all -rotate-1">
-                        information
-                    </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- About -->
-            <div class="relative z-20 pb-24" id="about">
-                <div class="relative">
-                    <!-- Overlaps the profile card's first divider line
-                         (#bio-divider-1) — position is an estimate since the
-                         divider's exact height shifts with how the bio text
-                         wraps, so nudge `top` here if it drifts off-line. -->
-                    <div class="absolute z-30 flex gap-0 rotate-3 lg:rotate-6 top-[90%] left-[0.5rem] lg:left-[-9rem]" id="hero-stats">
-                        <div class="w-20 sm:w-28 lg:w-40 xl:w-44 aspect-square shrink-0 bg-black flex flex-col items-center justify-center gap-0 rotate-6">
-                            <div><span class="stat-number text-3xl sm:text-4xl lg:text-7xl xl:text-8xl text-zzz-red" data-count="6">0</span><span class="stat-number text-xl sm:text-2xl lg:text-4xl text-zzz-red">+</span></div>
-                            <p class="text-[7px] sm:text-[8px] lg:text-[10px] font-bold opacity-60 tracking-[0.1em] lg:tracking-[0.2em] uppercase">Years Exp.</p>
+            <div class="cylinder-viewport" id="fanart-stage">
+                <div class="cylinder" id="fanart-grid">
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/HE5OLhUaUAE9HPW.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 1" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/HE5OLhUaUAE9HPW.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
                         </div>
-                        <div class="w-20 sm:w-28 lg:w-40 xl:w-44 aspect-square shrink-0 bg-black flex flex-col items-center justify-center gap-0 -rotate-3 -ml-3 lg:-ml-6 xl:-ml-8">
-                            <div><span class="stat-number text-3xl sm:text-4xl lg:text-7xl xl:text-8xl" data-count="21">0</span><span class="stat-number text-xl sm:text-2xl lg:text-4xl">+</span></div>
-                            <p class="text-[7px] sm:text-[8px] lg:text-[10px] font-bold opacity-60 tracking-[0.1em] lg:tracking-[0.2em] uppercase">Works</p>
-                        </div>
-                        <div class="w-20 sm:w-28 lg:w-40 xl:w-44 aspect-square shrink-0 bg-black flex flex-col items-center justify-center gap-0 rotate-12 -ml-3 lg:-ml-6 xl:-ml-8">
-                            <div><span class="stat-number text-3xl sm:text-4xl lg:text-7xl xl:text-8xl" data-count="9">0</span></div>
-                            <p class="text-[7px] sm:text-[8px] lg:text-[10px] font-bold opacity-60 tracking-[0.1em] lg:tracking-[0.2em] uppercase">Clients</p>
-                        </div>
-                    </div>
-                    <div class="absolute -top-6 lg:-top-8 -left-4 lg:-left-10 z-10 inline-flex items-center gap-3 lg:gap-5 bg-white border-4 border-black px-5 py-2 lg:px-10 lg:py-3 -rotate-3" id="profile-id-card">
-                        <div class="w-10 h-10 lg:w-16 lg:h-16 shrink-0">
-                            <div class="relative z-10 bg-zzz-gray aspect-square overflow-hidden border border-black/10 group">
-                                <img src="images/web/avatar.jpg" class="vivid-img" alt="ZABI プロフィール画像" style="object-fit: cover;" width="160" height="160" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                        <div>
-                            <span class="font-black text-[8px] lg:text-[11px] tracking-[0.3em] lg:tracking-[0.5em] block mb-1">PROFILE</span>
-                            <h2 class="text-xl lg:text-4xl font-black italic leading-[0.8] tracking-tighter">ZABI</h2>
-                        </div>
-                    </div>
-
-                    <div class="profile-card-frame profile-card-tilt">
-                    <div class="bg-black p-6 md:p-8 lg:p-10 lg:pl-16 pt-12 lg:pt-20 profile-card-tilt" id="profile-card">
-                        <div>
-                            <p class="text-base font-bold italic text-white/90 leading-snug mb-2" data-ja="イラストレーターのザビです" data-en="I&#39;m ZABI, an illustrator.">イラストレーターのザビです</p>
-                            <p class="text-base font-bold italic text-white/90 leading-snug mb-3" data-ja="ポートフォリオサイトをご覧いただき、ありがとうございます。" data-en="Thank you for visiting my portfolio.">ポートフォリオサイトをご覧いただき、ありがとうございます。</p>
-                            <div class="space-y-2 text-[13px] font-medium leading-relaxed opacity-60">
-                                <p data-ja="ゲーム会社にて約6年間勤務後、2025年8月よりフリーランスイラストレーターとして活動開始。" data-en="After about six years at a game company, I went freelance as an illustrator in August 2025.">ゲーム会社にて約6年間勤務後、2025年8月よりフリーランスイラストレーターとして活動開始。</p>
-                                <p data-ja="キービジュアル、キャラクターデザイン、TCGイラスト、MV用イラスト、ライトノベル挿絵などを手がけています。" data-en="I work on key visuals, character design, TCG illustrations, music video art, light novel illustrations, and more.">キービジュアル、キャラクターデザイン、TCGイラスト、MV用イラスト、ライトノベル挿絵などを手がけています。</p>
-                                <p data-ja="密度感のある描写や、見る人の胸が熱くなるような表現を得意としています。" data-en="I specialize in richly detailed artwork and expressions that stir the viewer&#39;s emotions.">密度感のある描写や、見る人の胸が熱くなるような表現を得意としています。</p>
-                                <p data-ja="商業利用のお仕事につきまして、現在募集しております。商業・個人問わず、まずはご相談だけでも大歓迎です📩 お気軽にどうぞ!" data-en="I&#39;m currently accepting commercial commissions. Whether commercial or personal, feel free to reach out just to chat 📩 — I&#39;d love to hear from you!">商業利用のお仕事につきまして、現在募集しております。商業・個人問わず、まずはご相談だけでも大歓迎です📩 お気軽にどうぞ!</p>
-                                <p class="opacity-20" id="bio-divider-1">ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー</p>
-                                <p data-ja="2027年1月以降着手のお仕事を募集しております。" data-en="I&#39;m currently taking on work starting from January 2027.">2027年1月以降着手のお仕事を募集しております。</p>
-                                <p data-ja="ご依頼時には以下の項目を明記いただけますようお願いいたします。&lt;br&gt;・使用用途・希望費用・希望納期・実績公開の可/不可・制作フロー。&lt;br&gt;・提出データの形式（制作サイズや解像度）・参考画像やPDF資料など。" data-en="When reaching out, please include the following:&lt;br&gt;• Intended use, budget, desired deadline, whether the work may be shown publicly, and the production flow&lt;br&gt;• Required file format (size / resolution) and any reference images or PDF materials">ご依頼時には以下の項目を明記いただけますようお願いいたします。<br>
-                                ・使用用途・希望費用・希望納期・実績公開の可/不可・制作フロー。<br>
-                                ・提出データの形式（制作サイズや解像度）・参考画像やPDF資料など。</p>
-                                <p data-ja="英訳に時間がかかるため、海外の方は日本語訳をご用意いただけますと幸いです。&lt;br&gt;Because it takes time to read and write English, I appreciate it if you could request a Japanese translation." data-en="Because it takes me a little extra time to reply in English, thank you in advance for your patience.">英訳に時間がかかるため、海外の方は日本語訳をご用意いただけますと幸いです。<br>
-                                Because it takes time to read and write English, I appreciate it if you could request a Japanese translation.</p>
-                                <p class="opacity-20">ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー</p>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Commercial Works Section -->
-    <section id="commercial" class="pt-16 pb-32 px-6 relative overflow-visible">
-        <div class="crack-line top-[10%] right-0 -rotate-[10deg]"></div>
-        <div class="crack-line bottom-[15%] left-0 rotate-[8deg]"></div>
-        <div class="max-w-screen-2xl mx-auto">
-            <div class="flex justify-between items-end mb-8">
-                <div class="section-head-reveal">
-                    <h2 class="text-5xl md:text-7xl font-light italic leading-none uppercase tracking-wide">Works</h2>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 grid-expandable" id="works-grid">
-                <!-- [ADD] New Works Items -->
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HJodNyoakAA-C_f.jpg" class="vivid-img cursor-zoom-in" alt="RECAROゲーミングチェア「RECARO EXO」プロモーションイラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HJodNyoakAA-C_f.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/HBG25Y5b0AAL6zK.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 2" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/HBG25Y5b0AAL6zK.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
                         </div>
-                    <div class="p-8">
-                        <span class="card-tag">KEY VISUAL</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="RECAROゲーミングチェア「RECARO EXO（エグゾ）」プロモーションイラスト" data-en="RECARO Gaming Chair &#39;RECARO EXO&#39; Promotional Illustration">RECAROゲーミングチェア「RECARO EXO（エグゾ）」プロモーションイラスト</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: RECARO Gaming" data-en="Client: RECARO Gaming">Client: RECARO Gaming</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HL-NOSTbMAA-SPv.jpg" class="vivid-img cursor-zoom-in" alt="雀魂-じゃんたま- 「北落」誕生日イラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HL-NOSTbMAA-SPv.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">OFFICIAL FANART</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="【公式】雀魂-じゃんたま- 「北落」誕生日イラスト" data-en="[Official] Mahjong Soul — 「北落」 Birthday Illustration">【公式】雀魂-じゃんたま- 「北落」誕生日イラスト</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Yostar" data-en="Client: Yostar, Inc.">Client: 株式会社Yostar</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HNZ5GLGbcAA-Nw3.jpg" class="vivid-img cursor-zoom-in" alt="Xross Starsブースターパック第4弾『Grand Resonance』収穫の刻" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HNZ5GLGbcAA-Nw3.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">TCG</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="Xross Starsブースターパック第4弾『Grand Resonance』《収穫の刻》" data-en="Xross Stars Booster Pack Vol. 4 『Grand Resonance』《収穫の刻》">Xross Starsブースターパック第4弾『Grand Resonance』《収穫の刻》</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Game &amp; Co." data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game & Co.</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HNak-kSa8AAV7YC.jpg" class="vivid-img cursor-zoom-in" alt="Xross Starsブースターパック第4弾『Grand Resonance』盗賊キット" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HNak-kSa8AAV7YC.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">TCG</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="Xross Starsブースターパック第4弾『Grand Resonance』《盗賊キット》" data-en="Xross Stars Booster Pack Vol. 4 『Grand Resonance』《盗賊キット》">Xross Starsブースターパック第4弾『Grand Resonance』《盗賊キット》</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Game &amp; Co." data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game & Co.</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HEfBjkFbQAEWSML.jpg" class="vivid-img cursor-zoom-in" alt="TCGイラスト「Xross Stars Broken Neonlights」LRPP《柊ツルギ》" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HEfBjkFbQAEWSML.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">TCG</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》" data-en="Xross Stars Booster Pack Vol. 3 『Broken Neonlights』 — LRPP 《柊ツルギ》">「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Game &amp; Co." data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game & Co.</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HEfBjkFa4AAnpUw.jpg" class="vivid-img cursor-zoom-in" alt="TCGイラスト「Xross Stars Broken Neonlights」LRPP《柊ツルギ》別カット" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HEfBjkFa4AAnpUw.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">TCG</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》" data-en="Xross Stars Booster Pack Vol. 3 『Broken Neonlights』 — LRPP 《柊ツルギ》">「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Game &amp; Co." data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game & Co.</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/G4fq1q9a8AI15hd.jpg" class="vivid-img cursor-zoom-in" alt="鳴潮 公式ファンアート「仇遠」" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/G4fq1q9a8AI15hd.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">OFFICIAL FANART</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="鳴潮 公式FA「仇遠」" data-en="Wuthering Waves — Official Fan Art 「仇遠」">鳴潮 公式FA「仇遠」</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: Kuro Games</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/G-8hbs_WQAA9oA0.jpg" class="vivid-img cursor-zoom-in" alt="ALGS Year 5 Championship ローディングカードイラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/G-8hbs_WQAA9oA0.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">KEY VISUAL</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「ALGS Year 5 Championship」 loadingCard</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: EA / ALGS Year 5</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HBg8QRubUAI7CLI.jpg" class="vivid-img cursor-zoom-in" alt="鳴潮 公式ファンアート「エイメス」" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HBg8QRubUAI7CLI.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">OFFICIAL FANART</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「鳴潮 公式FA「エイメス」" data-en="Wuthering Waves — Official Fan Art 「エイメス」">「鳴潮 公式FA「エイメス」</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: Kuro Games</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HDXapNzaUAARzB0.jpg" class="vivid-img cursor-zoom-in" alt="甘楽デイティー『レッテル』キービジュアル" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HDXapNzaUAARzB0.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">KEY VISUAL</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「甘楽デイティー『レッテル』」</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Sony Music Ent." data-en="Client: Sony Music Entertainment Inc.">Client: 株式会社Sony Music Ent.</p>
-                    </div>
-                </div>
-
-                <!-- [ADD] New Works Items -->
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HD_4UG_bIAAYyLg.jpg" class="vivid-img cursor-zoom-in" alt="HUION 15周年記念オリジナルキャラクターイラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HD_4UG_bIAAYyLg.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">ANNIVERSARY OC</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="HUION様 15周年記念OCイラスト" data-en="HUION 15th Anniversary Original Character Illustration">HUION様 15周年記念OCイラスト</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社HUION" data-en="Client: HUION Inc.">Client: 株式会社HUION</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/G9XtFuEaYAALtTX.jpg" class="vivid-img cursor-zoom-in" alt="ゼンレスゾーンゼロ 公式ファンアート「葉瞬光」" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/G9XtFuEaYAALtTX.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">ANNIVERSARY OC</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「ゼンレスゾーンゼロ」公式FA「葉瞬光」" data-en="Zenless Zone Zero — Official Fan Art 「葉瞬光」">「ゼンレスゾーンゼロ」公式FA「葉瞬光」</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社YomiHolic" data-en="Client: YomiHolic Inc.">Client: 株式会社YomiHolic</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HEK1BHyaUAAWKfi.jpg" class="vivid-img cursor-zoom-in" alt="グリムコネクト 応援記念イラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HEK1BHyaUAAWKfi.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">OFFICIAL FANART</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「グリムコネクト」応援記念イラスト " data-en="Grimm Connect — Commemorative Support Illustration">「グリムコネクト」応援記念イラスト </h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社BookBase" data-en="Client: BookBase Inc.">Client: 株式会社BookBase</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-20 flex justify-center items-center gap-6" id="works-pagination"></div>
-        </div>
-    </section>
-
-    <!-- About: Promo Video / Scope / Location -->
-    <section class="pt-24 pb-32 px-6 relative overflow-hidden">
-        <div class="max-w-screen-2xl mx-auto">
-            <div class="max-w-5xl grid sm:grid-cols-2 gap-8 items-stretch">
-                <div class="zzz-card promo-video-card group overflow-hidden bg-black/40 border border-white/5 relative cursor-pointer" onclick="window.open('https://www.youtube.com/watch?v=tQfpqHQGBns', '_blank', 'noopener')">
-                    <div id="yt-thumb-container" class="aspect-video relative overflow-hidden bg-black">
-                        <img src="https://img.youtube.com/vi/tQfpqHQGBns/hqdefault.jpg" class="vivid-img opacity-60 group-hover:opacity-100 transition-opacity" alt="YouTube Thumbnail">
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="w-16 h-16 bg-zzz-red rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 5V19L19 12L8 5Z" />
-                                </svg>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
                             </div>
                         </div>
                     </div>
-                    <div class="p-5 border-t border-white/5">
-                        <span class="card-tag !mb-1">Promotion Movie</span>
-                        <h3 class="text-sm md:text-md font-black italic text-white/80 group-hover:text-zzz-red transition-colors mb-4" data-ja="HUION様 １５周年記念企画/ 「Kamvas Pro 19」制作メイキング" data-en="HUION 15th Anniversary Project — &#39;Kamvas Pro 19&#39; Making-of">HUION様 １５周年記念企画/ 「Kamvas Pro 19」制作メイキング</h3>
-
-                        <!-- [ADD] コラボ相手リンクセクション -->
-                        <div class="flex flex-wrap gap-x-6 gap-y-2 pt-4 border-t border-white/5">
-                            <a href="https://x.com/HuionLeon_JP?s=20" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-[10px] font-bold text-white/40 hover:text-white transition-colors flex items-center gap-1.5">
-                                <span class="text-zzz-red" data-ja="企画：HUION" data-en="Planning: HUION">企画：HUION</span>
-                                <span class="opacity-50">@HuionLeon_JP</span>
-                            </a>
-                            <a href="https://x.com/siosionagasu_?s=20" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-[10px] font-bold text-white/40 hover:text-white transition-colors flex items-center gap-1.5">
-                                <span class="text-zzz-red" data-ja="モンスターデザイン：塩ながす" data-en="Monster Design: 塩ながす">モンスターデザイン：塩ながす</span>
-                                <span class="opacity-50">@siosionagasu_</span>
-                            </a>
-                        </div>
-                    </div>
                 </div>
-
-                <a href="https://x.com/RECARO_Gaming/status/2085025536850481589?s=20" target="_blank" rel="noopener noreferrer" class="zzz-card promo-video-card group overflow-hidden bg-black/40 border border-white/5 relative flex flex-col">
-                    <div class="aspect-video relative overflow-hidden bg-black">
-                        <img src="images/web/recaro_thumb.jpg" class="vivid-img opacity-60 group-hover:opacity-100 transition-opacity" alt="RECARO Gaming コラボ投稿サムネイル">
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="w-16 h-16 bg-zzz-red rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 5V19L19 12L8 5Z" />
-                                </svg>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/G-xyJTjaUAABAVN.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 3" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/G-xyJTjaUAABAVN.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
                             </div>
                         </div>
                     </div>
-                    <div class="p-5 border-t border-white/5 flex-1 flex flex-col justify-center">
-                        <span class="card-tag !mb-1">Collaboration</span>
-                        <h3 class="text-sm md:text-md font-black italic text-white/80 group-hover:text-zzz-red transition-colors" data-ja="コラボ：RECARO_Gaming" data-en="Collab: RECARO_Gaming">コラボ：RECARO_Gaming</h3>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/G8hnbr0bQAE5BSW.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 4" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/G8hnbr0bQAE5BSW.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
                     </div>
-                </a>
-            </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/FRA-UlWaQAAoH-q.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 5" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/FRA-UlWaQAAoH-q.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/Gy8zisjboAErIb7.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 6" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/Gy8zisjboAErIb7.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/Gzg2TyKbkAE6-si.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 7" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/Gzg2TyKbkAE6-si.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/G1SZPnAbQAQIe5J.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 8" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/G1SZPnAbQAQIe5J.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 pt-10 mt-12 border-t border-white/10">
-                <div>
-                    <span class="text-[10px] font-black text-zzz-red block mb-6 uppercase tracking-[0.4em]" data-ja="制作範囲" data-en="Scope of Work">制作範囲</span>
-                    <ul class="text-[13px] font-black italic space-y-3 opacity-80">
-                        <li data-ja="&gt; キービジュアル/メインビジュアル" data-en="&gt; Key visuals / Main visuals">> キービジュアル/メインビジュアル</li>
-                        <li data-ja="&gt; キャラクターデザイン" data-en="&gt; Character design">> キャラクターデザイン</li>
-                        <li data-ja="&gt; 配信用サムネイル/その他アセット" data-en="&gt; Stream thumbnails / Other assets">> 配信用サムネイル/その他アセット</li>
-                        <li data-ja="&gt; トレーディングカードゲームイラスト" data-en="&gt; Trading card game illustrations">> トレーディングカードゲームイラスト</li>
-                        <li data-ja="&gt; ミュージックビデオイラスト" data-en="&gt; Music video illustrations">> ミュージックビデオイラスト</li>
-                        <li data-ja="&gt; ライトノベルイラスト" data-en="&gt; Light novel illustrations">> ライトノベルイラスト</li>
-                    </ul>
+                <!-- [ADD] New Fanart Items -->
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/GTaBSzKagAIjkYz.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 9" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/GTaBSzKagAIjkYz.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span class="text-[10px] font-black text-zzz-red block mb-6 uppercase tracking-[0.4em]" data-ja="所在地" data-en="Location">所在地</span>
-                    <p class="text-3xl font-black italic tracking-tighter" data-ja="東京 / JP" data-en="Tokyo / Japan">東京 / JP</p>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/GgXG384agAAuW3u.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 10" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/GgXG384agAAuW3u.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/GrrF1JvXcAAnLrr.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 11" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/GrrF1JvXcAAnLrr.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/Gp7EtkiakAAbDi1.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 12" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/Gp7EtkiakAAbDi1.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <section id="clients" class="py-32 px-6 border-t border-white/5 relative overflow-hidden">
-        <div class="crack-line top-[20%] right-0 rotate-[6deg]"></div>
-        <div class="max-w-screen-2xl mx-auto">
-            <div class="flex justify-between items-end mb-16">
-                <div class="section-head-reveal">
-                    <h2 class="text-5xl md:text-7xl font-light italic leading-none uppercase tracking-wide hover:text-zzz-red transition-colors">Clients</h2>
+                <!-- Pixiv Fanart: Yugi Muto (2021-11-15) through newest -->
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/94150161_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 13" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/94150161_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <span class="text-zzz-red font-black text-[11px] tracking-[0.4em] block mb-8 uppercase italic" data-ja="// お取引先一覧" data-en="// Clients &amp; Partners">// お取引先一覧</span>
-            <!-- flex-wrap + content-sized items (not an equal-width grid) —
-                 a grid stretched every cell to a fixed column width, leaving
-                 a wide dead gap after each short client name. This packs
-                 names tightly instead, wrapping only when a row runs out
-                 of room. -->
-            <div class="flex flex-wrap gap-x-10 gap-y-6 opacity-80">
-                <a href="http://yomiholic.com" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社YomiHolic</a>
-                <a href="https://www.kurogames.com" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">Kuro Games</a>
-                <a href="https://plaize.co/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社plaize</a>
-                <a href="https://www.huion.com/jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社HUION</a>
-                <a href="https://gameandco.co.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社Game & Co. </a>
-                <a href="https://bookbase.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社BookBase</a>
-                <a href="https://www.sme.co.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社Sony Music Ent.</a>
-                <a href="https://celsys.com/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社セルシス</a>
-                <a href="https://aktsk.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社アカツキ</a>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/94482657_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 14" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/94482657_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/94482787_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 15" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/94482787_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/94648358_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 16" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/94648358_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/94756956_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 17" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/94756956_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/94815005_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 18" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/94815005_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/94854541_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 19" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/94854541_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/94986420_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 20" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/94986420_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/95039469_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 21" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/95039469_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/95653870_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 22" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/95653870_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/95951519_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 23" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/95951519_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/96216811_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 24" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/96216811_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/96512851_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 25" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/96512851_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/96911354_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 26" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/96911354_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/97405160_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 27" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/97405160_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/97693012_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 28" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/97693012_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/98151345_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 29" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/98151345_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/98638746_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 30" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/98638746_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/99269268_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 31" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/99269268_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/101429407_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 32" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/101429407_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/101880049_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 33" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/101880049_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/114222559_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 34" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/114222559_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/114506243_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 35" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/114506243_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/115561142_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 36" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/115561142_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/115592011_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 37" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/115592011_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/132819497_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 38" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/132819497_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/132819553_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 39" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/132819553_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/132819716_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 40" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/132819716_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/133381200_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 41" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/133381200_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/133381253_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 42" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/133381253_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/133941819_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 43" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/133941819_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/136886747_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 44" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/136886747_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/139270353_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 45" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/139270353_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/140004480_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 46" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/140004480_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/141667262_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 47" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/141667262_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/141668140_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 48" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/141668140_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/141919363_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 49" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/141919363_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/142291554_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 50" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/142291554_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/143085937_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 51" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/143085937_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/143086038_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 52" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/143086038_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/143101685_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 53" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/143101685_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/143104733_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 54" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/143104733_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/143403164_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 55" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/143403164_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/147655015_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 56" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/147655015_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zzz-card card-flip group aspect-2/3 bg-black">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-face-front">
+                            <img src="images/fanart/web/148388893_p0.jpg" class="vivid-img cursor-zoom-in" alt="ZABI 個人制作イラスト作品 57" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/fanart/full/148388893_p0.jpg">
+                            <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <div class="card-back-mark">
+                                <span class="card-back-logo">Z<span class="accent">A</span>BI</span>
+                                <span class="card-back-sub">PERSONAL ARCHIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1598,6 +2122,7 @@
     </div>
     <audio id="bgm-audio" src="audio/poison.mp3" loop preload="none"></audio>
 
+    <!-- Section Dot Navigation -->
     <!-- Lightbox -->
     <div id="lightbox" class="fixed inset-0 bg-black/95 z-[1200] hidden items-center justify-center p-6 cursor-zoom-out" onclick="closeLightbox()">
         <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-4xl font-black hover:text-zzz-red transition-all leading-none z-10">&times;</button>
@@ -1687,24 +2212,76 @@
             });
         });
 
-        // FANART Reveal — cards sit back-face-up (TCG card back) until they
-        // scroll into view, then flip over their horizontal axis one after
-        // another, in batches, to reveal the artwork.
-        function initFanartReveal() {
-            const grid = document.getElementById('fanart-grid');
-            if (!grid) return;
-            const inners = gsap.utils.toArray(grid.querySelectorAll('.card-flip-inner'));
-            if (!inners.length) return;
-            ScrollTrigger.batch(inners, {
-                start: "top 92%",
-                onEnter: (batch) => {
-                    gsap.to(batch, {
-                        rotationY: 0,
-                        duration: 1.8,
-                        ease: "power2.inOut",
-                        stagger: 0.15
-                    });
-                }
+        // FANART 3D Cylinder — arranges the cards into three vertical rings
+        // around a drum. Position on the drum (rotateY/translateZ/translateY,
+        // driven every frame from --ring-angle) lives on the OUTER .zzz-card;
+        // the entrance lives on the INNER .card-flip-inner instead, so each
+        // card can fly in from its own scattered point in space and settle
+        // into its ring slot without fighting the outer rotation transform.
+        // Continuous spinning only starts once every card has landed.
+        function initFanartCylinder() {
+            const stage = document.getElementById('fanart-stage');
+            const cylinder = document.getElementById('fanart-grid');
+            if (!stage || !cylinder) return;
+
+            const cards = Array.from(cylinder.children);
+            if (!cards.length) return;
+
+            const RINGS = 3;
+            const perRing = Math.ceil(cards.length / RINGS);
+            const angleStep = 360 / perRing;
+            const midRing = (RINGS - 1) / 2;
+
+            const items = cards.map((card, i) => {
+                const ring = Math.floor(i / perRing);
+                const posInRing = i % perRing;
+                const baseAngle = posInRing * angleStep;
+                card.style.setProperty('--row', ring - midRing);
+                return { card, baseAngle };
+            });
+
+            const PERIOD_MS = 110000;
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            const render = (globalAngle) => {
+                items.forEach(({ card, baseAngle }) => {
+                    card.style.setProperty('--ring-angle', (baseAngle + globalAngle) + 'deg');
+                });
+            };
+            render(0);
+
+            const startSpin = () => {
+                let startTime = null;
+                const tick = (now) => {
+                    if (startTime === null) startTime = now;
+                    const globalAngle = -((now - startTime) / PERIOD_MS) * 360;
+                    render(globalAngle);
+                    requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+            };
+
+            const inners = items.map(({ card }) => card.querySelector('.card-flip-inner'));
+
+            if (reduceMotion) {
+                gsap.set(inners, { x: 0, y: 0, z: 0, rotationX: 0, rotationY: 0, rotationZ: 0, scale: 1, opacity: 1 });
+                return;
+            }
+
+            gsap.from(inners, {
+                scrollTrigger: { trigger: stage, start: "top 85%" },
+                x: () => gsap.utils.random(-900, 900),
+                y: () => gsap.utils.random(-600, 600),
+                z: () => gsap.utils.random(-700, 400),
+                rotationX: () => gsap.utils.random(-180, 180),
+                rotationY: () => gsap.utils.random(-180, 180),
+                rotationZ: () => gsap.utils.random(-90, 90),
+                scale: () => gsap.utils.random(0.15, 0.4),
+                opacity: 0,
+                duration: () => gsap.utils.random(1.3, 2),
+                ease: "power3.out",
+                stagger: { each: 0.018, from: "random" },
+                onComplete: startSpin
             });
         }
 
@@ -1717,6 +2294,23 @@
                 onEnter: () => head.classList.add('is-visible'),
                 onEnterBack: () => head.classList.add('is-visible')
             });
+        });
+
+        // Profile Card Center Reveal (opens outward from the middle to both
+        // sides, reverses on scroll-back). Slow and steady rather than a
+        // quick snap — fires as soon as the card appears on screen.
+        gsap.from("#profile-card", {
+            scaleX: 0,
+            opacity: 0,
+            transformOrigin: "50% 50%",
+            duration: 5,
+            delay: 0.6,
+            ease: "power2.inOut",
+            scrollTrigger: {
+                trigger: "#profile-card",
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            }
         });
 
         // Background Slider Logic — single showcased illustration, crossfading
@@ -2051,7 +2645,7 @@
             gsap.set(infos, { opacity: 0, xPercent: -35 });
             gsap.set(infos[0], { opacity: 1, xPercent: 0 });
             infos[0].classList.add('active');
-            if (indexLabel) indexLabel.textContent = '02.01';
+            if (indexLabel) indexLabel.textContent = '01.01';
 
             // Starts exactly one card playing and flashes its frame red —
             // the glow IS the "audio just started" cue, so this is the only
@@ -2266,7 +2860,7 @@
                     onStart: () => {
                         infos[i - 1].classList.remove('active');
                         infos[i].classList.add('active');
-                        if (indexLabel) indexLabel.textContent = '02.' + String(i + 1).padStart(2, '0');
+                        if (indexLabel) indexLabel.textContent = '01.' + String(i + 1).padStart(2, '0');
                         // Go quiet the moment a transition starts — sound
                         // only resumes once the snap lands and the new card
                         // flashes, so audio and the "settled" card always
@@ -2276,7 +2870,7 @@
                     onReverseComplete: () => {
                         infos[i].classList.remove('active');
                         infos[i - 1].classList.add('active');
-                        if (indexLabel) indexLabel.textContent = '02.' + String(i).padStart(2, '0');
+                        if (indexLabel) indexLabel.textContent = '01.' + String(i).padStart(2, '0');
                         setMvCardPlaying(cards[i], false);
                     }
                 }, pos);
@@ -2339,25 +2933,16 @@
             revealHero();
             initHeroSlider();
             initStatsCounter();
-            initHeroPin();
+            // Runs here, not in window.onload — the FANART section sits at
+            // the very top of this page, so its scroll trigger is already
+            // satisfied the instant it's created. Creating it before the
+            // preloader clears meant the whole fly-in-and-assemble tween
+            // played out behind the still-visible preloader, so by the time
+            // the site actually revealed, the cylinder was already sitting
+            // there fully formed. Triggering it here instead makes the
+            // arrival the first thing a visitor actually sees.
+            initFanartCylinder();
             ScrollTrigger.refresh();
-        }
-
-        // Pins the hero section in place for one viewport height of scroll —
-        // pinSpacing:false means nothing below is pushed down to make room
-        // for it, so WORKS (already sitting directly beneath in normal flow)
-        // scrolls straight up and slides over the still-pinned hero instead
-        // of just following behind it.
-        function initHeroPin() {
-            const hero = document.getElementById('hero');
-            if (!hero) return;
-            ScrollTrigger.create({
-                trigger: hero,
-                start: "top top",
-                end: "+=100%",
-                pin: true,
-                pinSpacing: false
-            });
         }
 
         // --- Preloader ---
@@ -2463,8 +3048,8 @@
             initBackToTop();
             initMvCardStack();
             initGridPagination('works-grid', 'works-pagination', 6);
-            initGridPagination('fanart-grid', 'fanart-pagination', 8);
-            initFanartReveal();
+            // initFanartCylinder() runs from revealSite() instead (after the
+            // preloader clears) — see the comment there for why.
 
             // initDotNav() must run after initMvCardStack() creates the MV
             // pin — otherwise its section boundaries for everything after
@@ -2536,6 +3121,15 @@
             bgm.addEventListener('playing', updateWaveVisibility);
             bgm.addEventListener('pause', updateWaveVisibility);
             bgm.addEventListener('ended', updateWaveVisibility);
+        }
+
+        function playVideo(container) {
+            const thumbContainer = container.querySelector('#yt-thumb-container');
+            if (thumbContainer) {
+                thumbContainer.innerHTML = '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/tQfpqHQGBns?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                container.onclick = null;
+                container.classList.remove('cursor-pointer');
+            }
         }
 
         // Swaps a MUSIC VIDEO stack card between its thumbnail and an
