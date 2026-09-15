@@ -205,9 +205,6 @@
             background-size: 14px 100%, 14px 100%, 14px 100%, 14px 100%, 14px 100%, 100% 100%;
         }
         #commercial {
-            /* Needs its own stacking context above #hero's — once JS pins
-               the hero in place (see initHeroPin), WORKS has to render on
-               top of it as it scrolls up and over, not underneath. */
             position: relative;
             z-index: 2;
             background-color: #080808;
@@ -1263,6 +1260,7 @@
 
     <!-- Hero Section -->
     <section id="hero" class="relative px-9 lg:px-20 xl:px-28 pt-40 pb-12 lg:pt-44 lg:pb-16 overflow-hidden">
+        <div id="hero-scroll-inner">
         <div class="crack-line top-[40%] left-0 rotate-[15deg]"></div>
 
         <div class="relative z-10 w-full grid lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-stretch">
@@ -1297,7 +1295,7 @@
                          (#bio-divider-1) — position is an estimate since the
                          divider's exact height shifts with how the bio text
                          wraps, so nudge `top` here if it drifts off-line. -->
-                    <div class="absolute z-30 flex gap-0 rotate-3 lg:rotate-6 top-[90%] left-[2.5rem] lg:left-[-6rem]" id="hero-stats">
+                    <div class="absolute z-30 flex gap-0 rotate-3 lg:rotate-6 top-[90%] left-2 sm:left-6 lg:left-[-6rem]" id="hero-stats">
                         <div class="w-20 sm:w-28 lg:w-40 xl:w-44 aspect-square shrink-0 bg-black flex flex-col items-center justify-center gap-0 rotate-6">
                             <div><span class="stat-number text-3xl sm:text-4xl lg:text-7xl xl:text-8xl text-zzz-red" data-count="6">0</span><span class="stat-number text-xl sm:text-2xl lg:text-4xl text-zzz-red">+</span></div>
                             <p class="text-[7px] sm:text-[8px] lg:text-[10px] font-bold opacity-60 tracking-[0.1em] lg:tracking-[0.2em] uppercase">Years Exp.</p>
@@ -1347,6 +1345,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -2422,25 +2421,13 @@
             revealHero();
             initHeroSlider();
             initStatsCounter();
-            initHeroPin();
+            // The hero used to pin in place for a beat while WORKS slid up
+            // over it, but the profile card's bio text makes the hero's
+            // height too variable (screen size, zoom, content length) for
+            // that effect to reliably avoid clipping hero content or
+            // skipping past WORKS underneath — removed for a plain, always-
+            // correct scroll instead.
             ScrollTrigger.refresh();
-        }
-
-        // Pins the hero section in place for one viewport height of scroll —
-        // pinSpacing:false means nothing below is pushed down to make room
-        // for it, so WORKS (already sitting directly beneath in normal flow)
-        // scrolls straight up and slides over the still-pinned hero instead
-        // of just following behind it.
-        function initHeroPin() {
-            const hero = document.getElementById('hero');
-            if (!hero) return;
-            ScrollTrigger.create({
-                trigger: hero,
-                start: "top top",
-                end: "+=100%",
-                pin: true,
-                pinSpacing: false
-            });
         }
 
         // --- Preloader ---
