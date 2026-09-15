@@ -1246,32 +1246,48 @@
 </svg>
 
 <nav class="fixed top-0 w-full z-[1100] glass-nav">
-    <div class="flex justify-between items-center pl-8 pr-12 py-2.5">
+    <div class="flex justify-between items-center pl-4 pr-4 lg:pl-8 lg:pr-12 py-3 lg:py-4">
         <a href="index.html" class="flex flex-col">
-            <span class="text-[8px] font-bold tracking-[0.5em] text-zzz-red mb-0.5">portfolio</span>
-            <div class="h-7 flex items-center">
+            <div class="h-9 lg:h-12 flex items-center">
                 <img
                     src="images/web/logo-banner.jpg"
                     alt="ZABI STORAGE ロゴ"
                     class="h-full w-auto object-contain"
-                    width="150" height="50"
+                    width="180" height="60"
                 >
             </div>
         </a>
         <div class="flex items-center gap-8">
-            <div class="hidden lg:flex gap-10 text-[13px] font-bold tracking-[0.2em] uppercase italic">
-                <a href="index.html#commercial" class="hover:text-zzz-red transition-all">WORKS</a>
-                <a href="music-video.html" class="hover:text-zzz-red transition-all">MUSIC VIDEO</a>
-                <a href="fanart.html" class="text-zzz-red border-b-2 border-zzz-red pb-1 transition-all">FANART</a>
+            <div class="hidden lg:flex gap-3 text-[15px] font-bold tracking-[0.2em] uppercase italic">
+                <a href="index.html#commercial" class="px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">WORKS</a>
+                <a href="music-video.html" class="px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">MUSIC VIDEO</a>
+                <a href="fanart.html" class="px-5 py-2 border border-zzz-red text-zzz-red transition-all">FANART</a>
             </div>
-            <div class="flex items-center gap-2">
-                <button type="button" id="lang-toggle" onclick="toggleLang()" class="px-4 py-1 border border-white/15 text-[10px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">EN</button>
-                <a href="https://x.com/ZabiMasurao/media" target="_blank" rel="noopener noreferrer" class="px-4 py-1 border border-white/15 text-[10px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">X_TWITTER</a>
-                <a href="https://www.pixiv.net/users/27716830" target="_blank" rel="noopener noreferrer" class="px-4 py-1 border border-white/15 text-[10px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">PIXIV</a>
+            <div class="hidden lg:flex items-center gap-2">
+                <button type="button" onclick="toggleLang()" class="lang-toggle-btn px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">EN</button>
+                <a href="https://x.com/ZabiMasurao/media" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">X_TWITTER</a>
+                <a href="https://www.pixiv.net/users/27716830" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">PIXIV</a>
             </div>
+            <button type="button" onclick="document.getElementById('mobile-nav').classList.remove('hidden');document.body.style.overflow='hidden';" aria-label="メニューを開く" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] border border-white/15 shrink-0">
+                <span class="block w-5 h-[2px] bg-white"></span>
+                <span class="block w-5 h-[2px] bg-white"></span>
+                <span class="block w-5 h-[2px] bg-white"></span>
+            </button>
         </div>
     </div>
 </nav>
+
+<div id="mobile-nav" class="hidden lg:hidden fixed inset-0 z-[1200] bg-[#080808] flex flex-col items-center justify-center gap-4 px-8">
+    <button type="button" onclick="document.getElementById('mobile-nav').classList.add('hidden');document.body.style.overflow='';" aria-label="メニューを閉じる" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center border border-white/15 text-2xl leading-none">×</button>
+    <a href="index.html#commercial" class="w-full max-w-xs text-center px-6 py-3 border border-white/15 text-base font-black italic uppercase tracking-[0.2em]">WORKS</a>
+    <a href="music-video.html" class="w-full max-w-xs text-center px-6 py-3 border border-white/15 text-base font-black italic uppercase tracking-[0.2em]">MUSIC VIDEO</a>
+    <a href="fanart.html" onclick="document.getElementById('mobile-nav').classList.add('hidden');document.body.style.overflow='';" class="w-full max-w-xs text-center px-6 py-3 border border-zzz-red text-zzz-red text-base font-black italic uppercase tracking-[0.2em]">FANART</a>
+    <div class="flex items-center gap-3 mt-4">
+        <button type="button" onclick="toggleLang()" class="lang-toggle-btn px-6 py-2.5 border border-white/15 text-[12px] font-black italic">EN</button>
+        <a href="https://x.com/ZabiMasurao/media" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 border border-white/15 text-[12px] font-black italic">X_TWITTER</a>
+        <a href="https://www.pixiv.net/users/27716830" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 border border-white/15 text-[12px] font-black italic">PIXIV</a>
+    </div>
+</div>
 <div id="bgm-wave" aria-hidden="true"></div>
 
     <!-- Personal Works Section -->
@@ -2500,8 +2516,9 @@
                 const html = lang === 'en' ? el.dataset.en : el.dataset.ja;
                 if (html !== undefined) el.innerHTML = html;
             });
-            const btn = document.getElementById('lang-toggle');
-            if (btn) btn.textContent = lang === 'en' ? 'JA' : 'EN';
+            document.querySelectorAll('.lang-toggle-btn').forEach((btn) => {
+                btn.textContent = lang === 'en' ? 'JA' : 'EN';
+            });
         }
 
         function toggleLang() {
