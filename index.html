@@ -1209,9 +1209,8 @@
                     <p class="text-zzz-red font-bold text-[10px] tracking-[0.8em]"></p>
                 </div>
 
-                <h1 class="text-[18vw] lg:text-[7rem] xl:text-[9rem] leading-[0.78] font-bold italic mb-10 tracking-tighter drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]" id="hero-title">
-                    <span class="block" id="hero-title-zabi">ZABI</span>
-                    <span class="text-zzz-red block ml-8 md:ml-16 lg:ml-20" id="hero-title-storage">STORAGE</span>
+                <h1 class="mb-10" id="hero-title">
+                    <img src="images/web/sign01.png" alt="ZABI STORAGE" id="hero-title-sign" class="w-full max-w-[420px] md:max-w-[520px] lg:max-w-[600px] xl:max-w-[680px] h-auto drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
                 </h1>
 
                 <p id="hero-tagline" class="text-xl font-bold leading-relaxed opacity-90 border-l-2 border-zzz-red pl-6 max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]" data-ja="ZABI
@@ -1669,8 +1668,7 @@
         // Hero Title Animation (fired after preloader clears, see revealSite())
         function revealHero() {
             gsap.timeline()
-                .from("#hero-title-zabi", { duration: 0.6, xPercent: -120, opacity: 0, ease: "expo.out" })
-                .from("#hero-title-storage", { duration: 0.6, xPercent: -120, opacity: 0, ease: "expo.out" }, "-=0.35")
+                .from("#hero-title-sign", { duration: 0.6, xPercent: -120, opacity: 0, ease: "expo.out" })
                 .from("#hero-tagline", { duration: 0.6, xPercent: -60, opacity: 0, ease: "expo.out" }, "+=0.3");
 
             gsap.from("#hero .stat-number, #hero .magnetic-btn", {
