@@ -185,6 +185,11 @@
 
         /* --- Section Backgrounds: subtle color variation per section, so the
            page's mood shifts gradually as you scroll instead of staying flat --- */
+        /* Hero: flat red, same red as the header banner image. Covers the
+           fixed ambient glow/grain layers, which sit behind every section. */
+        #hero {
+            background-color: #fe0000;
+        }
         #commercial::before {
             /* All the decorative fill lives on this layer instead of directly
                on the section — kept full-strength right up to the top edge
@@ -512,19 +517,22 @@
                 height: 6px;
                 background: #ff003c;
                 border-radius: 50%;
+                /* White rim + dark edge so the red dot stays visible on red, black and white alike */
+                box-shadow: 0 0 0 2px #fff, 0 0 0 3px rgba(0, 0, 0, 0.45);
             }
             #cursor-ring {
                 width: 34px;
                 height: 34px;
-                border: 1px solid rgba(255, 0, 60, 0.5);
+                border: 1.5px solid rgba(255, 255, 255, 0.9);
                 border-radius: 50%;
+                box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(0, 0, 0, 0.45);
                 transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background 0.25s ease;
             }
             #cursor-ring.is-active {
                 width: 64px;
                 height: 64px;
-                background: rgba(255, 0, 60, 0.08);
-                border-color: #ff003c;
+                background: rgba(255, 255, 255, 0.14);
+                border-color: #fff;
             }
         }
         @media (hover: none), (pointer: coarse) {
@@ -1007,6 +1015,7 @@
         body.is-loading #hero-title,
         body.is-loading #hero .stat-number,
         body.is-loading #hero-tagline-frame,
+        body.is-loading #hero-works-frame,
         body.is-loading #hero .magnetic-btn {
             opacity: 0;
         }
@@ -1216,27 +1225,25 @@
 </svg>
 
 <nav class="fixed top-0 w-full z-[1100] glass-nav">
-    <div class="flex justify-between items-center pl-4 pr-4 lg:pl-8 lg:pr-12 py-3 lg:py-4">
-        <a href="index.html" class="flex flex-col">
-            <div class="h-9 lg:h-12 flex items-center">
-                <img
-                    src="images/web/logo-banner.jpg"
-                    alt="ZABI STORAGE ロゴ"
-                    class="h-full w-auto object-contain"
-                    width="180" height="60"
-                >
-            </div>
+    <div class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-4 lg:px-6 xl:px-10 py-2 lg:py-3">
+        <div class="hidden lg:flex justify-start gap-2 xl:gap-3 text-[12px] xl:text-[15px] font-bold tracking-[0.15em] xl:tracking-[0.2em] uppercase italic">
+            <a href="#commercial" class="px-3 xl:px-5 py-2 border border-zzz-red text-zzz-red transition-all">WORKS</a>
+            <a href="music-video.html" class="px-3 xl:px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">MUSIC VIDEO</a>
+            <a href="fanart.html" class="px-3 xl:px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">FANART</a>
+        </div>
+        <a href="index.html" class="col-start-2 block h-12 lg:h-16 xl:h-[72px]">
+            <img
+                src="images/web/header-banner.jpg"
+                alt="ZABI STORAGE ロゴ"
+                class="h-full w-auto"
+                width="1500" height="500"
+            >
         </a>
-        <div class="flex items-center gap-8">
-            <div class="hidden lg:flex gap-3 text-[15px] font-bold tracking-[0.2em] uppercase italic">
-                <a href="#commercial" class="px-5 py-2 border border-zzz-red text-zzz-red transition-all">WORKS</a>
-                <a href="music-video.html" class="px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">MUSIC VIDEO</a>
-                <a href="fanart.html" class="px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">FANART</a>
-            </div>
+        <div class="col-start-3 flex justify-end items-center">
             <div class="hidden lg:flex items-center gap-2">
-                <button type="button" onclick="toggleLang()" class="lang-toggle-btn px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">EN</button>
-                <a href="https://x.com/ZabiMasurao/media" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">X_TWITTER</a>
-                <a href="https://www.pixiv.net/users/27716830" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">PIXIV</a>
+                <button type="button" onclick="toggleLang()" class="lang-toggle-btn px-3 xl:px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">EN</button>
+                <a href="https://x.com/ZabiMasurao/media" target="_blank" rel="noopener noreferrer" class="px-3 xl:px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">X_TWITTER</a>
+                <a href="https://www.pixiv.net/users/27716830" target="_blank" rel="noopener noreferrer" class="px-3 xl:px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">PIXIV</a>
             </div>
             <button type="button" onclick="document.getElementById('mobile-nav').classList.remove('hidden');document.body.style.overflow='hidden';" aria-label="メニューを開く" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] border border-white/15 shrink-0">
                 <span class="block w-5 h-[2px] bg-white"></span>
@@ -1269,21 +1276,68 @@
             <!-- Text -->
             <div class="relative z-20 flex flex-col justify-between h-full">
               <div>
-                <h1 class="mb-10" id="hero-title">
-                    <img src="images/web/sign01.png" alt="ZABI STORAGE" id="hero-title-sign" class="w-full max-w-[640px] md:max-w-[820px] lg:max-w-[980px] xl:max-w-[1120px] h-auto drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+                <h1 class="relative z-30 pointer-events-none -rotate-3 origin-bottom-left -ml-3 lg:-ml-8 -mb-12 sm:-mb-16 xl:-mb-24" id="hero-title">
+                    <img src="images/web/sign01.png" alt="ZABI STORAGE" id="hero-title-sign" class="w-full max-w-[640px] md:max-w-[820px] lg:max-w-[980px] xl:max-w-[1120px] h-auto [filter:drop-shadow(3px_3px_0_#000)]">
                 </h1>
 
+                <div class="w-fit max-w-full">
                 <div id="hero-tagline-frame" class="tagline-jagged-frame tagline-jagged max-w-2xl lg:max-w-3xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
-                    <p id="hero-tagline" class="relative tagline-jagged text-base sm:text-lg lg:text-2xl font-bold leading-relaxed bg-black text-white p-8 sm:p-10 lg:p-16 pb-10 lg:pb-12" data-ja="ZABI
-                        イラストレーター。アニメ&amp;ゲームFA/MV/TCG/KV etc. &lt;br&gt;
+                    <p id="hero-tagline" class="relative tagline-jagged text-[13px] lg:text-sm font-bold leading-relaxed bg-black text-white px-8 sm:px-10 lg:px-12 pt-10 pb-10 lg:pt-12 lg:pb-12" data-ja="ZABI
+                        イラストレーター。&lt;br&gt;アニメ&amp;ゲームFA/MV/TCG/KV etc. &lt;br&gt;
                         2027年1月以降のお仕事を受付中です。&lt;span class=&quot;absolute bottom-4 right-6 md:bottom-5 md:right-8 text-[10px] font-bold opacity-30 tracking-widest uppercase&quot;&gt;Remote Work Optimized&lt;/span&gt;" data-en="ZABI&lt;br&gt;Illustrator — anime &amp; game fan art / MVs / TCG / key visuals, etc.&lt;br&gt;Currently booking work from January 2027 onward.&lt;span class=&quot;absolute bottom-4 right-6 md:bottom-5 md:right-8 text-[10px] font-bold opacity-30 tracking-widest uppercase&quot;&gt;Remote Work Optimized&lt;/span&gt;">
                         ZABI
-                        イラストレーター。アニメ&ゲームFA/MV/TCG/KV etc. <br>
+                        イラストレーター。<br>アニメ&ゲームFA/MV/TCG/KV etc. <br>
                         2027年1月以降のお仕事を受付中です。<span class="absolute bottom-4 right-6 md:bottom-5 md:right-8 text-[10px] font-bold opacity-30 tracking-widest uppercase">Remote Work Optimized</span>
                     </p>
                 </div>
+
+                <!-- Works credits: second jagged block, same frame technique as the tagline above -->
+                <div id="hero-works-frame" class="tagline-jagged-frame tagline-jagged mt-8 max-w-2xl lg:max-w-3xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+                    <div id="hero-works" class="relative tagline-jagged bg-black text-white px-8 sm:px-10 lg:px-12 pt-10 pb-10 lg:pt-12 lg:pb-12">
+                        <p class="text-[10px] font-black text-zzz-red uppercase tracking-[0.4em] mb-5" data-ja="// 主な実績" data-en="// Selected Works">// 主な実績</p>
+                        <div class="space-y-5">
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">AD / Key Visual</p>
+                                <ul class="space-y-1.5 border-l-2 border-zzz-red pl-3 text-[13px] lg:text-sm font-bold leading-snug">
+                                    <li data-ja="『Pokémon Masters EX』7周年記念広告イラスト" data-en="&#39;Pokémon Masters EX&#39; 7th Anniversary Ad Illustration">『Pokémon Masters EX』7周年記念広告イラスト</li>
+                                    <li data-ja="ALGS Year 5 Championship ローディングイラスト" data-en="ALGS Year 5 Championship — Loading Illustration">ALGS Year 5 Championship ローディングイラスト</li>
+                                    <li>RECARO EXO（エグゾ）PV</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">TCG — Xross Stars</p>
+                                <ul class="space-y-1.5 border-l-2 border-zzz-red pl-3 text-[13px] lg:text-sm font-bold leading-snug">
+                                    <li data-ja="第3弾『Broken Neonlights』LRPP 柊ツルギ" data-en="Vol. 3 『Broken Neonlights』 LRPP 《柊ツルギ》">第3弾『Broken Neonlights』LRPP 柊ツルギ</li>
+                                    <li data-ja="第4弾『Grand Resonance』《収穫の刻》" data-en="Vol. 4 『Grand Resonance』《収穫の刻》">第4弾『Grand Resonance』《収穫の刻》</li>
+                                    <li data-ja="第4弾『Grand Resonance』《盗賊キット》" data-en="Vol. 4 『Grand Resonance』《盗賊キット》">第4弾『Grand Resonance』《盗賊キット》</li>
+                                    <li data-ja="第5弾『Ignition Vortex』KV" data-en="Vol. 5 『Ignition Vortex』 Key Visual">第5弾『Ignition Vortex』KV</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-2" data-ja="公式FA" data-en="Official Fan Art">公式FA</p>
+                                <ul class="space-y-1.5 border-l-2 border-zzz-red pl-3 text-[13px] lg:text-sm font-bold leading-snug">
+                                    <li data-ja="鳴潮「仇遠」「エイメス」" data-en="Wuthering Waves 「仇遠」「エイメス」">鳴潮「仇遠」「エイメス」</li>
+                                    <li data-ja="ゼンレスゾーンゼロ「葉瞬光」" data-en="Zenless Zone Zero 「葉瞬光」">ゼンレスゾーンゼロ「葉瞬光」</li>
+                                    <li data-ja="雀魂「北落」" data-en="Mahjong Soul 「北落」">雀魂「北落」</li>
+                                    <li>『迷宮クソたわけ』</li>
+                                    <li data-ja="『グリムコネクト1 ―赤ずきんの章―』" data-en="Grimm Connect 1 — Little Red Riding Hood Chapter">『グリムコネクト1 ―赤ずきんの章―』</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-2" data-ja="MVイラスト" data-en="Music Video Illustration">MVイラスト</p>
+                                <ul class="space-y-1.5 border-l-2 border-zzz-red pl-3 text-[13px] lg:text-sm font-bold leading-snug">
+                                    <li data-ja="甘楽デイティー『レッテル』" data-en="Kanra Deity &#39;Retteru&#39;">甘楽デイティー『レッテル』</li>
+                                    <li data-ja="柊キライ「ハイド＆ハイド」" data-en="Hiiragi Kirai &#39;Hyde &amp; Hyde&#39;">柊キライ「ハイド＆ハイド」</li>
+                                    <li data-ja="煮ル果実「バーバヤーガ」" data-en="Niru Kajitsu &#39;Baba Yaga&#39;">煮ル果実「バーバヤーガ」</li>
+                                    <li data-ja="栗山夕璃「フェレス」" data-en="Kuriyama Yuri &#39;Feres&#39;">栗山夕璃「フェレス」</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
                 <div class="mt-12 flex items-center gap-10">
-                    <a href="#commercial" class="magnetic-btn bg-white text-black px-10 py-4 text-base font-black italic hover:bg-zzz-red hover:text-white transition-all -rotate-1">
+                    <a href="#commercial" class="magnetic-btn bg-white text-black px-10 py-4 text-base font-black italic hover:bg-black hover:text-white transition-all -rotate-1">
                         information
                     </a>
                 </div>
@@ -1754,7 +1808,8 @@
         function revealHero() {
             gsap.timeline()
                 .from("#hero-title-sign", { duration: 0.6, xPercent: -120, opacity: 0, ease: "expo.out" })
-                .from("#hero-tagline-frame", { duration: 0.6, xPercent: -60, opacity: 0, ease: "expo.out" }, "+=0.3");
+                .from("#hero-tagline-frame", { duration: 0.6, xPercent: -60, opacity: 0, ease: "expo.out" }, "+=0.3")
+                .from("#hero-works-frame", { duration: 0.6, xPercent: -60, opacity: 0, ease: "expo.out" }, "-=0.35");
 
             gsap.from("#hero .stat-number, #hero .magnetic-btn", {
                 duration: 0.8, y: 20, opacity: 0, stagger: 0.06, delay: 0.4, ease: "power3.out"
