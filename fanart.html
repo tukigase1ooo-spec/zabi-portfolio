@@ -64,6 +64,7 @@
         }
 
         html {
+            caret-color: transparent;
             overflow-x: hidden;
             max-width: 100vw;
         }
@@ -1254,17 +1255,23 @@
     <div class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-4 lg:px-6 xl:px-10 py-2 lg:py-3">
         <div class="hidden lg:flex justify-start gap-2 xl:gap-3 text-[12px] xl:text-[15px] font-bold tracking-[0.15em] xl:tracking-[0.2em] uppercase italic">
             <a href="index.html#commercial" class="px-3 xl:px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">WORKS</a>
-            <a href="music-video.html" class="px-3 xl:px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">MUSIC VIDEO</a>
+            <a href="mv-works.html" class="px-3 xl:px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">MV WORKS</a>
             <a href="fanart.html" class="px-3 xl:px-5 py-2 border border-zzz-red text-zzz-red transition-all">FANART</a>
         </div>
         <a href="index.html" class="col-start-2 block h-12 lg:h-16 xl:h-[72px]">
             <img
                 src="images/web/header-banner.jpg"
                 alt="ZABI STORAGE ロゴ"
-                class="h-full w-auto"
+                class="h-full w-auto [filter:url(#f-logo-key)]"
                 width="1500" height="500"
             >
         </a>
+        <!-- Keys the red backdrop out of the header logo so it sits on the dark nav (same as index.html). -->
+        <svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false">
+            <filter id="f-logo-key" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -6 0 6 0 2"/>
+            </filter>
+        </svg>
         <div class="col-start-3 flex justify-end items-center">
             <div class="hidden lg:flex items-center gap-2">
                 <button type="button" onclick="toggleLang()" class="lang-toggle-btn px-3 xl:px-6 py-2.5 border border-white/15 text-[12px] font-black italic hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">EN</button>
@@ -1283,7 +1290,7 @@
 <div id="mobile-nav" class="hidden lg:hidden fixed inset-0 z-[1200] bg-[#080808] flex flex-col items-center justify-center gap-4 px-8">
     <button type="button" onclick="document.getElementById('mobile-nav').classList.add('hidden');document.body.style.overflow='';" aria-label="メニューを閉じる" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center border border-white/15 text-2xl leading-none">×</button>
     <a href="index.html#commercial" class="w-full max-w-xs text-center px-6 py-3 border border-white/15 text-base font-black italic uppercase tracking-[0.2em]">WORKS</a>
-    <a href="music-video.html" class="w-full max-w-xs text-center px-6 py-3 border border-white/15 text-base font-black italic uppercase tracking-[0.2em]">MUSIC VIDEO</a>
+    <a href="mv-works.html" class="w-full max-w-xs text-center px-6 py-3 border border-white/15 text-base font-black italic uppercase tracking-[0.2em]">MV WORKS</a>
     <a href="fanart.html" onclick="document.getElementById('mobile-nav').classList.add('hidden');document.body.style.overflow='';" class="w-full max-w-xs text-center px-6 py-3 border border-zzz-red text-zzz-red text-base font-black italic uppercase tracking-[0.2em]">FANART</a>
     <div class="flex items-center gap-3 mt-4">
         <button type="button" onclick="toggleLang()" class="lang-toggle-btn px-6 py-2.5 border border-white/15 text-[12px] font-black italic">EN</button>

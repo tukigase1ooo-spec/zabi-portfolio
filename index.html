@@ -29,7 +29,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,900;1,300;1,900&family=Space+Grotesk:wght@300;500;700&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,900;1,300;1,900&family=Space+Grotesk:wght@300;500;700&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Serif+JP:wght@500;700&family=Barlow:wght@500;800&display=swap" rel="stylesheet">
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha384-poC0r6usQOX2Ayt/VGA+t81H6V3iN9L+Irz9iO8o+s0X20tLpzc9DOOtnKxhaQSE" crossorigin="anonymous"></script>
@@ -64,6 +64,7 @@
         }
 
         html {
+            caret-color: transparent;
             overflow-x: hidden;
             max-width: 100vw;
         }
@@ -185,37 +186,331 @@
 
         /* --- Section Backgrounds: subtle color variation per section, so the
            page's mood shifts gradually as you scroll instead of staying flat --- */
-        /* Hero: flat red, same red as the header banner image. Covers the
-           fixed ambient glow/grain layers, which sit behind every section. */
-        #hero {
-            background-color: #fe0000;
+        /* PROFILE + WORKS share one textured red field (#red-zone): grunge
+           texture over bright red, with PROFILE fading in from black at the
+           top so it meets the dark header. */
+        #red-zone {
+            position: relative;
+            z-index: 2;
+            isolation: isolate;
+            overflow: hidden;
+            background-color: #ff1f1f;
         }
-        #commercial::before {
-            /* All the decorative fill lives on this layer instead of directly
-               on the section — kept full-strength right up to the top edge
-               so WORKS reads as a clean, sharp break from the section
-               above it instead of bleeding/fading in. */
+        #hero::before,
+        #commercial::before,
+        #mv-works::before {
             content: "";
             position: absolute;
             inset: 0;
+            z-index: -2;
+            background: url("images/textures/3.png") center / cover no-repeat;
+            mix-blend-mode: luminosity;
+            opacity: 0.55;
+            pointer-events: none;
+        }
+        #hero {
+            background: linear-gradient(to bottom, #000 0, #000 9%, rgba(18, 0, 0, 0.88) 22%, rgba(40, 0, 0, 0.45) 42%, rgba(0, 0, 0, 0) 62%);
+        }
+        .red-scribble {
+            position: absolute;
             z-index: 0;
             pointer-events: none;
-            background-image:
-                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
-                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
-                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
-                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
-                linear-gradient(to right, rgba(255, 255, 255, 0.15) 0 2px, transparent 2px 12px, rgba(255, 255, 255, 0.15) 12px 14px),
-                linear-gradient(135deg, #050505 0%, #1c1c1c 22%, #060606 40%, #242424 58%, #070707 76%, #161616 100%);
-            background-position: calc(16.667% - 7px) 0, calc(33.333% - 7px) 0, calc(50% - 7px) 0, calc(66.667% - 7px) 0, calc(83.333% - 7px) 0, 0 0;
-            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-            background-size: 14px 100%, 14px 100%, 14px 100%, 14px 100%, 14px 100%, 100% 100%;
+            opacity: 0.32;
         }
-        #commercial {
+        .red-scribble svg { width: 100%; height: auto; display: block; }
+
+        /* Big section titles: heavy sans with a small index number and the
+           outline logo traced behind. */
+        .sec-title {
             position: relative;
-            z-index: 2;
-            background-color: #080808;
+            z-index: 1;
+            display: inline-block;
+            font-family: 'Barlow', 'Noto Sans JP', sans-serif;
+            font-weight: 800;
+            font-style: normal;
+            line-height: 0.82;
+            letter-spacing: -0.01em;
+            font-size: clamp(68px, 13vw, 196px);
+            color: #fff;
         }
+        #mv-works .sec-title {
+            white-space: nowrap;
+            font-size: clamp(48px, 13vw, 196px);
+        }
+        .sec-title .sec-num {
+            position: absolute;
+            top: -0.1em;
+            font-size: 0.24em;
+            font-weight: 500;
+            line-height: 1;
+        }
+        .sec-title--num-left .sec-num { left: -0.32em; }
+        .sec-title--num-right .sec-num { right: -0.42em; }
+        .sec-title-outline {
+            position: absolute;
+            z-index: -1;
+            left: -16%;
+            top: 50%;
+            width: 132%;
+            height: auto;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .font-serif-jp {
+            font-family: 'Noto Serif JP', 'Yu Mincho', serif;
+        }
+        .font-serif-jp h1, .font-serif-jp h2, .font-serif-jp h3 {
+            font-family: inherit;
+            text-transform: none;
+        }
+        .profile-name {
+            font-size: clamp(20px, 2.2vw, 28px);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            line-height: 1;
+            margin: 0.2em 0 1.1em;
+        }
+        .profile-body p {
+            font-size: clamp(12px, 1.05vw, 14px);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            line-height: 1.6;
+            margin-bottom: 1.25em;
+        }
+        .profile-rule {
+            width: 9.5rem;
+            height: 1px;
+            background: #fff;
+        }
+        .credits-block {
+            position: relative;
+            z-index: 1;
+            width: min(100%, 84vw);
+            background: rgba(24, 10, 10, 0.94);
+            padding: 56px 32px 64px max(24px, calc((100vw - 72rem) / 2 + 40px));
+        }
+        .credits-date {
+            display: inline-block;
+            width: 7.2em;
+            text-indent: 0;
+            opacity: 0.75;
+        }
+        .credits-list li {
+            padding-left: 7.2em;
+            text-indent: -7.2em;
+            font-size: clamp(12px, 1.05vw, 14px);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            line-height: 1.32;
+        }
+        @media (max-width: 1023px) {
+            .credits-block { width: 100%; }
+        }
+
+        /* WORKS carousel panel: flush to the right edge, artwork strip
+           scrolls sideways with the next piece peeking in. */
+        .works-panel {
+            position: relative;
+            z-index: 1;
+            margin-left: max(16px, calc((100vw - 72rem) / 2 - 2rem));
+            background: rgba(24, 10, 10, 0.95);
+            padding: 28px 0 32px 16px;
+        }
+        .works-meta-wrap { padding: 0 24px 22px 6px; min-height: 96px; }
+        /* Left-attached variant: content lines up with the page column,
+           the strip scrolls in from the left screen edge. */
+        .works-panel--left {
+            --lp: max(24px, calc((100vw - 72rem) / 2 + 40px));
+            margin-left: 0;
+            margin-right: max(16px, calc((100vw - 72rem) / 2 - 2rem));
+            padding-left: 0;
+            padding-right: 16px;
+        }
+        .works-panel--left .works-meta-wrap { padding-left: var(--lp); }
+        .works-panel--left .works-track { padding-left: var(--lp); scroll-padding-left: var(--lp); }
+        .works-panel--left .works-dots { padding-left: var(--lp); padding-right: 0; }
+        .works-panel--left .works-arrow--prev { left: calc(var(--lp) + 12px); }
+        .works-panel--left .works-arrow--next { right: 28px; }
+        .works-meta { display: none; }
+        .works-meta.is-active { display: block; animation: worksMetaIn 0.45s ease both; }
+        @keyframes worksMetaIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+        .works-meta-line {
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+        .works-date::before { content: "・"; margin: 0 0.9em; }
+        .works-meta h3 {
+            font-size: clamp(14px, 1.3vw, 17px);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            line-height: 1.45;
+            margin-bottom: 14px;
+        }
+        .works-meta p {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+        .works-post-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            opacity: 0.55;
+            transition: opacity 0.2s;
+        }
+        .works-post-link:hover { opacity: 1; }
+        .works-track {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            padding-right: 16px;
+        }
+        .works-track::-webkit-scrollbar { display: none; }
+        .works-slide {
+            flex: 0 0 auto;
+            height: clamp(240px, 42vw, 600px);
+            scroll-snap-align: start;
+            background: #000;
+            cursor: zoom-in;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+        }
+        .works-slide img {
+            height: 100%;
+            width: auto;
+            max-width: min(78vw, 1100px);
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .works-slide { position: relative; }
+        .works-slide:hover img { transform: scale(1.03); }
+        .slide-info {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            gap: 8px;
+            padding: clamp(16px, 2.4vw, 32px);
+            text-align: left;
+            color: #fff;
+            background: linear-gradient(to top, rgba(20, 0, 4, 0.78) 0%, rgba(20, 0, 4, 0.42) 55%, rgba(20, 0, 4, 0.28) 100%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+        .works-slide:hover .slide-info,
+        .works-slide:focus-visible .slide-info { opacity: 1; }
+        .slide-info > span { display: block; transform: translateY(8px); transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+        .works-slide:hover .slide-info > span,
+        .works-slide:focus-visible .slide-info > span { transform: none; }
+        .slide-info-tag { font-size: 11px; letter-spacing: 0.14em; opacity: 0.85; }
+        .slide-info-title { font-size: clamp(14px, 1.4vw, 19px); font-weight: 700; letter-spacing: 0.08em; line-height: 1.45; }
+        .slide-info-client { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; opacity: 0.85; }
+        .slide-info-cta {
+            margin-top: 6px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            border-bottom: 2px solid #ff003c;
+            padding-bottom: 3px;
+        }
+        .works-track-wrap { position: relative; }
+        .works-arrow {
+            position: absolute;
+            top: 50%;
+            z-index: 5;
+            width: 56px;
+            height: 56px;
+            margin-top: -28px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 0, 0, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        }
+        .works-arrow--prev { left: clamp(12px, 2.5vw, 36px); }
+        .works-arrow--next { right: clamp(12px, 2.5vw, 36px); }
+        .works-arrow::before {
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 9px solid transparent;
+            border-bottom: 9px solid transparent;
+        }
+        .works-arrow--next::before { margin-left: 4px; border-left: 14px solid #fff; }
+        .works-arrow--prev::before { margin-right: 4px; border-right: 14px solid #fff; }
+        .works-arrow:hover { background: #ff003c; border-color: #ff003c; transform: scale(1.08); }
+        @media (max-width: 767px) {
+            .works-arrow { width: 44px; height: 44px; margin-top: -22px; }
+            .works-arrow::before { border-top-width: 7px; border-bottom-width: 7px; }
+            .works-arrow--next::before { border-left-width: 11px; }
+            .works-arrow--prev::before { border-right-width: 11px; }
+        }
+        .works-dots {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 26px;
+            padding-right: 16px;
+        }
+        .mv-slide {
+            position: relative;
+            display: block;
+            cursor: pointer;
+        }
+        .mv-slide img {
+            aspect-ratio: 16 / 9;
+        }
+        .mv-panel-foot {
+            position: relative;
+        }
+        .mv-more-link {
+            position: absolute;
+            right: 40px;
+            bottom: -4px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            border-bottom: 2px solid #ff003c;
+            padding-bottom: 3px;
+            transition: color 0.2s;
+        }
+        .mv-more-link:hover { color: #ff003c; }
+        @media (max-width: 767px) {
+            .mv-more-link { position: static; display: inline-block; margin: 20px 0 0 6px; }
+        }
+        .works-dots button {
+            width: 11px;
+            height: 11px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.35);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .works-dots button.is-active { background: #fff; transform: scale(1.15); }
+        @media (max-width: 767px) {
+            .works-slide { height: 62vw; }
+            .works-slide img { max-width: 84vw; }
+        }
+
         /* SPECIALS: a quieter, more premium backdrop than WORKS's tick-mark
            pattern — a soft red glow and a faint sheen over a smooth dark
            gradient, instead of busy ruled lines. */
@@ -1013,10 +1308,8 @@
         /* Belt-and-braces: these hero elements are animated in by GSAP right after reveal,
            so also force them hidden via plain CSS to guarantee no pre-animation flash. */
         body.is-loading #hero-title,
-        body.is-loading #hero .stat-number,
-        body.is-loading #hero-tagline-frame,
-        body.is-loading #hero-works-frame,
-        body.is-loading #hero .magnetic-btn {
+        body.is-loading #profile-intro,
+        body.is-loading #hero-works-frame {
             opacity: 0;
         }
 
@@ -1228,14 +1521,14 @@
     <div class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-4 lg:px-6 xl:px-10 py-2 lg:py-3">
         <div class="hidden lg:flex justify-start gap-2 xl:gap-3 text-[12px] xl:text-[15px] font-bold tracking-[0.15em] xl:tracking-[0.2em] uppercase italic">
             <a href="#commercial" class="px-3 xl:px-5 py-2 border border-zzz-red text-zzz-red transition-all">WORKS</a>
-            <a href="music-video.html" class="px-3 xl:px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">MUSIC VIDEO</a>
+            <a href="mv-works.html" class="px-3 xl:px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">MV WORKS</a>
             <a href="fanart.html" class="px-3 xl:px-5 py-2 border border-white/15 hover:bg-zzz-red hover:text-white hover:border-zzz-red transition-all">FANART</a>
         </div>
         <a href="index.html" class="col-start-2 block h-12 lg:h-16 xl:h-[72px]">
             <img
                 src="images/web/header-banner.jpg"
                 alt="ZABI STORAGE ロゴ"
-                class="h-full w-auto"
+                class="h-full w-auto [filter:url(#f-logo-key)]"
                 width="1500" height="500"
             >
         </a>
@@ -1257,7 +1550,7 @@
 <div id="mobile-nav" class="hidden lg:hidden fixed inset-0 z-[1200] bg-[#080808] flex flex-col items-center justify-center gap-4 px-8">
     <button type="button" onclick="document.getElementById('mobile-nav').classList.add('hidden');document.body.style.overflow='';" aria-label="メニューを閉じる" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center border border-white/15 text-2xl leading-none">×</button>
     <a href="#commercial" onclick="document.getElementById('mobile-nav').classList.add('hidden');document.body.style.overflow='';" class="w-full max-w-xs text-center px-6 py-3 border border-zzz-red text-zzz-red text-base font-black italic uppercase tracking-[0.2em]">WORKS</a>
-    <a href="music-video.html" class="w-full max-w-xs text-center px-6 py-3 border border-white/15 text-base font-black italic uppercase tracking-[0.2em]">MUSIC VIDEO</a>
+    <a href="mv-works.html" class="w-full max-w-xs text-center px-6 py-3 border border-white/15 text-base font-black italic uppercase tracking-[0.2em]">MV WORKS</a>
     <a href="fanart.html" class="w-full max-w-xs text-center px-6 py-3 border border-white/15 text-base font-black italic uppercase tracking-[0.2em]">FANART</a>
     <div class="flex items-center gap-3 mt-4">
         <button type="button" onclick="toggleLang()" class="lang-toggle-btn px-6 py-2.5 border border-white/15 text-[12px] font-black italic">EN</button>
@@ -1267,334 +1560,292 @@
 </div>
 <div id="bgm-wave" aria-hidden="true"></div>
 
-    <!-- Hero Section -->
-    <section id="hero" class="relative px-9 lg:px-20 xl:px-28 pt-40 pb-12 lg:pt-44 lg:pb-16 overflow-hidden">
-        <div id="hero-scroll-inner">
-        <div class="crack-line top-[40%] left-0 rotate-[15deg]"></div>
+    <!-- Outline version of the header logo, traced at render time with an SVG
+         filter (logo pixels → alpha → dilated ring). Used behind the big
+         section titles and as the faint scribble decor on the red field. -->
+    <svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false">
+        <defs>
+            <filter id="f-logo-outline" x="0" y="0" width="1500" height="500" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -6 0 6 0 2" result="raw"/>
+                <feComponentTransfer in="raw" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+                <feMorphology in="mask" operator="dilate" radius="3.5" result="fat"/>
+                <feMorphology in="mask" operator="dilate" radius="1" result="thin"/>
+                <feComposite in="fat" in2="thin" operator="out"/>
+            </filter>
+            <filter id="f-logo-outline-thin" x="0" y="0" width="1500" height="500" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -6 0 6 0 2" result="raw"/>
+                <feComponentTransfer in="raw" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+                <feMorphology in="mask" operator="dilate" radius="1.6" result="fat"/>
+                <feMorphology in="mask" operator="dilate" radius="0.4" result="thin"/>
+                <feComposite in="fat" in2="thin" operator="out"/>
+            </filter>
+            <!-- Keys the red backdrop out of the header logo so it sits on the dark nav. -->
+            <filter id="f-logo-key" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -6 0 6 0 2"/>
+            </filter>
+            <symbol id="logo-outline" viewBox="0 0 1500 500">
+                <image href="images/web/logo-banner.jpg" width="1500" height="500" filter="url(#f-logo-outline)"/>
+            </symbol>
+            <symbol id="logo-outline-thin" viewBox="0 0 1500 500">
+                <image href="images/web/logo-banner.jpg" width="1500" height="500" filter="url(#f-logo-outline-thin)"/>
+            </symbol>
+        </defs>
+    </svg>
 
-        <div class="relative z-10 w-full grid lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-stretch">
-            <!-- Text -->
-            <div class="relative z-20 flex flex-col justify-between h-full">
-              <div>
-                <h1 class="relative z-30 pointer-events-none -rotate-3 origin-bottom-left -ml-3 lg:-ml-8 -mb-12 sm:-mb-16 xl:-mb-24" id="hero-title">
-                    <img src="images/web/sign01.png" alt="ZABI STORAGE" id="hero-title-sign" class="w-full max-w-[640px] md:max-w-[820px] lg:max-w-[980px] xl:max-w-[1120px] h-auto [filter:drop-shadow(3px_3px_0_#000)]">
+    <div id="red-zone">
+    <!-- Profile Section -->
+    <section id="hero" class="relative pt-32 lg:pt-40 pb-0">
+        <div class="red-scribble top-[52%] -left-[20%] w-[120%] rotate-[-8deg]" aria-hidden="true"><svg viewBox="0 0 1500 500"><use href="#logo-outline-thin"/></svg></div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-6 sm:px-10">
+            <div class="flex justify-end" id="hero-title">
+                <h1 class="sec-title sec-title--num-left" id="profile-title">
+                    <svg class="sec-title-outline" viewBox="0 0 1500 500" aria-hidden="true"><use href="#logo-outline"/></svg>
+                    <span class="sec-num">1</span>PROFILE
                 </h1>
-
-                <div class="w-fit max-w-full">
-                <div id="hero-tagline-frame" class="tagline-jagged-frame tagline-jagged max-w-2xl lg:max-w-3xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
-                    <p id="hero-tagline" class="relative tagline-jagged text-[13px] lg:text-sm font-bold leading-relaxed bg-black text-white px-8 sm:px-10 lg:px-12 pt-10 pb-10 lg:pt-12 lg:pb-12" data-ja="ZABI
-                        イラストレーター。&lt;br&gt;アニメ&amp;ゲームFA/MV/TCG/KV etc. &lt;br&gt;
-                        2027年1月以降のお仕事を受付中です。&lt;span class=&quot;absolute bottom-4 right-6 md:bottom-5 md:right-8 text-[10px] font-bold opacity-30 tracking-widest uppercase&quot;&gt;Remote Work Optimized&lt;/span&gt;" data-en="ZABI&lt;br&gt;Illustrator — anime &amp; game fan art / MVs / TCG / key visuals, etc.&lt;br&gt;Currently booking work from January 2027 onward.&lt;span class=&quot;absolute bottom-4 right-6 md:bottom-5 md:right-8 text-[10px] font-bold opacity-30 tracking-widest uppercase&quot;&gt;Remote Work Optimized&lt;/span&gt;">
-                        ZABI
-                        イラストレーター。<br>アニメ&ゲームFA/MV/TCG/KV etc. <br>
-                        2027年1月以降のお仕事を受付中です。<span class="absolute bottom-4 right-6 md:bottom-5 md:right-8 text-[10px] font-bold opacity-30 tracking-widest uppercase">Remote Work Optimized</span>
-                    </p>
-                </div>
-
-                <!-- Works credits: second jagged block, same frame technique as the tagline above -->
-                <div id="hero-works-frame" class="tagline-jagged-frame tagline-jagged mt-8 max-w-2xl lg:max-w-3xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
-                    <div id="hero-works" class="relative tagline-jagged bg-black text-white px-8 sm:px-10 lg:px-12 pt-10 pb-10 lg:pt-12 lg:pb-12">
-                        <p class="text-[10px] font-black text-zzz-red uppercase tracking-[0.4em] mb-5" data-ja="// 主な実績" data-en="// Selected Works">// 主な実績</p>
-                        <div class="space-y-5">
-                            <div>
-                                <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">AD / Key Visual</p>
-                                <ul class="space-y-1.5 border-l-2 border-zzz-red pl-3 text-[13px] lg:text-sm font-bold leading-snug">
-                                    <li data-ja="『Pokémon Masters EX』7周年記念広告イラスト" data-en="&#39;Pokémon Masters EX&#39; 7th Anniversary Ad Illustration">『Pokémon Masters EX』7周年記念広告イラスト</li>
-                                    <li data-ja="ALGS Year 5 Championship ローディングイラスト" data-en="ALGS Year 5 Championship — Loading Illustration">ALGS Year 5 Championship ローディングイラスト</li>
-                                    <li>RECARO EXO（エグゾ）PV</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">TCG — Xross Stars</p>
-                                <ul class="space-y-1.5 border-l-2 border-zzz-red pl-3 text-[13px] lg:text-sm font-bold leading-snug">
-                                    <li data-ja="第3弾『Broken Neonlights』LRPP 柊ツルギ" data-en="Vol. 3 『Broken Neonlights』 LRPP 《柊ツルギ》">第3弾『Broken Neonlights』LRPP 柊ツルギ</li>
-                                    <li data-ja="第4弾『Grand Resonance』《収穫の刻》" data-en="Vol. 4 『Grand Resonance』《収穫の刻》">第4弾『Grand Resonance』《収穫の刻》</li>
-                                    <li data-ja="第4弾『Grand Resonance』《盗賊キット》" data-en="Vol. 4 『Grand Resonance』《盗賊キット》">第4弾『Grand Resonance』《盗賊キット》</li>
-                                    <li data-ja="第5弾『Ignition Vortex』KV" data-en="Vol. 5 『Ignition Vortex』 Key Visual">第5弾『Ignition Vortex』KV</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-2" data-ja="公式FA" data-en="Official Fan Art">公式FA</p>
-                                <ul class="space-y-1.5 border-l-2 border-zzz-red pl-3 text-[13px] lg:text-sm font-bold leading-snug">
-                                    <li data-ja="鳴潮「仇遠」「エイメス」" data-en="Wuthering Waves 「仇遠」「エイメス」">鳴潮「仇遠」「エイメス」</li>
-                                    <li data-ja="ゼンレスゾーンゼロ「葉瞬光」" data-en="Zenless Zone Zero 「葉瞬光」">ゼンレスゾーンゼロ「葉瞬光」</li>
-                                    <li data-ja="雀魂「北落」" data-en="Mahjong Soul 「北落」">雀魂「北落」</li>
-                                    <li>『迷宮クソたわけ』</li>
-                                    <li data-ja="『グリムコネクト1 ―赤ずきんの章―』" data-en="Grimm Connect 1 — Little Red Riding Hood Chapter">『グリムコネクト1 ―赤ずきんの章―』</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-2" data-ja="MVイラスト" data-en="Music Video Illustration">MVイラスト</p>
-                                <ul class="space-y-1.5 border-l-2 border-zzz-red pl-3 text-[13px] lg:text-sm font-bold leading-snug">
-                                    <li data-ja="甘楽デイティー『レッテル』" data-en="Kanra Deity &#39;Retteru&#39;">甘楽デイティー『レッテル』</li>
-                                    <li data-ja="柊キライ「ハイド＆ハイド」" data-en="Hiiragi Kirai &#39;Hyde &amp; Hyde&#39;">柊キライ「ハイド＆ハイド」</li>
-                                    <li data-ja="煮ル果実「バーバヤーガ」" data-en="Niru Kajitsu &#39;Baba Yaga&#39;">煮ル果実「バーバヤーガ」</li>
-                                    <li data-ja="栗山夕璃「フェレス」" data-en="Kuriyama Yuri &#39;Feres&#39;">栗山夕璃「フェレス」</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="mt-12 flex items-center gap-10">
-                    <a href="#commercial" class="magnetic-btn bg-white text-black px-10 py-4 text-base font-black italic hover:bg-black hover:text-white transition-all -rotate-1">
-                        information
-                    </a>
-                </div>
-              </div>
             </div>
 
-            <!-- About -->
-            <div class="relative z-20 pb-24" id="about">
-                <div class="relative">
-                    <!-- Overlaps the profile card's first divider line
-                         (#bio-divider-1) — position is an estimate since the
-                         divider's exact height shifts with how the bio text
-                         wraps, so nudge `top` here if it drifts off-line. -->
-                    <div class="absolute z-30 flex gap-0 rotate-3 lg:rotate-6 top-[90%] left-2 sm:left-6 lg:left-[-6rem]" id="hero-stats">
-                        <div class="w-20 sm:w-28 lg:w-40 xl:w-44 aspect-square shrink-0 bg-black flex flex-col items-center justify-center gap-0 rotate-6">
-                            <div><span class="stat-number text-3xl sm:text-4xl lg:text-7xl xl:text-8xl text-zzz-red" data-count="6">0</span><span class="stat-number text-xl sm:text-2xl lg:text-4xl text-zzz-red">+</span></div>
-                            <p class="text-[7px] sm:text-[8px] lg:text-[10px] font-bold opacity-60 tracking-[0.1em] lg:tracking-[0.2em] uppercase">Years Exp.</p>
-                        </div>
-                        <div class="w-20 sm:w-28 lg:w-40 xl:w-44 aspect-square shrink-0 bg-black flex flex-col items-center justify-center gap-0 -rotate-3 -ml-3 lg:-ml-6 xl:-ml-8">
-                            <div><span class="stat-number text-3xl sm:text-4xl lg:text-7xl xl:text-8xl" data-count="21">0</span><span class="stat-number text-xl sm:text-2xl lg:text-4xl">+</span></div>
-                            <p class="text-[7px] sm:text-[8px] lg:text-[10px] font-bold opacity-60 tracking-[0.1em] lg:tracking-[0.2em] uppercase">Works</p>
-                        </div>
-                        <div class="w-20 sm:w-28 lg:w-40 xl:w-44 aspect-square shrink-0 bg-black flex flex-col items-center justify-center gap-0 rotate-12 -ml-3 lg:-ml-6 xl:-ml-8">
-                            <div><span class="stat-number text-3xl sm:text-4xl lg:text-7xl xl:text-8xl" data-count="9">0</span></div>
-                            <p class="text-[7px] sm:text-[8px] lg:text-[10px] font-bold opacity-60 tracking-[0.1em] lg:tracking-[0.2em] uppercase">Clients</p>
-                        </div>
+            <div class="font-serif-jp mt-14 lg:mt-20 lg:pl-0 xl:-ml-0" id="profile-intro">
+                <div class="flex items-start gap-6 sm:gap-10">
+                    <img src="images/web/avatar.jpg" alt="ZABI プロフィール画像" class="w-20 h-20 sm:w-24 sm:h-24 object-cover shrink-0" width="160" height="160" decoding="async">
+                    <div>
+                        <h2 class="profile-name">ZABI</h2>
+                        <p class="text-[13px] sm:text-sm leading-[1.45] tracking-[0.08em] font-medium" data-ja="イラストレーター&lt;br&gt;アニメ&amp;ゲームFA/MV/TCG/KV etc.&lt;br&gt;2027年1月以降のお仕事を受付中です。" data-en="Illustrator&lt;br&gt;Anime &amp; game fan art / MV / TCG / KV etc.&lt;br&gt;Currently booking work from January 2027.">イラストレーター<br>アニメ&amp;ゲームFA/MV/TCG/KV etc.<br>2027年1月以降のお仕事を受付中です。</p>
                     </div>
-                    <div class="absolute -top-4 lg:-top-8 -left-4 lg:-left-10 z-10 inline-flex items-center gap-3 lg:gap-5 bg-white border-4 border-black px-5 py-2 lg:px-10 lg:py-3 -rotate-3" id="profile-id-card">
-                        <div class="w-10 h-10 lg:w-16 lg:h-16 shrink-0">
-                            <div class="relative z-10 bg-zzz-gray aspect-square overflow-hidden border border-black/10 group">
-                                <img src="images/web/avatar.jpg" class="vivid-img" alt="ZABI プロフィール画像" style="object-fit: cover;" width="160" height="160" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                        <div>
-                            <span class="font-black text-[8px] lg:text-[11px] tracking-[0.3em] lg:tracking-[0.5em] block mb-1">PROFILE</span>
-                            <h2 class="text-xl lg:text-4xl font-black italic leading-[0.8] tracking-tighter">ZABI</h2>
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="profile-card-frame profile-card-tilt">
-                    <div class="bg-black p-8 md:p-10 lg:p-12 lg:pl-20 pt-24 lg:pt-24 profile-card-tilt" id="profile-card">
-                        <div>
-                            <p class="text-lg lg:text-xl font-bold italic text-white/90 leading-snug mb-3" data-ja="イラストレーターのザビです" data-en="I&#39;m ZABI, an illustrator.">イラストレーターのザビです</p>
-                            <p class="text-lg lg:text-xl font-bold italic text-white/90 leading-snug mb-4" data-ja="ポートフォリオサイトをご覧いただき、ありがとうございます。" data-en="Thank you for visiting my portfolio.">ポートフォリオサイトをご覧いただき、ありがとうございます。</p>
-                            <div class="space-y-3 text-base lg:text-[17px] font-medium leading-relaxed opacity-60">
-                                <p data-ja="ゲーム会社にて約6年間勤務後、2025年8月よりフリーランスイラストレーターとして活動開始。" data-en="After about six years at a game company, I went freelance as an illustrator in August 2025.">ゲーム会社にて約6年間勤務後、2025年8月よりフリーランスイラストレーターとして活動開始。</p>
-                                <p data-ja="キービジュアル、キャラクターデザイン、TCGイラスト、MV用イラスト、ライトノベル挿絵などを手がけています。" data-en="I work on key visuals, character design, TCG illustrations, music video art, light novel illustrations, and more.">キービジュアル、キャラクターデザイン、TCGイラスト、MV用イラスト、ライトノベル挿絵などを手がけています。</p>
-                                <p data-ja="密度感のある描写や、見る人の胸が熱くなるような表現を得意としています。" data-en="I specialize in richly detailed artwork and expressions that stir the viewer&#39;s emotions.">密度感のある描写や、見る人の胸が熱くなるような表現を得意としています。</p>
-                                <p data-ja="商業利用のお仕事につきまして、現在募集しております。商業・個人問わず、まずはご相談だけでも大歓迎です📩 お気軽にどうぞ!" data-en="I&#39;m currently accepting commercial commissions. Whether commercial or personal, feel free to reach out just to chat 📩 — I&#39;d love to hear from you!">商業利用のお仕事につきまして、現在募集しております。商業・個人問わず、まずはご相談だけでも大歓迎です📩 お気軽にどうぞ!</p>
-                                <p class="opacity-20" id="bio-divider-1">ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー</p>
-                                <p data-ja="2027年1月以降着手のお仕事を募集しております。" data-en="I&#39;m currently taking on work starting from January 2027.">2027年1月以降着手のお仕事を募集しております。</p>
-                                <p data-ja="ご依頼時には以下の項目を明記いただけますようお願いいたします。&lt;br&gt;・使用用途・希望費用・希望納期・実績公開の可/不可・制作フロー。&lt;br&gt;・提出データの形式（制作サイズや解像度）・参考画像やPDF資料など。" data-en="When reaching out, please include the following:&lt;br&gt;• Intended use, budget, desired deadline, whether the work may be shown publicly, and the production flow&lt;br&gt;• Required file format (size / resolution) and any reference images or PDF materials">ご依頼時には以下の項目を明記いただけますようお願いいたします。<br>
-                                ・使用用途・希望費用・希望納期・実績公開の可/不可・制作フロー。<br>
-                                ・提出データの形式（制作サイズや解像度）・参考画像やPDF資料など。</p>
-                                <p data-ja="英訳に時間がかかるため、海外の方は日本語訳をご用意いただけますと幸いです。&lt;br&gt;Because it takes time to read and write English, I appreciate it if you could request a Japanese translation." data-en="Because it takes me a little extra time to reply in English, thank you in advance for your patience.">英訳に時間がかかるため、海外の方は日本語訳をご用意いただけますと幸いです。<br>
-                                Because it takes time to read and write English, I appreciate it if you could request a Japanese translation.</p>
-                                <p class="opacity-20">ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー</p>
-                            </div>
-                        </div>
+                <div class="profile-body mt-12 lg:mt-14">
+                    <p data-ja="ポートフォリオサイトをご覧いただき、ありがとうございます。" data-en="Thank you for visiting my portfolio.">ポートフォリオサイトをご覧いただき、ありがとうございます。</p>
+                    <p data-ja="ゲーム会社にて約6年間勤務後、2025年8月よりフリーランスイラストレーターとして活動開始。" data-en="After about six years at a game company, I went freelance as an illustrator in August 2025.">ゲーム会社にて約6年間勤務後、2025年8月よりフリーランスイラストレーターとして活動開始。</p>
+                    <p data-ja="キービジュアル、キャラクターデザイン、TCGイラスト、MV用イラスト、ライトノベル挿絵などを手がけています。" data-en="I work on key visuals, character design, TCG illustrations, music video art, light novel illustrations, and more.">キービジュアル、キャラクターデザイン、TCGイラスト、MV用イラスト、ライトノベル挿絵などを手がけています。</p>
+                    <p data-ja="密度感のある描写や、見る人の胸が熱くなるような表現を得意としています。" data-en="I specialize in richly detailed artwork and expressions that stir the viewer&#39;s emotions.">密度感のある描写や、見る人の胸が熱くなるような表現を得意としています。</p>
+                    <p data-ja="商業利用のお仕事につきまして、現在募集しております。商業・個人問わず、まずはご相談だけでも大歓迎です。" data-en="I&#39;m currently accepting commercial commissions. Whether commercial or personal, feel free to reach out just to chat.">商業利用のお仕事につきまして、現在募集しております。商業・個人問わず、まずはご相談だけでも大歓迎です。</p>
+                </div>
+
+                <div class="profile-rule my-12 lg:my-14"></div>
+
+                <div class="relative">
+                    <div class="profile-body">
+                        <p data-ja="2027年1月以降着手のお仕事を募集しております。" data-en="I&#39;m currently taking on work starting from January 2027.">2027年1月以降着手のお仕事を募集しております。</p>
+                        <p class="!leading-[1.5]" data-ja="ご依頼時には以下の項目を明記いただけますようお願いいたします。&lt;br&gt;・使用用途・希望費用・希望納期・実績公開の可/不可・制作フロー。&lt;br&gt;・提出データの形式（制作サイズや解像度）・参考画像やPDF資料など。" data-en="When reaching out, please include the following:&lt;br&gt;• Intended use, budget, desired deadline, whether the work may be shown publicly, and the production flow&lt;br&gt;• Required file format (size / resolution) and any reference images or PDF materials">ご依頼時には以下の項目を明記いただけますようお願いいたします。<br>・使用用途・希望費用・希望納期・実績公開の可/不可・制作フロー。<br>・提出データの形式（制作サイズや解像度）・参考画像やPDF資料など。</p>
+                        <p data-ja="英訳に時間がかかるため、海外の方は日本語訳をご用意いただけますと幸いです。" data-en="Because it takes me a little extra time to reply in English, I&#39;d appreciate a Japanese translation if possible.">英訳に時間がかかるため、海外の方は日本語訳をご用意いただけますと幸いです。</p>
                     </div>
-                    </div>
+                    <img src="images/web/sign01.png" alt="" aria-hidden="true" class="hidden md:block absolute right-0 lg:right-10 bottom-0 w-44 lg:w-56 -rotate-6 opacity-90 pointer-events-none" decoding="async">
                 </div>
             </div>
         </div>
+
+        <!-- Published credits: dark block flush to the left edge -->
+        <div class="credits-block font-serif-jp mt-16 lg:mt-20" id="hero-works-frame">
+            <p class="text-[13px] tracking-[0.12em] font-medium" data-ja="職業実績" data-en="Professional Works">職業実績</p>
+            <div class="profile-rule my-8"></div>
+            <ul class="credits-list">
+                <li><span class="credits-date">2026/09/03</span><span data-ja="『Pokémon Masters EX』7周年記念広告｜広告イラスト｜株式会社plaize 様" data-en="&#39;Pokémon Masters EX&#39; 7th Anniversary Ad | Ad Illustration | plaize Inc.">『Pokémon Masters EX』7周年記念広告｜広告イラスト｜株式会社plaize 様</span></li>
+                <li><span class="credits-date">2025/10/30</span><span data-ja="『ROF-MAO』5周年記念｜PVイラスト｜ANYCOLOR株式会社 様" data-en="&#39;ROF-MAO&#39; 5th Anniversary | PV Illustration | ANYCOLOR Inc.">『ROF-MAO』5周年記念｜PVイラスト｜ANYCOLOR株式会社 様</span></li>
+                <li><span class="credits-date">2025/10/30</span><span data-ja="『Xross Stars』第5弾「Ignition Vortex」｜キービジュアル｜株式会社Game &amp; Co. 様" data-en="&#39;Xross Stars&#39; Vol. 5 &#39;Ignition Vortex&#39; | Key Visual | Game &amp; Co., Ltd.">『Xross Stars』第5弾「Ignition Vortex」｜キービジュアル｜株式会社Game &amp; Co. 様</span></li>
+                <li><span class="credits-date">2026/07/17</span><span data-ja="『Xross Stars』第4弾「Grand Resonance」《収穫の刻》｜TCGイラスト｜株式会社Game &amp; Co. 様" data-en="&#39;Xross Stars&#39; Vol. 4 &#39;Grand Resonance&#39; 《収穫の刻》 | TCG Illustration | Game &amp; Co., Ltd.">『Xross Stars』第4弾「Grand Resonance」《収穫の刻》｜TCGイラスト｜株式会社Game &amp; Co. 様</span></li>
+                <li><span class="credits-date">2026/07/17</span><span data-ja="『Xross Stars』第4弾「Grand Resonance」《盗賊キット》｜TCGイラスト｜株式会社Game &amp; Co. 様" data-en="&#39;Xross Stars&#39; Vol. 4 &#39;Grand Resonance&#39; 《盗賊キット》 | TCG Illustration | Game &amp; Co., Ltd.">『Xross Stars』第4弾「Grand Resonance」《盗賊キット》｜TCGイラスト｜株式会社Game &amp; Co. 様</span></li>
+                <li><span class="credits-date">2026/02/24</span><span data-ja="『Xross Stars』第3弾「Broken Neonlights」柊ツルギ｜LRPP｜TCGイラスト｜株式会社Game &amp; Co. 様" data-en="&#39;Xross Stars&#39; Vol. 3 &#39;Broken Neonlights&#39; 柊ツルギ | LRPP | TCG Illustration | Game &amp; Co., Ltd.">『Xross Stars』第3弾「Broken Neonlights」柊ツルギ｜LRPP｜TCGイラスト｜株式会社Game &amp; Co. 様</span></li>
+                <li><span class="credits-date">2025/10/30</span><span data-ja="『鳴潮』｜「仇遠」公式ファンアート｜Kuro Games 様" data-en="&#39;Wuthering Waves&#39; | 「仇遠」 Official Fan Art | Kuro Games">『鳴潮』｜「仇遠」公式ファンアート｜Kuro Games 様</span></li>
+                <li><span class="credits-date">2026/01/19</span><span data-ja="『鳴潮』｜「エイメス」公式ファンアート｜Kuro Games 様" data-en="&#39;Wuthering Waves&#39; | 「エイメス」 Official Fan Art | Kuro Games">『鳴潮』｜「エイメス」公式ファンアート｜Kuro Games 様</span></li>
+                <li><span class="credits-date">2026/09/10</span><span data-ja="『鳴潮』｜「景燃」公式ファンアート｜Kuro Games 様" data-en="&#39;Wuthering Waves&#39; | 「景燃」 Official Fan Art | Kuro Games">『鳴潮』｜「景燃」公式ファンアート｜Kuro Games 様</span></li>
+                <li><span class="credits-date">2025/12/30</span><span data-ja="『ゼンレスゾーンゼロ』｜「葉瞬光」イラスト｜株式会社YomiHolic 様" data-en="&#39;Zenless Zone Zero&#39; | 「葉瞬光」 Illustration | YomiHolic Inc.">『ゼンレスゾーンゼロ』｜「葉瞬光」イラスト｜株式会社YomiHolic 様</span></li>
+                <li><span class="credits-date">2026/06/30</span><span data-ja="『雀魂』｜「北落」誕生日記念イラスト｜株式会社Yostar 様" data-en="&#39;Mahjong Soul&#39; | 「北落」 Birthday Illustration | Yostar, Inc.">『雀魂』｜「北落」誕生日記念イラスト｜株式会社Yostar 様</span></li>
+                <li><span class="credits-date">2026/01/18</span><span data-ja="『ALGS Year 5 Championship』｜ローディングイラスト｜EA Japan株式会社 様" data-en="&#39;ALGS Year 5 Championship&#39; | Loading Illustration | EA Japan">『ALGS Year 5 Championship』｜ローディングイラスト｜EA Japan株式会社 様</span></li>
+                <li><span class="credits-date">2026/05/31</span><span data-ja="『RECARO EXO（エグゾ）』｜PVイラスト&amp;PM｜レカロ株式会社 様" data-en="&#39;RECARO EXO&#39; | PV Illustration &amp; PM | レカロ株式会社">『RECARO EXO（エグゾ）』｜PVイラスト&amp;PM｜レカロ株式会社 様</span></li>
+                <li><span class="credits-date">2026/04/25</span><span data-ja="『迷宮クソたわけ』｜公式ファンアート｜株式会社BookBase 様" data-en="&#39;Meikyuu Kusotawake&#39; | Official Fan Art | BookBase Inc.">『迷宮クソたわけ』｜公式ファンアート｜株式会社BookBase 様</span></li>
+                <li><span class="credits-date">2026/03/24</span><span data-ja="『グリムコネクト1 ―赤ずきんの章―』｜公式ファンアート｜株式会社BookBase 様" data-en="&#39;Grimm Connect 1 — Little Red Riding Hood Chapter&#39; | Official Fan Art | BookBase Inc.">『グリムコネクト1 ―赤ずきんの章―』｜公式ファンアート｜株式会社BookBase 様</span></li>
+                <li><span class="credits-date">2026/03/22</span><span data-ja="「HUION様15周年記念」OCイラスト&amp;PV｜株式会社HUION 様" data-en="HUION 15th Anniversary | OC Illustration &amp; PV | HUION Inc.">「HUION様15周年記念」OCイラスト&amp;PV｜株式会社HUION 様</span></li>
+                <li><span class="credits-date">2026/03/13</span><span data-ja="甘楽デイティー「レッテル」｜MVイラスト｜株式会社ソニー・ミュージックエンタテインメント 様" data-en="Kanra Deity &#39;Retteru&#39; | MV Illustration | Sony Music Entertainment (Japan) Inc.">甘楽デイティー「レッテル」｜MVイラスト｜株式会社ソニー・ミュージックエンタテインメント 様</span></li>
+                <li><span class="credits-date">2021/10/06</span><span data-ja="柊キライ「ハイド＆ハイド」｜MVイラスト｜GABULI 様" data-en="Hiiragi Kirai &#39;Hyde &amp; Hyde&#39; | MV Illustration | GABULI">柊キライ「ハイド＆ハイド」｜MVイラスト｜GABULI 様</span></li>
+                <li><span class="credits-date">2021/12/26</span><span data-ja="煮ル果実「バーバヤーガ」｜MVイラスト｜GABULI 様" data-en="Niru Kajitsu &#39;Baba Yaga&#39; | MV Illustration | GABULI">煮ル果実「バーバヤーガ」｜MVイラスト｜GABULI 様</span></li>
+                <li><span class="credits-date">2022/03/19</span><span data-ja="栗山夕璃「フェレス」｜MVイラスト｜GABULI 様" data-en="Kuriyama Yuri &#39;Feres&#39; | MV Illustration | GABULI">栗山夕璃「フェレス」｜MVイラスト｜GABULI 様</span></li>
+                <li><span class="credits-date">2021/08/27</span><span data-ja="jon-YAKITORY「Noisy Sweet Home」｜MVイラスト｜GABULI 様" data-en="jon-YAKITORY &#39;Noisy Sweet Home&#39; | MV Illustration | GABULI">jon-YAKITORY「Noisy Sweet Home」｜MVイラスト｜GABULI 様</span></li>
+                <li><span class="credits-date">2021/12/15</span><span data-ja="柊マグネタイト「ファブリック・フラワー」｜MVイラスト｜GABULI 様" data-en="Hiiragi Magnetite &#39;Fabric Flower&#39; | MV Illustration | GABULI">柊マグネタイト「ファブリック・フラワー」｜MVイラスト｜GABULI 様</span></li>
+                <li><span class="credits-date">2023/08/18</span><span data-ja="「Akatsuki Games プロジェクト暁」イラスト一部制作｜株式会社アカツキ 様" data-en="Akatsuki Games &#39;Project Akatsuki&#39; | Partial Illustration Work | Akatsuki Inc.">「Akatsuki Games プロジェクト暁」イラスト一部制作｜株式会社アカツキ 様</span></li>
+            </ul>
         </div>
     </section>
 
     <!-- Commercial Works Section -->
-    <section id="commercial" class="pt-16 pb-32 px-6 relative overflow-visible">
-        <div class="crack-line top-[10%] right-0 -rotate-[10deg]"></div>
-        <div class="crack-line bottom-[15%] left-0 rotate-[8deg]"></div>
-        <div class="max-w-screen-2xl mx-auto">
-            <div class="flex justify-between items-end mb-8">
-                <div class="section-head-reveal -ml-4 md:-ml-8 lg:-ml-12">
-                    <h2 class="text-5xl md:text-7xl font-light italic leading-none uppercase tracking-wide">Works</h2>
+    <section id="commercial" class="relative pt-24 lg:pt-36 pb-28 lg:pb-36">
+        <div class="red-scribble -top-[8%] -right-[30%] w-[110%] rotate-[14deg]" aria-hidden="true"><svg viewBox="0 0 1500 500"><use href="#logo-outline-thin"/></svg></div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-6 sm:px-10">
+            <h2 class="sec-title sec-title--num-right section-head-reveal -ml-2 lg:-ml-24">
+                <svg class="sec-title-outline" viewBox="0 0 1500 500" aria-hidden="true"><use href="#logo-outline"/></svg>
+                WORKS<span class="sec-num">2</span>
+            </h2>
+        </div>
+
+        <!-- One work at a time: meta header above a horizontally scrolling
+             strip of artwork (next piece peeks in from the right). The meta
+             block shown is synced to whichever slide is snapped in view. -->
+        <div class="works-panel font-serif-jp mt-16 lg:mt-24" id="works-carousel">
+            <div class="works-meta-wrap">
+                <div class="works-meta is-active" data-slide="0">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="広告イラスト" data-en="Ad Illustration">広告イラスト</span><span class="works-date">2026/09/03</span></div>
+                    <h3 data-ja="『Pokémon Masters EX』7周年記念広告イラスト" data-en="&#39;Pokémon Masters EX&#39; 7th Anniversary Ad Illustration">『Pokémon Masters EX』7周年記念広告イラスト</h3>
+                    <p data-ja="Client: 株式会社plaize 様" data-en="Client: plaize Inc.">Client: 株式会社plaize 様</p>
+                    <a href="https://x.com/ZabiMasurao/status/2095459109227446471?s=20" target="_blank" rel="noopener noreferrer" class="works-post-link" data-ja="投稿を見る →" data-en="View post →">投稿を見る →</a>
+                </div>
+                <div class="works-meta" data-slide="1">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="プロモーションイラスト" data-en="Promotional Illustration">プロモーションイラスト</span><span class="works-date">2026/05/31</span></div>
+                    <h3 data-ja="RECAROゲーミングチェア「RECARO EXO（エグゾ）」プロモーションイラスト" data-en="RECARO Gaming Chair &#39;RECARO EXO&#39; Promotional Illustration">RECAROゲーミングチェア「RECARO EXO（エグゾ）」プロモーションイラスト</h3>
+                    <p data-ja="Client: レカロ株式会社 様" data-en="Client: レカロ株式会社">Client: レカロ株式会社 様</p>
+                </div>
+                <div class="works-meta" data-slide="2">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="公式ファンアート" data-en="Official Fan Art">公式ファンアート</span><span class="works-date">2026/06/30</span></div>
+                    <h3 data-ja="【公式】雀魂-じゃんたま- 「北落」誕生日イラスト" data-en="[Official] Mahjong Soul — 「北落」 Birthday Illustration">【公式】雀魂-じゃんたま- 「北落」誕生日イラスト</h3>
+                    <p data-ja="Client: 株式会社Yostar 様" data-en="Client: Yostar, Inc.">Client: 株式会社Yostar 様</p>
+                </div>
+                <div class="works-meta" data-slide="3">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="TCGイラスト" data-en="TCG Illustration">TCGイラスト</span><span class="works-date">2026/07/17</span></div>
+                    <h3 data-ja="Xross Starsブースターパック第4弾『Grand Resonance』《収穫の刻》" data-en="Xross Stars Booster Pack Vol. 4 『Grand Resonance』《収穫の刻》">Xross Starsブースターパック第4弾『Grand Resonance』《収穫の刻》</h3>
+                    <p data-ja="Client: 株式会社Game &amp; Co. 様" data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game &amp; Co. 様</p>
+                </div>
+                <div class="works-meta" data-slide="4">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="TCGイラスト" data-en="TCG Illustration">TCGイラスト</span><span class="works-date">2026/07/17</span></div>
+                    <h3 data-ja="Xross Starsブースターパック第4弾『Grand Resonance』《盗賊キット》" data-en="Xross Stars Booster Pack Vol. 4 『Grand Resonance』《盗賊キット》">Xross Starsブースターパック第4弾『Grand Resonance』《盗賊キット》</h3>
+                    <p data-ja="Client: 株式会社Game &amp; Co. 様" data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game &amp; Co. 様</p>
+                </div>
+                <div class="works-meta" data-slide="5">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="TCGイラスト" data-en="TCG Illustration">TCGイラスト</span><span class="works-date">2026/02/24</span></div>
+                    <h3 data-ja="Xross Starsブースターパック第3弾『Broken Neonlights』LRPP《柊ツルギ》" data-en="Xross Stars Booster Pack Vol. 3 『Broken Neonlights』 — LRPP 《柊ツルギ》">Xross Starsブースターパック第3弾『Broken Neonlights』LRPP《柊ツルギ》</h3>
+                    <p data-ja="Client: 株式会社Game &amp; Co. 様" data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game &amp; Co. 様</p>
+                </div>
+                <div class="works-meta" data-slide="6">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="TCGイラスト" data-en="TCG Illustration">TCGイラスト</span><span class="works-date">2026/02/24</span></div>
+                    <h3 data-ja="Xross Starsブースターパック第3弾『Broken Neonlights』LRPP《柊ツルギ》別カット" data-en="Xross Stars Booster Pack Vol. 3 『Broken Neonlights』 — LRPP 《柊ツルギ》 Alt Cut">Xross Starsブースターパック第3弾『Broken Neonlights』LRPP《柊ツルギ》別カット</h3>
+                    <p data-ja="Client: 株式会社Game &amp; Co. 様" data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game &amp; Co. 様</p>
+                </div>
+                <div class="works-meta" data-slide="7">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="公式ファンアート" data-en="Official Fan Art">公式ファンアート</span><span class="works-date">2025/10/30</span></div>
+                    <h3 data-ja="鳴潮 公式ファンアート「仇遠」" data-en="Wuthering Waves — Official Fan Art 「仇遠」">鳴潮 公式ファンアート「仇遠」</h3>
+                    <p data-ja="Client: Kuro Games 様" data-en="Client: Kuro Games">Client: Kuro Games 様</p>
+                </div>
+                <div class="works-meta" data-slide="8">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="ローディングイラスト" data-en="Loading Illustration">ローディングイラスト</span><span class="works-date">2026/01/18</span></div>
+                    <h3>『ALGS Year 5 Championship』Loading Card</h3>
+                    <p data-ja="Client: EA Japan株式会社 様" data-en="Client: EA Japan">Client: EA Japan株式会社 様</p>
+                </div>
+                <div class="works-meta" data-slide="9">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="公式ファンアート" data-en="Official Fan Art">公式ファンアート</span><span class="works-date">2026/01/19</span></div>
+                    <h3 data-ja="鳴潮 公式ファンアート「エイメス」" data-en="Wuthering Waves — Official Fan Art 「エイメス」">鳴潮 公式ファンアート「エイメス」</h3>
+                    <p data-ja="Client: Kuro Games 様" data-en="Client: Kuro Games">Client: Kuro Games 様</p>
+                </div>
+                <div class="works-meta" data-slide="10">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="キービジュアル" data-en="Key Visual">キービジュアル</span><span class="works-date">2026/03/13</span></div>
+                    <h3>甘楽デイティー『レッテル』</h3>
+                    <p data-ja="Client: 株式会社ソニー・ミュージックエンタテインメント 様" data-en="Client: Sony Music Entertainment (Japan) Inc.">Client: 株式会社ソニー・ミュージックエンタテインメント 様</p>
+                </div>
+                <div class="works-meta" data-slide="11">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="記念イラスト" data-en="Anniversary Illustration">記念イラスト</span><span class="works-date">2026/03/22</span></div>
+                    <h3 data-ja="HUION様 15周年記念OCイラスト" data-en="HUION 15th Anniversary Original Character Illustration">HUION様 15周年記念OCイラスト</h3>
+                    <p data-ja="Client: 株式会社HUION 様" data-en="Client: HUION Inc.">Client: 株式会社HUION 様</p>
+                </div>
+                <div class="works-meta" data-slide="12">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="公式ファンアート" data-en="Official Fan Art">公式ファンアート</span><span class="works-date">2025/12/30</span></div>
+                    <h3 data-ja="『ゼンレスゾーンゼロ』公式ファンアート「葉瞬光」" data-en="Zenless Zone Zero — Official Fan Art 「葉瞬光」">『ゼンレスゾーンゼロ』公式ファンアート「葉瞬光」</h3>
+                    <p data-ja="Client: 株式会社YomiHolic 様" data-en="Client: YomiHolic Inc.">Client: 株式会社YomiHolic 様</p>
+                </div>
+                <div class="works-meta" data-slide="13">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="応援イラスト" data-en="Support Illustration">応援イラスト</span><span class="works-date">2026/03/24</span></div>
+                    <h3 data-ja="『グリムコネクト』応援記念イラスト" data-en="Grimm Connect — Commemorative Support Illustration">『グリムコネクト』応援記念イラスト</h3>
+                    <p data-ja="Client: 株式会社BookBase 様" data-en="Client: BookBase Inc.">Client: 株式会社BookBase 様</p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 grid-expandable" id="works-grid">
-                <!-- [ADD] New Works Items -->
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HRSQZ11agAEa4_F.jpg" class="vivid-img cursor-zoom-in" alt="『Pokémon Masters EX』7周年記念広告イラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HRSQZ11agAEa4_F.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">KEY VISUAL</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="『Pokémon Masters EX』7周年記念広告イラスト" data-en="&#39;Pokémon Masters EX&#39; 7th Anniversary Ad Illustration">『Pokémon Masters EX』7周年記念広告イラスト</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社ポケモン" data-en="Client: The Pokémon Company">Client: 株式会社ポケモン</p>
-                        <a href="https://x.com/ZabiMasurao/status/2095459109227446471?s=20" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-[10px] font-bold text-white/40 hover:text-white transition-colors mt-3 pt-3 border-t border-white/5 flex items-center gap-1.5">
-                            <span data-ja="投稿を見る" data-en="View post">投稿を見る</span>
-                            <span class="opacity-50">@ZabiMasurao</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HJodNyoakAA-C_f.jpg" class="vivid-img cursor-zoom-in" alt="RECAROゲーミングチェア「RECARO EXO」プロモーションイラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HJodNyoakAA-C_f.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">KEY VISUAL</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="RECAROゲーミングチェア「RECARO EXO（エグゾ）」プロモーションイラスト" data-en="RECARO Gaming Chair &#39;RECARO EXO&#39; Promotional Illustration">RECAROゲーミングチェア「RECARO EXO（エグゾ）」プロモーションイラスト</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: RECARO Gaming" data-en="Client: RECARO Gaming">Client: RECARO Gaming</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HL-NOSTbMAA-SPv.jpg" class="vivid-img cursor-zoom-in" alt="雀魂-じゃんたま- 「北落」誕生日イラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HL-NOSTbMAA-SPv.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">OFFICIAL FANART</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="【公式】雀魂-じゃんたま- 「北落」誕生日イラスト" data-en="[Official] Mahjong Soul — 「北落」 Birthday Illustration">【公式】雀魂-じゃんたま- 「北落」誕生日イラスト</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Yostar" data-en="Client: Yostar, Inc.">Client: 株式会社Yostar</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HNZ5GLGbcAA-Nw3.jpg" class="vivid-img cursor-zoom-in" alt="Xross Starsブースターパック第4弾『Grand Resonance』収穫の刻" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HNZ5GLGbcAA-Nw3.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">TCG</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="Xross Starsブースターパック第4弾『Grand Resonance』《収穫の刻》" data-en="Xross Stars Booster Pack Vol. 4 『Grand Resonance』《収穫の刻》">Xross Starsブースターパック第4弾『Grand Resonance』《収穫の刻》</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Game &amp; Co." data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game & Co.</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HNak-kSa8AAV7YC.jpg" class="vivid-img cursor-zoom-in" alt="Xross Starsブースターパック第4弾『Grand Resonance』盗賊キット" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HNak-kSa8AAV7YC.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">TCG</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="Xross Starsブースターパック第4弾『Grand Resonance』《盗賊キット》" data-en="Xross Stars Booster Pack Vol. 4 『Grand Resonance』《盗賊キット》">Xross Starsブースターパック第4弾『Grand Resonance』《盗賊キット》</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Game &amp; Co." data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game & Co.</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HEfBjkFbQAEWSML.jpg" class="vivid-img cursor-zoom-in" alt="TCGイラスト「Xross Stars Broken Neonlights」LRPP《柊ツルギ》" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HEfBjkFbQAEWSML.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">TCG</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》" data-en="Xross Stars Booster Pack Vol. 3 『Broken Neonlights』 — LRPP 《柊ツルギ》">「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Game &amp; Co." data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game & Co.</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HEfBjkFa4AAnpUw.jpg" class="vivid-img cursor-zoom-in" alt="TCGイラスト「Xross Stars Broken Neonlights」LRPP《柊ツルギ》別カット" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HEfBjkFa4AAnpUw.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">TCG</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》" data-en="Xross Stars Booster Pack Vol. 3 『Broken Neonlights』 — LRPP 《柊ツルギ》">「Xross Starsブースターパック第3弾『Broken Neonlights』」 LRPP《柊ツルギ》</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Game &amp; Co." data-en="Client: Game &amp; Co., Ltd.">Client: 株式会社Game & Co.</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/G4fq1q9a8AI15hd.jpg" class="vivid-img cursor-zoom-in" alt="鳴潮 公式ファンアート「仇遠」" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/G4fq1q9a8AI15hd.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">OFFICIAL FANART</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="鳴潮 公式FA「仇遠」" data-en="Wuthering Waves — Official Fan Art 「仇遠」">鳴潮 公式FA「仇遠」</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: Kuro Games</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/G-8hbs_WQAA9oA0.jpg" class="vivid-img cursor-zoom-in" alt="ALGS Year 5 Championship ローディングカードイラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/G-8hbs_WQAA9oA0.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">KEY VISUAL</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「ALGS Year 5 Championship」 loadingCard</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: EA / ALGS Year 5</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HBg8QRubUAI7CLI.jpg" class="vivid-img cursor-zoom-in" alt="鳴潮 公式ファンアート「エイメス」" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HBg8QRubUAI7CLI.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">OFFICIAL FANART</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「鳴潮 公式FA「エイメス」" data-en="Wuthering Waves — Official Fan Art 「エイメス」">「鳴潮 公式FA「エイメス」</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest">Client: Kuro Games</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HDXapNzaUAARzB0.jpg" class="vivid-img cursor-zoom-in" alt="甘楽デイティー『レッテル』キービジュアル" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HDXapNzaUAARzB0.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">KEY VISUAL</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2">「甘楽デイティー『レッテル』」</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社Sony Music Ent." data-en="Client: Sony Music Entertainment Inc.">Client: 株式会社Sony Music Ent.</p>
-                    </div>
-                </div>
-
-                <!-- [ADD] New Works Items -->
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HD_4UG_bIAAYyLg.jpg" class="vivid-img cursor-zoom-in" alt="HUION 15周年記念オリジナルキャラクターイラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HD_4UG_bIAAYyLg.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">ANNIVERSARY OC</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="HUION様 15周年記念OCイラスト" data-en="HUION 15th Anniversary Original Character Illustration">HUION様 15周年記念OCイラスト</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社HUION" data-en="Client: HUION Inc.">Client: 株式会社HUION</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/G9XtFuEaYAALtTX.jpg" class="vivid-img cursor-zoom-in" alt="ゼンレスゾーンゼロ 公式ファンアート「葉瞬光」" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/G9XtFuEaYAALtTX.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">ANNIVERSARY OC</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「ゼンレスゾーンゼロ」公式FA「葉瞬光」" data-en="Zenless Zone Zero — Official Fan Art 「葉瞬光」">「ゼンレスゾーンゼロ」公式FA「葉瞬光」</h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社YomiHolic" data-en="Client: YomiHolic Inc.">Client: 株式会社YomiHolic</p>
-                    </div>
-                </div>
-
-                <div class="zzz-card group cursor-pointer" onclick="openLightbox(this.querySelector('img'))">
-                    <div class="aspect-16/10 md:aspect-3/2 overflow-hidden bg-black relative">
-                        <img src="images/Works/web/HEK1BHyaUAAWKfi.jpg" class="vivid-img cursor-zoom-in" alt="グリムコネクト 応援記念イラスト" loading="lazy" decoding="async" onclick="openLightbox(this)" data-full="images/Works/full/HEK1BHyaUAAWKfi.jpg">
-                        <div class="card-view-overlay"><span class="card-view-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>VIEW</span></div>
-                        </div>
-                    <div class="p-8">
-                        <span class="card-tag">OFFICIAL FANART</span>
-                        <h3 class="text-lg md:text-xl font-black italic leading-tight mb-2" data-ja="「グリムコネクト」応援記念イラスト " data-en="Grimm Connect — Commemorative Support Illustration">「グリムコネクト」応援記念イラスト </h3>
-                        <p class="text-[13px] opacity-40 font-bold uppercase tracking-widest" data-ja="Client: 株式会社BookBase" data-en="Client: BookBase Inc.">Client: 株式会社BookBase</p>
-                    </div>
-                </div>
+            <div class="works-track" id="works-grid" data-lenis-prevent-wheel>
+                <!-- [ADD] New Works Items (add a matching .works-meta above with the same data-slide) -->
+                <button type="button" class="works-slide" data-slide="0"><img src="images/Works/web/HRSQZ11agAEa4_F.jpg" alt="『Pokémon Masters EX』7周年記念広告イラスト" decoding="async" data-full="images/Works/full/HRSQZ11agAEa4_F.jpg"></button>
+                <button type="button" class="works-slide" data-slide="1"><img src="images/Works/web/HJodNyoakAA-C_f.jpg" alt="RECAROゲーミングチェア「RECARO EXO」プロモーションイラスト" decoding="async" data-full="images/Works/full/HJodNyoakAA-C_f.jpg"></button>
+                <button type="button" class="works-slide" data-slide="2"><img src="images/Works/web/HL-NOSTbMAA-SPv.jpg" alt="雀魂-じゃんたま- 「北落」誕生日イラスト" decoding="async" data-full="images/Works/full/HL-NOSTbMAA-SPv.jpg"></button>
+                <button type="button" class="works-slide" data-slide="3"><img src="images/Works/web/HNZ5GLGbcAA-Nw3.jpg" alt="Xross Starsブースターパック第4弾『Grand Resonance』収穫の刻" decoding="async" data-full="images/Works/full/HNZ5GLGbcAA-Nw3.jpg"></button>
+                <button type="button" class="works-slide" data-slide="4"><img src="images/Works/web/HNak-kSa8AAV7YC.jpg" alt="Xross Starsブースターパック第4弾『Grand Resonance』盗賊キット" decoding="async" data-full="images/Works/full/HNak-kSa8AAV7YC.jpg"></button>
+                <button type="button" class="works-slide" data-slide="5"><img src="images/Works/web/HEfBjkFbQAEWSML.jpg" alt="TCGイラスト「Xross Stars Broken Neonlights」LRPP《柊ツルギ》" decoding="async" data-full="images/Works/full/HEfBjkFbQAEWSML.jpg"></button>
+                <button type="button" class="works-slide" data-slide="6"><img src="images/Works/web/HEfBjkFa4AAnpUw.jpg" alt="TCGイラスト「Xross Stars Broken Neonlights」LRPP《柊ツルギ》別カット" decoding="async" data-full="images/Works/full/HEfBjkFa4AAnpUw.jpg"></button>
+                <button type="button" class="works-slide" data-slide="7"><img src="images/Works/web/G4fq1q9a8AI15hd.jpg" alt="鳴潮 公式ファンアート「仇遠」" decoding="async" data-full="images/Works/full/G4fq1q9a8AI15hd.jpg"></button>
+                <button type="button" class="works-slide" data-slide="8"><img src="images/Works/web/G-8hbs_WQAA9oA0.jpg" alt="ALGS Year 5 Championship ローディングカードイラスト" decoding="async" data-full="images/Works/full/G-8hbs_WQAA9oA0.jpg"></button>
+                <button type="button" class="works-slide" data-slide="9"><img src="images/Works/web/HBg8QRubUAI7CLI.jpg" alt="鳴潮 公式ファンアート「エイメス」" decoding="async" data-full="images/Works/full/HBg8QRubUAI7CLI.jpg"></button>
+                <button type="button" class="works-slide" data-slide="10"><img src="images/Works/web/HDXapNzaUAARzB0.jpg" alt="甘楽デイティー『レッテル』キービジュアル" decoding="async" data-full="images/Works/full/HDXapNzaUAARzB0.jpg"></button>
+                <button type="button" class="works-slide" data-slide="11"><img src="images/Works/web/HD_4UG_bIAAYyLg.jpg" alt="HUION 15周年記念オリジナルキャラクターイラスト" decoding="async" data-full="images/Works/full/HD_4UG_bIAAYyLg.jpg"></button>
+                <button type="button" class="works-slide" data-slide="12"><img src="images/Works/web/G9XtFuEaYAALtTX.jpg" alt="ゼンレスゾーンゼロ 公式ファンアート「葉瞬光」" decoding="async" data-full="images/Works/full/G9XtFuEaYAALtTX.jpg"></button>
+                <button type="button" class="works-slide" data-slide="13"><img src="images/Works/web/HEK1BHyaUAAWKfi.jpg" alt="グリムコネクト 応援記念イラスト" decoding="async" data-full="images/Works/full/HEK1BHyaUAAWKfi.jpg"></button>
             </div>
 
-            <div class="mt-20 flex justify-center items-center gap-6" id="works-pagination"></div>
+            <div class="works-dots" id="works-dots" aria-label="作品の切り替え"></div>
         </div>
     </section>
+    <!-- MV Works Section -->
+    <section id="mv-works" class="relative pt-24 lg:pt-36 pb-28 lg:pb-36">
+        <div class="red-scribble top-[6%] -right-[28%] w-[105%] rotate-[12deg]" aria-hidden="true"><svg viewBox="0 0 1500 500"><use href="#logo-outline-thin"/></svg></div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-6 sm:px-10">
+            <h2 class="sec-title sec-title--num-right section-head-reveal -ml-2 lg:-ml-24">
+                <svg class="sec-title-outline" viewBox="0 0 1500 500" aria-hidden="true"><use href="#logo-outline"/></svg>
+                MV WORKS<span class="sec-num">3</span>
+            </h2>
+        </div>
+
+        <!-- Same carousel as WORKS; each slide opens the video on YouTube. -->
+        <div class="works-panel works-panel--left font-serif-jp mt-16 lg:mt-24" id="mv-carousel">
+            <div class="works-meta-wrap">
+                <div class="works-meta is-active" data-slide="0">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="MVイラスト" data-en="MV Illustration">MVイラスト</span><span class="works-date">2021/12/26</span></div>
+                    <h3 data-ja="煮ル果実「バーバヤーガ」｜MVイラスト" data-en="Niru Kajitsu &#39;Baba Yaga&#39; | MV Illustration">煮ル果実「バーバヤーガ」｜MVイラスト</h3>
+                    <p data-ja="Client: GABULI 様" data-en="Client: GABULI">Client: GABULI 様</p>
+                </div>
+                <div class="works-meta" data-slide="1">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="MVイラスト" data-en="MV Illustration">MVイラスト</span><span class="works-date">2021/10/06</span></div>
+                    <h3 data-ja="柊キライ「ハイド＆ハイド」｜MVイラスト" data-en="Hiiragi Kirai &#39;Hyde &amp; Hyde&#39; | MV Illustration">柊キライ「ハイド＆ハイド」｜MVイラスト</h3>
+                    <p data-ja="Client: GABULI 様" data-en="Client: GABULI">Client: GABULI 様</p>
+                </div>
+                <div class="works-meta" data-slide="2">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="MVイラスト" data-en="MV Illustration">MVイラスト</span><span class="works-date">2021/08/27</span></div>
+                    <h3 data-ja="jon-YAKITORY「Noisy Sweet Home」｜MVイラスト" data-en="jon-YAKITORY &#39;Noisy Sweet Home&#39; | MV Illustration">jon-YAKITORY「Noisy Sweet Home」｜MVイラスト</h3>
+                    <p data-ja="Client: GABULI 様" data-en="Client: GABULI">Client: GABULI 様</p>
+                </div>
+                <div class="works-meta" data-slide="3">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="MVイラスト" data-en="MV Illustration">MVイラスト</span><span class="works-date">2022/03/19</span></div>
+                    <h3 data-ja="栗山夕璃「フェレス」｜MVイラスト" data-en="Kuriyama Yuri &#39;Feres&#39; | MV Illustration">栗山夕璃「フェレス」｜MVイラスト</h3>
+                    <p data-ja="Client: GABULI 様" data-en="Client: GABULI">Client: GABULI 様</p>
+                </div>
+                <div class="works-meta" data-slide="4">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="MVイラスト" data-en="MV Illustration">MVイラスト</span></div>
+                    <h3 data-ja="Aqu3ra「アルトラエレジー」｜MVイラスト" data-en="Aqu3ra &#39;Arutora Erejī&#39; | MV Illustration">Aqu3ra「アルトラエレジー」｜MVイラスト</h3>
+                    <p data-ja="Client: GABULI 様" data-en="Client: GABULI">Client: GABULI 様</p>
+                </div>
+                <div class="works-meta" data-slide="5">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="MVイラスト" data-en="MV Illustration">MVイラスト</span><span class="works-date">2026/03/13</span></div>
+                    <h3 data-ja="甘楽デイティー「レッテル」｜MVイラスト" data-en="Kanra Deity &#39;Retteru&#39; | MV Illustration">甘楽デイティー「レッテル」｜MVイラスト</h3>
+                    <p data-ja="Client: 株式会社ソニー・ミュージックエンタテインメント 様" data-en="Client: Sony Music Entertainment (Japan) Inc.">Client: 株式会社ソニー・ミュージックエンタテインメント 様</p>
+                </div>
+                <div class="works-meta" data-slide="6">
+                    <div class="works-meta-line"><span class="card-tag-jp" data-ja="MVイラスト" data-en="MV Illustration">MVイラスト</span><span class="works-date">2021/12/15</span></div>
+                    <h3 data-ja="柊マグネタイト「ファブリック・フラワー」｜MVイラスト" data-en="Hiiragi Magnetite &#39;Fabric Flower&#39; | MV Illustration">柊マグネタイト「ファブリック・フラワー」｜MVイラスト</h3>
+                    <p data-ja="Client: GABULI 様" data-en="Client: GABULI">Client: GABULI 様</p>
+                </div>
+            </div>
+
+            <div class="works-track" id="mv-track">
+                <!-- [ADD] New MV Items (add a matching .works-meta above with the same data-slide) -->
+                <a href="https://youtu.be/aOelHbwkRD4" target="_blank" rel="noopener noreferrer" class="works-slide mv-slide" data-slide="0" aria-label="煮ル果実「バーバヤーガ」｜MVイラスト（YouTube）"><img src="images/mv/aOelHbwkRD4.jpg" alt="煮ル果実「バーバヤーガ」｜MVイラスト" decoding="async"></a>
+                <a href="https://youtu.be/wmTZOuoZWH4" target="_blank" rel="noopener noreferrer" class="works-slide mv-slide" data-slide="1" aria-label="柊キライ「ハイド＆ハイド」｜MVイラスト（YouTube）"><img src="images/mv/wmTZOuoZWH4.jpg" alt="柊キライ「ハイド＆ハイド」｜MVイラスト" decoding="async"></a>
+                <a href="https://youtu.be/dyAfJqmDsxo" target="_blank" rel="noopener noreferrer" class="works-slide mv-slide" data-slide="2" aria-label="jon-YAKITORY「Noisy Sweet Home」｜MVイラスト（YouTube）"><img src="images/mv/dyAfJqmDsxo.jpg" alt="jon-YAKITORY「Noisy Sweet Home」｜MVイラスト" decoding="async"></a>
+                <a href="https://youtu.be/9yLkCqAcu_k" target="_blank" rel="noopener noreferrer" class="works-slide mv-slide" data-slide="3" aria-label="栗山夕璃「フェレス」｜MVイラスト（YouTube）"><img src="images/mv/9yLkCqAcu_k.jpg" alt="栗山夕璃「フェレス」｜MVイラスト" decoding="async"></a>
+                <a href="https://youtu.be/7lMt4I5ufHE" target="_blank" rel="noopener noreferrer" class="works-slide mv-slide" data-slide="4" aria-label="Aqu3ra「アルトラエレジー」｜MVイラスト（YouTube）"><img src="images/mv/7lMt4I5ufHE.jpg" alt="Aqu3ra「アルトラエレジー」｜MVイラスト" decoding="async"></a>
+                <a href="https://youtu.be/JAcEgJhrR00" target="_blank" rel="noopener noreferrer" class="works-slide mv-slide" data-slide="5" aria-label="甘楽デイティー「レッテル」｜MVイラスト（YouTube）"><img src="images/mv/JAcEgJhrR00.jpg" alt="甘楽デイティー「レッテル」｜MVイラスト" decoding="async"></a>
+                <a href="https://youtu.be/hJ7dtfeCg38" target="_blank" rel="noopener noreferrer" class="works-slide mv-slide" data-slide="6" aria-label="柊マグネタイト「ファブリック・フラワー」｜MVイラスト（YouTube）"><img src="images/mv/hJ7dtfeCg38.jpg" alt="柊マグネタイト「ファブリック・フラワー」｜MVイラスト" decoding="async"></a>
+            </div>
+
+            <div class="mv-panel-foot">
+                <div class="works-dots" id="mv-dots" aria-label="MVの切り替え"></div>
+                <a href="mv-works.html" class="mv-more-link">MV WORKS →</a>
+            </div>
+        </div>
+    </section>
+    </div>
 
     <!-- About: Promo Video / Scope / Location -->
     <section id="specials" class="pt-24 pb-32 px-6 relative overflow-hidden">
@@ -1689,15 +1940,20 @@
                  names tightly instead, wrapping only when a row runs out
                  of room. -->
             <div class="flex flex-wrap gap-x-10 gap-y-6 opacity-80">
-                <a href="http://yomiholic.com" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社YomiHolic</a>
-                <a href="https://www.kurogames.com" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">Kuro Games</a>
-                <a href="https://plaize.co/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社plaize</a>
-                <a href="https://www.huion.com/jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社HUION</a>
-                <a href="https://gameandco.co.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社Game & Co. </a>
-                <a href="https://bookbase.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社BookBase</a>
-                <a href="https://www.sme.co.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社Sony Music Ent.</a>
-                <a href="https://celsys.com/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社セルシス</a>
-                <a href="https://aktsk.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic uppercase tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社アカツキ</a>
+                <a href="https://www.pokemon.co.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社ポケモン 様</a>
+                <a href="https://www.anycolor.co.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">ANYCOLOR株式会社 様</a>
+                <span class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2">レカロ株式会社 様</span>
+                <a href="https://www.yostar.co.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社Yostar 様</a>
+                <a href="http://yomiholic.com" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社YomiHolic 様</a>
+                <a href="https://www.kurogames.com" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社Kuro Games 様</a>
+                <a href="https://www.ea.com/ja-jp" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">EA Japan 株式会社 様</a>
+                <a href="https://www.huion.com/jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社HUION 様</a>
+                <a href="https://gameandco.co.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社Game &amp; Co. 様</a>
+                <a href="https://bookbase.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社BookBase 様</a>
+                <a href="https://www.sme.co.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社ソニー・ミュージックエンタテインメント 様</a>
+                <a href="https://celsys.com/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社セルシス 様</a>
+                <a href="https://aktsk.jp/" target="_blank" rel="noopener noreferrer" class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2 hover:border-zzz-red transition-all">株式会社アカツキ 様</a>
+                <span class="text-lg font-black italic tracking-tighter border-l-2 border-white/10 pl-4 py-2">GABULI 様</span>
             </div>
         </div>
     </section>
@@ -1771,8 +2027,11 @@
             img.src = el.dataset.full || el.src;
             img.alt = el.alt || '';
 
-            const card = el.closest('.zzz-card');
-            const tag = card ? card.querySelector('.card-tag') : null;
+            const slide = el.closest('.works-slide');
+            const card = slide
+                ? slide.closest('.works-panel').querySelector('.works-meta[data-slide="' + slide.dataset.slide + '"]')
+                : el.closest('.zzz-card');
+            const tag = card ? card.querySelector('.card-tag, .card-tag-jp') : null;
             const title = card ? card.querySelector('h3') : null;
             const client = card ? card.querySelector('p') : null;
 
@@ -1807,14 +2066,20 @@
         // Hero Title Animation (fired after preloader clears, see revealSite())
         function revealHero() {
             gsap.timeline()
-                .from("#hero-title-sign", { duration: 0.6, xPercent: -120, opacity: 0, ease: "expo.out" })
-                .from("#hero-tagline-frame", { duration: 0.6, xPercent: -60, opacity: 0, ease: "expo.out" }, "+=0.3")
-                .from("#hero-works-frame", { duration: 0.6, xPercent: -60, opacity: 0, ease: "expo.out" }, "-=0.35");
-
-            gsap.from("#hero .stat-number, #hero .magnetic-btn", {
-                duration: 0.8, y: 20, opacity: 0, stagger: 0.06, delay: 0.4, ease: "power3.out"
-            });
+                .from("#hero-title", { duration: 0.7, xPercent: 30, opacity: 0, ease: "expo.out" })
+                .from("#profile-intro", { duration: 0.8, y: 30, opacity: 0, ease: "power3.out" }, "-=0.35")
+                .from("#hero-works-frame", { duration: 0.7, xPercent: -40, opacity: 0, ease: "expo.out" }, "-=0.5");
         }
+
+        // Carousel panels slide in from the edge they are attached to.
+        [['#works-carousel', 40], ['#mv-carousel', -40]].forEach(([sel, x]) => {
+            if (!document.querySelector(sel)) return;
+            gsap.from(sel, {
+                scrollTrigger: { trigger: sel, start: "top 85%" },
+                xPercent: x, opacity: 0, duration: 1.1, ease: "expo.out",
+                clearProps: "transform"
+            });
+        });
 
         // Cards Animation (fanart has its own rotating, staggered reveal below)
         document.querySelectorAll('.zzz-card:not(#fanart-grid .zzz-card)').forEach((card, i) => {
@@ -1951,6 +2216,136 @@
             worksGrid.querySelectorAll('img').forEach(img => {
                 if (!seen.has(img.src)) { heroArtPool.push(img.src); seen.add(img.src); }
             });
+        }
+
+        // --- WORKS Carousel ---
+        // Horizontal scroll-snap strip; dots and the meta header follow
+        // whichever slide is snapped at the panel's left edge.
+        function initWorksCarousel(trackId, dotsId) {
+            const track = document.getElementById(trackId);
+            const dotsWrap = document.getElementById(dotsId);
+            if (!track || !dotsWrap) return;
+            const slides = Array.from(track.querySelectorAll('.works-slide'));
+            const metas = Array.from(track.closest('.works-panel').querySelectorAll('.works-meta'));
+            if (!slides.length) return;
+            let active = -1;
+
+            const dots = slides.map((slide, i) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', String(i + 1));
+                dot.addEventListener('click', () => goTo(i));
+                dotsWrap.appendChild(dot);
+                return dot;
+            });
+
+            const pad = () => parseFloat(getComputedStyle(track).paddingLeft) || 0;
+
+            function goTo(i) {
+                const slide = slides[(i + slides.length) % slides.length];
+                track.scrollTo({ left: slide.offsetLeft - track.offsetLeft - pad(), behavior: 'smooth' });
+            }
+
+            // Hover overlay: a tinted layer over each slide showing that
+            // work's tag / title / client, copied from its .works-meta (the
+            // data-ja/en attributes come along, so the EN toggle still works).
+            const isLink = (slide) => slide.tagName === 'A';
+            slides.forEach((slide) => {
+                const meta = metas.find((m) => m.dataset.slide === slide.dataset.slide);
+                if (!meta) return;
+                const info = document.createElement('span');
+                info.className = 'slide-info';
+                const add = (src, cls) => {
+                    if (!src) return;
+                    const el = document.createElement('span');
+                    el.className = cls;
+                    el.innerHTML = src.innerHTML;
+                    if (src.dataset.ja !== undefined) el.dataset.ja = src.dataset.ja;
+                    if (src.dataset.en !== undefined) el.dataset.en = src.dataset.en;
+                    info.appendChild(el);
+                };
+                add(meta.querySelector('.card-tag-jp'), 'slide-info-tag');
+                add(meta.querySelector('h3'), 'slide-info-title');
+                add(meta.querySelector('p'), 'slide-info-client');
+                const cta = document.createElement('span');
+                cta.className = 'slide-info-cta';
+                cta.textContent = isLink(slide) ? 'WATCH ON YOUTUBE →' : 'VIEW +';
+                info.appendChild(cta);
+                slide.appendChild(info);
+            });
+
+            // Prev / next buttons on the strip's edges; both wrap around.
+            const wrap = document.createElement('div');
+            wrap.className = 'works-track-wrap';
+            track.parentNode.insertBefore(wrap, track);
+            wrap.appendChild(track);
+            const addArrow = (dir, label, onClick) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'works-arrow works-arrow--' + dir;
+                btn.setAttribute('aria-label', label);
+                btn.addEventListener('click', onClick);
+                wrap.appendChild(btn);
+            };
+            addArrow('prev', '前へ', () => {
+                goTo(track.scrollLeft <= 2 ? slides.length - 1 : active - 1);
+            });
+            function goNext() {
+                const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+                goTo(atEnd ? 0 : active + 1);
+            }
+            addArrow('next', '次へ', goNext);
+
+            function setActive(i) {
+                if (i === active) return;
+                active = i;
+                dots.forEach((d, j) => d.classList.toggle('is-active', j === i));
+                const key = slides[i].dataset.slide;
+                metas.forEach((m) => m.classList.toggle('is-active', m.dataset.slide === key));
+            }
+
+            function sync() {
+                const x = track.scrollLeft;
+                let best = 0, bestDist = Infinity;
+                slides.forEach((slide, i) => {
+                    const d = Math.abs(slide.offsetLeft - track.offsetLeft - pad() - x);
+                    if (d < bestDist) { bestDist = d; best = i; }
+                });
+                // At the far end the last slides can't reach the left edge.
+                if (x > 0 && x + track.clientWidth >= track.scrollWidth - 2) best = slides.length - 1;
+                setActive(best);
+            }
+
+            // Image slides open the lightbox; MV slides are plain links.
+            slides.forEach((slide) => {
+                if (isLink(slide)) return;
+                slide.addEventListener('click', () => openLightbox(slide.querySelector('img')));
+            });
+            track.addEventListener('scroll', () => requestAnimationFrame(sync), { passive: true });
+
+            // Autoplay: advance every few seconds while the panel is on
+            // screen (keeps going while hovered). Pauses while the tab is
+            // hidden, and restarts the countdown after any manual move
+            // (arrows, dots, swipe). Off for prefers-reduced-motion.
+            const AUTOPLAY_MS = 3000;
+            const panel = track.closest('.works-panel');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let timer = null, visible = false;
+            function stop() { clearTimeout(timer); timer = null; }
+            function schedule() {
+                stop();
+                if (reduceMotion || !visible || document.hidden) return;
+                timer = setTimeout(() => { goNext(); schedule(); }, AUTOPLAY_MS);
+            }
+            panel.addEventListener('pointerdown', schedule);
+            panel.addEventListener('click', schedule);
+            track.addEventListener('touchstart', schedule, { passive: true });
+            document.addEventListener('visibilitychange', schedule);
+            new IntersectionObserver(([entry]) => {
+                visible = entry.isIntersecting;
+                schedule();
+            }, { threshold: 0.35 }).observe(panel);
+            setActive(0);
         }
 
         // --- Grid Pagination (WORKS / FANART) ---
@@ -2589,7 +2984,8 @@
             initScrollProgress();
             initBackToTop();
             initMvCardStack();
-            initGridPagination('works-grid', 'works-pagination', 6);
+            initWorksCarousel('works-grid', 'works-dots');
+            initWorksCarousel('mv-track', 'mv-dots');
             initGridPagination('fanart-grid', 'fanart-pagination', 8);
             initFanartReveal();
 
